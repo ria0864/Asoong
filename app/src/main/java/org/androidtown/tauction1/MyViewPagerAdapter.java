@@ -5,11 +5,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class MyViewPagerAdapter extends FragmentStatePagerAdapter {
-	/*
-	 * 이 클래스의 부모생성자 호출시 인수로 반드시 FragmentManager객체를 넘겨야한다.
-	 * 이 객체는 Activity에서만 만들수 있고, 여기서사용중인 Fragment가 v4이기 때문에
-	 * Activity중에서도 ActionBarActivity에서 얻어와야한다.
-	 */
+    /*
+     * 이 클래스의 부모생성자 호출시 인수로 반드시 FragmentManager객체를 넘겨야한다.
+     * 이 객체는 Activity에서만 만들수 있고, 여기서사용중인 Fragment가 v4이기 때문에
+     * Activity중에서도 ActionBarActivity에서 얻어와야한다.
+     */
     int tabCount;
 
     public MyViewPagerAdapter(FragmentManager fm, int tabCount) {
@@ -37,9 +37,9 @@ public class MyViewPagerAdapter extends FragmentStatePagerAdapter {
                 return null;
         }
     }
-	/*
-	 * 보여질 프레그먼트가 몇개인지 결정
-	 */
+    /*
+     * 보여질 프레그먼트가 몇개인지 결정
+     */
     public int getCount() {
         return tabCount;
     }

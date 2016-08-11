@@ -57,9 +57,11 @@ public class MainActivity extends AppCompatActivity
         //View nav_header_view=navigationView.inflateHeaderView(R.layout.nav_header_main);
         View nav_header_view = navigationView.getHeaderView(0);
         nav_login = (Button)nav_header_view.findViewById(R.id.nav_login);
-        nav_login.setOnClickListener(new OnClickListener() {
+        nav_login.setOnClickListener(new OnClickListener() {//로그인 버튼 클릭
             @Override
             public void onClick(View v) {
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);//Navigation Drawer 닫기
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
         });
@@ -67,7 +69,9 @@ public class MainActivity extends AppCompatActivity
         nav_signup = (Button)nav_header_view.findViewById(R.id.nav_signup);
         nav_signup.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {//회원가입 버튼 클릭
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);//Navigation Drawer 닫기
                 startActivity(new Intent(MainActivity.this, SignupActivity.class));
             }
         });
@@ -90,22 +94,22 @@ public class MainActivity extends AppCompatActivity
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         //Set TabSelectedListener
-                 tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                     @Override
-                     public void onTabSelected(TabLayout.Tab tab) {
-                         viewPager.setCurrentItem(tab.getPosition());
-                     }
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
 
-                     @Override
-                     public void onTabUnselected(TabLayout.Tab tab) {
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
-                     }
+            }
 
-                     @Override
-                     public void onTabReselected(TabLayout.Tab tab) {
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
 
-                     }
-                 });
+            }
+        });
 
     }
 

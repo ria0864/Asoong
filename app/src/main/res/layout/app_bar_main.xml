@@ -30,7 +30,7 @@
             android:background="?attr/colorControlHighlight"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        />
+            />
 
     </android.support.design.widget.AppBarLayout>
 
