@@ -1,6 +1,5 @@
 package org.androidtown.tauction1;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
-/* hello, world! */
+
 public class FragmentA extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -28,7 +27,8 @@ public class FragmentA extends Fragment {
             @Override
             public void onClick(View v) {
                 //Activity root = getActivity(); //이 클래스가 프레그먼트이기 때문에 액티비티 정보를 얻는다.
-                //Toast.makeText(root, "부산 클릭", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "부산 클릭", Toast.LENGTH_SHORT).show();
+                ((MainActivity)getActivity()).fromFragment(0);
             }
         });
         seoul.setOnClickListener(new View.OnClickListener() {//서울여행 문의 클릭

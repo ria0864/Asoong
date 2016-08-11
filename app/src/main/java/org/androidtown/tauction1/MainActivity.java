@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity
     private ViewPager viewPager;
     private TabLayout tabLayout;
     Button nav_login, nav_signup;
+    MyViewPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity
         viewPager = (ViewPager)findViewById(R.id.viewPager);
 
         //Creating TabPagerAdapter adapter
-        MyViewPagerAdapter adapter = new MyViewPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        adapter = new MyViewPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -111,6 +113,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        Toast.makeText(this, "" + adapter.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -170,7 +173,11 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-
+    public void fromFragment(int num) {
+        adapter.toNext();
+        viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(num);
+    }
 
 
 }
