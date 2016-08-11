@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:xmls="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+<ScrollView
+    android:id="@+id/ScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="185dp"
+            android:id="@+id/busan_img"
+            android:src="@drawable/busan1"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="185dp"
+            android:id="@+id/seoul_img"
+            android:src="@drawable/seoul1"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="185dp"
+            android:id="@+id/incheon_img"
+            android:src="@drawable/incheon1" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="185dp"
+            android:id="@+id/gangwon_img"
+            android:src="@drawable/gangwon1"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="185dp"
+            android:id="@+id/jeju_img"
+            android:src="@drawable/jeju1"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="185dp"
+            android:id="@+id/jeolla_img"
+            android:src="@drawable/jeolla1"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="185dp"
+            android:id="@+id/gyeongsang_img"
+            android:src="@drawable/gyeongsang1"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="185dp"
+            android:id="@+id/chungcheong_img"
+            android:src="@drawable/chungcheong1"/>
+
+
+
+    </LinearLayout>
+</ScrollView>
+
+</LinearLayout>
+
+ 

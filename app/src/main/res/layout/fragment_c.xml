@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:xmls="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:id="@+id/mate_img"
+                android:src="@drawable/talk_mate"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:id="@+id/tip_img"
+                android:src="@drawable/talk_tip"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:id="@+id/free_img"
+                android:src="@drawable/talk_free" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:id="@+id/event_img"
+                android:src="@drawable/talk_event"/>
+        </LinearLayout>
+</LinearLayout>
+
+ 
