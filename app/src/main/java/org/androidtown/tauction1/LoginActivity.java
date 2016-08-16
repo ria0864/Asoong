@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void goLogin(){ // 로그인 눌렀을 때 listener
+    public void goLogin(){ // 로그인 눌렀을 때 listener~~
         final ResponseHandler<String> responseHandler =  new ResponseHandler<String>(){
             @Override
             public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
