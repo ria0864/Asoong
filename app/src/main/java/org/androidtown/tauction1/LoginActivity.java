@@ -1,7 +1,6 @@
 package org.androidtown.tauction1;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -73,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void goLogin(){
+    public void goLogin(){ // 로그인 눌렀을 때 listener
         final ResponseHandler<String> responseHandler =  new ResponseHandler<String>(){
             @Override
             public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
@@ -100,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
         new Thread(){
             @Override
             public void run(){
-                String url = "http://203.253.23.15:90/Tauction/recieve.jsp";
+                String url = "http://52.78.15.170:8080/tauction/recieve.jsp";
                 HttpClient client = new DefaultHttpClient();
                 try{
                     ArrayList<NameValuePair> nameValuePairs =
@@ -123,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private final Handler handler = new Handler(){
-        public void handleMessage(Message msg){
+        public void handleMessage(Message msg){ //핸들러, 받고 보내는거
 
             String result = msg.getData().getString("RESULT");
             Intent j = new Intent(LoginActivity.this,MainActivity.class);
@@ -141,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
 
-    public String parsingData(InputStream input){
+    public String parsingData(InputStream input){ //오는거 받아서 파싱하기
         String result = null;
         try{
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
