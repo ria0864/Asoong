@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:text="지역"
+            android:id="@+id/region"
+            android:textSize="20dp"
+            android:padding="10dp" />
+
+        <Spinner
+            android:layout_width="289dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+          />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:weightSum="1" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:text="인원수"
+            android:id="@+id/textView2"
+            android:textSize="20dp"
+            android:padding="10dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:weightSum="1" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:text="숙소유형"
+            android:id="@+id/hotel"
+            android:textSize="20dp"
+            android:padding="10dp" />
+
+        <Spinner
+            android:layout_width="289dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerhotel" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:weightSum="1" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:text="성별"
+            android:id="@+id/textView4"
+            android:textSize="20dp"
+            android:padding="10dp" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="여자"
+            android:id="@+id/radioButton"
+            android:layout_marginLeft="10dp" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="남자"
+            android:id="@+id/radioButton2"
+            android:layout_marginLeft="20dp" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="혼합"
+            android:id="@+id/radioButton3"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:weightSum="1" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:text="가격범위"
+            android:id="@+id/textView5"
+            android:textSize="20dp"
+            android:padding="10dp" />
+
+        <Spinner
+            android:layout_width="289dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerprice" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:weightSum="1" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:text="편의시설"
+            android:id="@+id/goodPlace"
+            android:textSize="20dp"
+            android:padding="10dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button"
+            android:id="@+id/button1" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
