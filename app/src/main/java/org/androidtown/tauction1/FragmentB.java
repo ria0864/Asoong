@@ -1,6 +1,7 @@
 package org.androidtown.tauction1;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -19,12 +21,17 @@ public class FragmentB extends Fragment {
     MyAdapter adapter;
     ArrayList<MyData> arrData;
 
+    EditText edit_search;
+    Button btn_filter;
     Button btn_all, btn_busan, btn_seoul, btn_incheon, btn_gangwon, btn_jeju, btn_jeolla, btn_gyeongsang, btn_chungcheong;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //return inflater.inflate(R.layout.fragment_b, container, false);
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_b,container,false);
+
+        edit_search=(EditText)rootView.findViewById(R.id.edit_search);
+        btn_filter=(Button)rootView.findViewById(R.id.btn_filter);
 
         btn_all=(Button)rootView.findViewById(R.id.btn_all);
         btn_busan=(Button)rootView.findViewById(R.id.btn_busan);
@@ -36,6 +43,12 @@ public class FragmentB extends Fragment {
         btn_gyeongsang=(Button)rootView.findViewById(R.id.btn_gyeongsang);
         btn_chungcheong=(Button)rootView.findViewById(R.id.btn_chungcheong);
 
+        btn_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), FilterActivity.class));
+            }
+        });
         btn_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

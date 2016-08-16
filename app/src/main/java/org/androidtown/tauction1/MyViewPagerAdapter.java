@@ -11,7 +11,7 @@ public class MyViewPagerAdapter extends FragmentStatePagerAdapter {
      * Activity중에서도 ActionBarActivity에서 얻어와야한다.
      */
     int tabCount;
-    boolean isNext;
+    int pageNum;
 
     public MyViewPagerAdapter(FragmentManager fm, int tabCount) {
         super(fm);
@@ -26,14 +26,14 @@ public class MyViewPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                if(isNext==false) {
-                    FragmentA fragmentA = new FragmentA();
-                    return fragmentA;
-                }
-                else {
+                if(pageNum==1) {
                     FragmentBusan fragmentBusan = new FragmentBusan();
                     //isNext=false;
                     return fragmentBusan;
+                }
+                else {
+                    FragmentA fragmentA = new FragmentA();
+                    return fragmentA;
                 }
             case 1:
                 FragmentB fragmentB=new FragmentB();
@@ -52,7 +52,7 @@ public class MyViewPagerAdapter extends FragmentStatePagerAdapter {
         return tabCount;
     }
 
-    public void toNext() {
-        isNext = true;
+    public void toPageNum(int num) {
+        pageNum = num;
     }
 }

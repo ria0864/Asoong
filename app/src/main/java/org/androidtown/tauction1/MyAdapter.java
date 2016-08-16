@@ -3,6 +3,7 @@ package org.androidtown.tauction1;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,6 +45,14 @@ public class MyAdapter extends BaseAdapter{
 
         ImageView image = (ImageView)convertView.findViewById(R.id.image);
         image.setImageResource(arrData.get(position).getImage());
+        image.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AccommodationInfoActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                v.getContext().startActivity(intent);
+            }
+        });
 
         TextView rank = (TextView)convertView.findViewById(R.id.rank);
         rank.setText(arrData.get(position).getRank());

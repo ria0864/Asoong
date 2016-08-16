@@ -173,11 +173,10 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void fromFragment(int num) {
-        adapter.toNext();
+    public void setViewPage(int type, int num) {
+        adapter.toPageNum(num);
         viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(num);
+        viewPager.setCurrentItem(type);
     }
-
 
 }
