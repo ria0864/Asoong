@@ -8,13 +8,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
-
+import android.app.DatePickerDialog;
 import org.w3c.dom.Text;
 import android.view.View.OnClickListener;
+import android.app.DatePickerDialog.OnDateSetListener;
+
+import java.util.Calendar;
+
 /**
  * Created by Eun on 2016-08-16.
  */
@@ -22,7 +28,20 @@ public class TextActivity extends AppCompatActivity{
 
         final int DIALOG_MULTICHOICE = 4;
         TextView tv;
-@Override
+        int choice = 0;
+        DatePickerDialog datePickerDialog, datePickerDialog1 ;
+        Button btnDatePicker, btnDatePicker1;
+        private TextView mDateDisplay, mDateDisplay1;
+        private int mYear, mYear1;
+        private int mMonth, mMonth1;
+        private int mDay, mDay1;
+        static final int DATE_DIALOG_ID = 0;
+        static final int DATE_DIALOG_ID1 = 0;
+
+
+
+
+        @Override
 public void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);
@@ -55,16 +74,120 @@ public void onCreate (Bundle savedInstanceState){
                 }
         } );
 
+
         tv=(TextView)findViewById(R.id.goodPlace);
         findViewById(R.id.button1).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                        choice=0;
                         showDialog(DIALOG_MULTICHOICE);
 
                 }
         });
 
+
+                btnDatePicker = (Button) findViewById(R.id.btn_datepicker);
+                btnDatePicker.setOnClickListener(new MyClick());
+                mDateDisplay = (TextView) findViewById(R.id.dateDisplay);
+
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+                // display the current date (this method is below)
+                updateDisplay();
+
+                btnDatePicker1 = (Button) findViewById(R.id.btn_datepicker1);
+                btnDatePicker1.setOnClickListener(new MyClick());
+                mDateDisplay = (TextView) findViewById(R.id.dateDisplay1);
+                final Calendar c1 = Calendar.getInstance();
+                mYear1 = c1.get(Calendar.YEAR);
+                mMonth1 = c1.get(Calendar.MONTH);
+                mDay1 = c1.get(Calendar.DAY_OF_MONTH);
+                // display the current date (this method is below)
+                updateDisplay1();
+
+
+
+
+
+
         }
+
+
+
+/*달력*/
+private class MyClick implements View.OnClickListener{
+        @Override
+
+        public void onClick(final View v) {
+
+                // TODO Auto-generated method stub
+
+                switch (v.getId()) {
+                        case R.id.btn_datepicker:
+                                OnDateSetListener callBack = new OnDateSetListener() {
+                                        @Override
+                                        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                                              int dayOfMonth) {
+                                                // TODO Auto-generated method stub
+                                                Toast.makeText(v.getContext(),
+                                                        year + ":" + (monthOfYear + 1) + ":" + dayOfMonth,Toast.LENGTH_SHORT).show();
+                                                mYear = year;
+                                                mMonth = monthOfYear;
+                                                mDay = dayOfMonth;
+                                                updateDisplay();
+
+                                        }
+                                };
+                                datePickerDialog = new DatePickerDialog(v.getContext(), callBack, 2016, 9, 01);
+                                datePickerDialog.show();
+                                break;
+                        case R.id.btn_datepicker1:
+                                OnDateSetListener  callBack2 = new OnDateSetListener() {
+                                        @Override
+                                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                                       // TODO Auto-generated method stub
+                                                Toast.makeText(v.getContext(),
+                                                        year + ":" + (monthOfYear + 1) + ":" + dayOfMonth,Toast.LENGTH_SHORT).show();
+                                                mYear1 = year;
+                                                mMonth1 = monthOfYear;
+                                                mDay1 = dayOfMonth;
+                                                updateDisplay1();
+                                        }
+                                };
+                                datePickerDialog1 = new DatePickerDialog(v.getContext(), callBack2,2016, 9, 01);
+                                datePickerDialog1.show();
+                                break;
+                }
+        }}
+        private void updateDisplay() {
+                mDateDisplay.setText(
+                        new StringBuilder()
+                                // Month is 0 based so add 1
+                                .append(mYear).append("-")
+                                .append(mMonth).append("-")
+                                .append(mDay).append(" "));
+
+        }
+        private void updateDisplay1() {
+                mDateDisplay.setText(
+                        new StringBuilder()
+                                // Month is 0 based so add 1
+                                .append(mYear).append("-")
+                                .append(mMonth).append("-")
+                                .append(mDay).append(" "));
+
+        }
+
+
+
+
+
+
+
+/*스피너*/
 
         public void setSpinner(int objId, int objLabelId, int lifestyle) {
                 setSpinner(objId, objLabelId, -1, lifestyle, null);
@@ -132,37 +255,43 @@ public void onCreate (Bundle savedInstanceState){
         }
 
 
+
         @Override
         @Deprecated
-        protected Dialog onCreateDialog(int id){
-                switch (id){
-                        case DIALOG_MULTICHOICE :
-                                AlertDialog.Builder builder=
-                                        new AlertDialog.Builder(TextActivity.this);
-                                final String data [] = {"바베큐", "수영장", "와이파이", "복층"};
-                                final boolean checked [] = {true, false, true, false };
-                                builder.setTitle("MultiChoice 다이얼로그")
-                                        .setPositiveButton("선택완료", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                        String str ="선택된값은";
-                                                                for(int i = 0; i<checked.length; i++){
-                                                                        if(checked[i]){
-                                                                                str=str+data[i]+",";
+        protected Dialog onCreateDialog(int id) {
+                switch (id) {
+                        case DIALOG_MULTICHOICE:
+
+                                        AlertDialog.Builder builder =
+                                                new AlertDialog.Builder(TextActivity.this);
+                                        final String data[] = {"바베큐", "수영장", "와이파이", "복층"};
+                                        final boolean checked[] = {false, false, false, false};
+                                        builder.setTitle("MultiChoice 다이얼로그")
+                                                .setPositiveButton("선택완료", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                                String str = "선택된값은";
+                                                                for (int i = 0; i < checked.length; i++) {
+                                                                        if (checked[i]) {
+                                                                                str = str + data[i] + ",";
+
                                                                         }
                                                                 }
-                                                        tv.setText(str);
-                                                }
-                                        }).setNegativeButton("취소",null)
-                                        .setMultiChoiceItems(data, checked, new DialogInterface.OnMultiChoiceClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                                                        checked[which] = isChecked;
-                                                }
-                                        });
-                                return builder.create();
+                                                                tv.setText(str);
+                                                        }
+                                                }).setNegativeButton("취소", null)
+                                                .setMultiChoiceItems(data, checked, new DialogInterface.OnMultiChoiceClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                                                checked[which] = isChecked;
+                                                        }
+                                                });
+                                        return builder.create();
 
-                }
+                                }
+
+
+
                 return super.onCreateDialog(id);
-        }
-        }
+
+        }}

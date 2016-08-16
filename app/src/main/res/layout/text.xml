@@ -139,5 +139,51 @@
 
 
     </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:weightSum="1" >
+
+
+
+        <Button
+            android:id="@+id/btn_datepicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="입실날짜" />
+
+        <TextView android:id="@+id/dateDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""/>
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:weightSum="1" >
+    <Button
+        android:id="@+id/btn_datepicker1"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="퇴실날짜" />
+
+    <TextView android:id="@+id/dateDisplay1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""/>
+        </LinearLayout>
 
 </LinearLayout>
