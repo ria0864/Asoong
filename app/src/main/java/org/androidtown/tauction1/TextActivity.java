@@ -40,6 +40,7 @@ public void onCreate (Bundle savedInstanceState){
 
 
 
+
         tv=(TextView)findViewById(R.id.goodPlace);
         findViewById(R.id.button1).setOnClickListener(new OnClickListener() {
                 @Override
