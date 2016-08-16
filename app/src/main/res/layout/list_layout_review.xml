@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/review_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="헬륨이"
+            android:textStyle="bold"
+            android:textSize="15dp"/>
+        <TextView
+            android:id="@+id/review_reg_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/review_user_name"
+            android:layout_alignBottom="@+id/review_user_name"
+            android:layout_marginLeft="10dp"
+            android:text="2016.5.7"
+            android:textSize="11sp"
+            android:textColor="#88000000"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/review_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:text=" 3박4일 추천제주도 여행 계획중이신 분들에게 추천해드려요!
+떠나요~둘이서 모든 것 훌훌버리고제주도 푸른밤 그별아래 ♪♬저는
+이번 여름휴가때 3박4일로 제주도 여행을 다녀왔어요검색을 통해
+알게된 토스카나 호텔!!어디서 많이 들어본 호텔인데~라고 생각하다가
+아시는 분들은 아시겠지만시아준수호텔로 유명하죠^^?
+제주항공 비행기를 타고 아침일찍 출발!! 비행기사진은 언제봐도
+설레이는 것 같아요..♥ 공항에 도착해서 렌트카를 빌리고."
+            />
+    </LinearLayout>
+
+</LinearLayout>
+
+ 
