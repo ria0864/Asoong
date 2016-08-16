@@ -11,35 +11,49 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import org.w3c.dom.Text;
 import android.view.View.OnClickListener;
 /**
  * Created by Eun on 2016-08-16.
  */
-public class TextActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
-        SpinnerList list;
-        SpinnerList list1;
-        ArrayAdapter adapter;
-        ArrayAdapter adapter1;
+public class TextActivity extends AppCompatActivity{
+
         final int DIALOG_MULTICHOICE = 4;
         TextView tv;
 @Override
 public void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);
+        String[] optionLavala = getResources().getStringArray(R.array.spinnerRegion);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,optionLavala);
+        Spinner obj = (Spinner)findViewById(R.id.spinner);
+        obj.setAdapter(adapter);
 
-        Spinner spinner =(Spinner)findViewById(R.id.spinner);
-        Spinner spinner1 =(Spinner)findViewById(R.id.spinnerhotel);
-        list = new SpinnerList();
-        list1 = new SpinnerList();
+        setSpinner(R.id.spinnerhotel,R.array.spinnerHotel,android.R.layout.simple_spinner_dropdown_item);
+        getSpinner(R.id.spinner).setOnItemSelectedListener(new OnItemSelectedListener(){
+                @Override
+                public void onItemSelected(AdapterView<?>parentView, View selectedView, int position, long id){
+                        printChecked(selectedView,position);
+                }
 
-        adapter=new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item,list.getArrayList());
-        adapter1=new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item,list1.getArrayList1());
-        spinner.setAdapter(adapter);
+          @Override
+           public void onNothingSelected(AdapterView<?> parent) {
 
+                                                                   }
+                                                           } );
+        getSpinner(R.id.spinnerhotel).setOnItemSelectedListener(new OnItemSelectedListener(){
+                @Override
+                public void onItemSelected(AdapterView<?>parentView, View selectedView, int position, long id){
+                        printChecked(selectedView,position);
+                }
 
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
 
+                }
+        } );
 
         tv=(TextView)findViewById(R.id.goodPlace);
         findViewById(R.id.button1).setOnClickListener(new OnClickListener() {
@@ -52,19 +66,70 @@ public void onCreate (Bundle savedInstanceState){
 
         }
 
+        public void setSpinner(int objId, int objLabelId, int lifestyle) {
+                setSpinner(objId, objLabelId, -1, lifestyle, null);
+        }
+        public void setSpinner(int objId, int optionLabelId, int optionId, int lifestyle, String defultVal) {
+               String[] optionLavala = getResources().getStringArray(optionLabelId);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,optionLavala);
 
-@Override
-public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-        Toast.makeText(this, "Selected"+String.valueOf(position), Toast.LENGTH_SHORT).show();
+                if(lifestyle>-1){
+                        adapter.setDropDownViewResource(lifestyle);
+                        Spinner obj =(Spinner)findViewById(objId);
+                        obj.setAdapter(adapter);
+                        if(defultVal != null){
+                                String[] optiona = getResources().getStringArray(optionId);
+                                int thei = 0;
+                                for (int a = 0; a < optiona.length; a++) {
+                                        if (defultVal.equals(optiona[a])) {
+                                                thei = a;
+                                                break;
+                                        }
+                                }
+                                obj.setSelection(adapter.getPosition(optionLavala[thei]));
+                        }else{
+                                obj.setSelection(adapter.getPosition(defultVal));
+                        }
+                }
+        }
+        public Spinner getSpinner(int objId){
+                return (Spinner)findViewById(objId);
 
         }
-
-@Override
-public void onNothingSelected(AdapterView<?> arg0) {
-
+        public String getSpinnerVal(int objId){
+                return getSpinnerVal(objId, null);
+        }
+        private String getSpinnerVal(int objId, String[] optiona)
+        {
+                String rtn="";
+                Spinner sp=((Spinner)findViewById(objId));
+                if(sp !=null){
+                        int selectedIndex = sp.getSelectedItemPosition();
+                        if(optiona==null){
+                                rtn=""+selectedIndex;
+                        }else {
+                                if(optiona.length>selectedIndex){
+                                        rtn=optiona[selectedIndex];
+                                }
+                        }
+                }
+                return rtn;
         }
 
+        public void printChecked(View v, int position) {
+              Spinner sp1=(Spinner)findViewById(R.id.spinner);
+              Spinner sp2=(Spinner)findViewById(R.id.spinnerhotel);
+              String resultText="";
+              if (sp1.getSelectedItemPosition()>0){
+                      resultText=(String)sp1.getAdapter().getItem(sp1.getSelectedItemPosition());
+              }
+              if (sp2.getSelectedItemPosition()>0){
+                     if(!"".equals(resultText))
+                             resultText+=",";
+                             resultText=(String)sp2.getAdapter().getItem(sp2.getSelectedItemPosition());
+              }
+
+        }
 
 
         @Override
