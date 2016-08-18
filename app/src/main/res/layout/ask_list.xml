@@ -4,51 +4,65 @@
     android:layout_height="wrap_content"
     >
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/image_region"
         android:layout_width="match_parent"
         android:layout_height="185dp"
-        android:src="@drawable/busan"/>
+        android:src="@drawable/toscana"/>
     <TextView
-        android:id="@+id/rank"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:textColor="#ffffff"
-        android:text="경매완료"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/rating_star"
-        android:layout_toStartOf="@+id/rating_star" />
-    <TextView
-        android:id="@+id/rating_star"
+        android:id="@+id/done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:textColor="#ffff00"
-        android:text="댓글"
-        android:layout_alignTop="@+id/address"
-        android:layout_toRightOf="@+id/address"
-        android:layout_toEndOf="@+id/address" />
+        android:textColor="#ffffff"
+        android:layout_margin="10dp"
+        android:text="경매완료"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+         />
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/region_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/image"
+        android:layout_alignBottom="@+id/image_region"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="#ffffff"
         android:text="남대문"/>
+
     <TextView
-        android:id="@+id/address"
+        android:id="@+id/day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/name"
-        android:layout_alignBottom="@+id/name"
+        android:layout_alignBottom="@+id/image_region"
+        android:layout_toRightOf="@+id/region_detail"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
-        android:textSize="20sp"
-        android:textColor="#ffeeeeee"
-        android:text="7월9일/ 5명 / ~200,000원"/>
+        android:textSize="18sp"
+        android:textColor="#ffffff"
+        android:text="3월 19일~3월22일"/>
 
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/image_region"
+        android:layout_toRightOf="@+id/day"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="18sp"
+        android:textColor="#ffffff"
+        android:text="20,000~30,000"/>
+    <TextView
+        android:id="@+id/people_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/image_region"
+        android:layout_toRightOf="@+id/price"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="18sp"
+        android:textColor="#ffffff"
+        android:text="5명"/>
 </RelativeLayout>

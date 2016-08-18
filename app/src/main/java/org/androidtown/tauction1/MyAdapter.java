@@ -57,11 +57,8 @@ public class MyAdapter extends BaseAdapter{
         TextView rank = (TextView)convertView.findViewById(R.id.rank);
         rank.setText(arrData.get(position).getRank());
 
-        TextView rating_star = (TextView)convertView.findViewById(R.id.rating_star);
-        rating_star.setText(arrData.get(position).getRating_star());
-
-        TextView rating_txt = (TextView)convertView.findViewById(R.id.rating_txt);
-        rating_txt.setText(arrData.get(position).getRating_txt());
+        TextView like_num = (TextView)convertView.findViewById(R.id.like_num);
+        like_num.setText(arrData.get(position).getLike_num());
 
         TextView name = (TextView)convertView.findViewById(R.id.name);
         name.setText(arrData.get(position).getName());

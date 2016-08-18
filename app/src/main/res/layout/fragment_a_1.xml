@@ -3,9 +3,169 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:xmls="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="#ff0000">
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:layout_margin="5dp"
+        >
+        <ImageButton
+            android:id="@+id/goFragmentA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back"
+            android:background="#00ffffff"/>
+        <EditText
+            android:id="@+id/edit_search"
+            android:layout_width="260dp"
+            android:layout_height="30dp"
+            android:hint="업체명 검색"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColorHint="#c0c0c0"
+            android:textColor="#888888"
+            android:textSize="15dp"
+            android:background="@drawable/edittext_border"
+            android:drawableRight="@drawable/search"
+            android:singleLine="true"
+            android:lines="1"
+            />
+        <Button
+            android:id="@+id/btn_filter"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:text="필터"
+            android:drawableRight="@drawable/filter"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:layout_marginLeft="5dp"
+            android:textSize="15dp"
+            android:background="@drawable/button_border"
+            android:textColor="#ffffff"/>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:gravity="center_horizontal"
+            >
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:text="전체"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:id="@+id/btn_all"
+                android:textColor="#ffffff"
+                android:background="@drawable/button_selected"/>
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:text="부산"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:id="@+id/btn_busan"
+                android:background="@drawable/button_region"/>
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:text="서울"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:id="@+id/btn_seoul"
+                android:background="@drawable/button_region"/>
+
+            <Button
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:text="경기·인천"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:id="@+id/btn_incheon"
+                android:background="@drawable/button_region"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:gravity="center_horizontal"
+            >
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:text="강원"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:id="@+id/btn_gangwon"
+                android:background="@drawable/button_region"/>
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="제주"
+                android:id="@+id/btn_jeju"
+                android:background="@drawable/button_region"/>
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="전라"
+                android:id="@+id/btn_jeolla"
+                android:background="@drawable/button_region"/>
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="경상"
+                android:id="@+id/btn_gyeongsang"
+                android:background="@drawable/button_region"/>
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="충청"
+                android:id="@+id/btn_chungcheong"
+                android:background="@drawable/button_region"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/list_accommodation_region"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+    </LinearLayout>
 
 </LinearLayout>
 
- 
+

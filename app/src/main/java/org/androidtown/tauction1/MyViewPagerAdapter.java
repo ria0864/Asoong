@@ -27,9 +27,9 @@ public class MyViewPagerAdapter extends FragmentStatePagerAdapter {
         switch (position){
             case 0:
                 if(pageNum==1) {
-                    FragmentBusan fragmentBusan = new FragmentBusan();
+                    FragmentA_1 fragmentA_1 = new FragmentA_1();
                     //isNext=false;
-                    return fragmentBusan;
+                    return fragmentA_1;
                 }
                 else {
                     FragmentA fragmentA = new FragmentA();

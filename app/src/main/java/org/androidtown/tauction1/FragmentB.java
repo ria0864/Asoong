@@ -122,10 +122,10 @@ public class FragmentB extends Fragment {
 
     private void setData(){
         arrData = new ArrayList<MyData>();
-        //여기에서 리스트뷰 아이템 추가 코드
-        arrData.add(new MyData(R.drawable.toscana, "1", "★★★★★", "5.0","토스카나 호텔","제주특별자치도 서귀포시 용흥로 66번길 158-7"));
-        arrData.add(new MyData(R.drawable.maru_pension, "2", "★★★★☆", "4.3","별빛마루 펜션","경기도 가평군 북면 적목리"));
-        arrData.add(new MyData(R.drawable.sheraton_hotel, "3", "★★★★☆", "4.2","쉐라톤 그랜드 워커힐","서울특별시 광진구 워커힐로 177 쉐라톤워커힐호텔"));
+        //여기에서 리스트뷰 아이템 추가 코드 int image, String rank, String like_num, String name, String address
+        arrData.add(new MyData(R.drawable.toscana, "1","259","토스카나 호텔","제주특별자치도 서귀포시 용흥로 66번길 158-7"));
+        arrData.add(new MyData(R.drawable.maru_pension, "2","190","별빛마루 펜션","경기도 가평군 북면 적목리"));
+        arrData.add(new MyData(R.drawable.sheraton_hotel, "3", "177","쉐라톤 그랜드 워커힐","서울특별시 광진구 워커힐로 177 쉐라톤워커힐호텔"));
     }
     private void selectButton(String selected_btn){//서버코드 넣기
         if(selected_btn.equals("all")){

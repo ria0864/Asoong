@@ -11,7 +11,9 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,6 +45,15 @@
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:label="@string/app_name">
         </activity>
+        <activity android:name=".MyAskActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:label="@string/app_name">
+        </activity>
+        <activity android:name=".AskContentActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:label="@string/app_name">
+        </activity>
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

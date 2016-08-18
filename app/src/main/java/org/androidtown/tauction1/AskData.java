@@ -4,32 +4,33 @@ package org.androidtown.tauction1;
  * Created by Eun on 2016-08-16.
  */
 public class AskData {
-        private int image;
-        private String rank;
-        private String rating_star;
-        private String name;
-        private String address;
+        private int image_region;
+        private String done;
+        private String region_detail;
+        private String day;
+        private String price;
+        private String people_num;
 
-        public AskData(int image, String rank, String rating_star,  String name, String address){
-            this.image = image;
-            this.rank = rank;
-            this.rating_star = rating_star;
-            this.name = name;
-            this.address = address;
+        public AskData(int image_region, String done, String region_detail,  String day,String price, String people_num){
+            this.image_region = image_region;
+            this.done = done;
+            this.region_detail = region_detail;
+            this.day = day;
+            this.price = price;
+            this.people_num = people_num;
         }
-        public int getImage(){
-            return image;
+        public int getImage_region(){
+            return image_region;
         }
-        public String getRank(){
-            return rank;
+        public String getDone(){
+            return done;
         }
-        public String getRating_star(){
-            return rating_star;
+        public String getRegion_detail(){
+            return region_detail;
         }
-        public String getName(){
-            return name;
+        public String getDay(){
+            return day;
         }
-        public String getAddress(){
-            return address;
-        }
+        public String getPrice(){ return price; }
+        public String getPeople_num(){ return people_num; }
     }
