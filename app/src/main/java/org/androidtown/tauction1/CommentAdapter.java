@@ -87,7 +87,7 @@ public class CommentAdapter extends BaseAdapter {
         it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         if (ActivityCompat.checkSelfPermission(context,Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling/ *앱 권한 주기 참고 http://gun0912.tistory.com/55
+            // *앱 권한 주기 참고 http://gun0912.tistory.com/55
             Toast.makeText(context, "휴대전화 권한을 체크해주세요", Toast.LENGTH_SHORT).show();
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
