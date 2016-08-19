@@ -10,6 +10,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
+import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +27,7 @@ import java.util.Calendar;
 /**
  * Created by Eun on 2016-08-16.
  */
-public class TextActivity extends AppCompatActivity{
+public class TextActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
         final int DIALOG_MULTICHOICE = 4;
         TextView tv;
@@ -37,8 +40,11 @@ public class TextActivity extends AppCompatActivity{
         private int mDay, mDay1;
         static final int DATE_DIALOG_ID = 0;
         static final int DATE_DIALOG_ID1 = 0;
-
-
+        Button plus_btn, minus_btn;  //인원수 설정 버튼
+        TextView people;
+        int count = 1;//사람수
+        TextView sTextView;
+        ImageButton btn_back;
 
 
         @Override
@@ -49,8 +55,16 @@ public void onCreate (Bundle savedInstanceState){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,optionLavala);
         Spinner obj = (Spinner)findViewById(R.id.spinner);
         obj.setAdapter(adapter);
+                btn_back=(ImageButton)findViewById(R.id.btn_back);
+                btn_back.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                finish();
+                        }
+                });
 
-        setSpinner(R.id.spinnerhotel,R.array.spinnerHotel,android.R.layout.simple_spinner_dropdown_item);
+
+                setSpinner(R.id.spinnerhotel,R.array.spinnerHotel,android.R.layout.simple_spinner_dropdown_item);
         getSpinner(R.id.spinner).setOnItemSelectedListener(new OnItemSelectedListener(){
                 @Override
                 public void onItemSelected(AdapterView<?>parentView, View selectedView, int position, long id){
@@ -107,17 +121,75 @@ public void onCreate (Bundle savedInstanceState){
                 // display the current date (this method is below)
                 updateDisplay1();
 
+                minus_btn = (Button)findViewById(R.id.minus);
+                plus_btn =(Button)findViewById(R.id.plus);
+                people=(TextView)findViewById(R.id.peopleCount);
 
+                minus_btn.setOnClickListener(new OnClickListener() {
+                        public void onClick(View v) {
+                               if (count>1){
+                                       count--;
+                                       people.setText(String.valueOf(count));
+
+                               }
+
+
+
+
+                        }
+                });
+                plus_btn.setOnClickListener(new OnClickListener() {
+                        public void onClick(View v) {
+                                count++;
+                                people.setText(String.valueOf(count));
+                                return;
+                        }
+
+                });
+
+
+                RadioGroup radioGroup = (RadioGroup)findViewById(R.id.radiosex);
+                RadioGroup radioGroup1 = (RadioGroup)findViewById(R.id.radiotype);
+
+                radioGroup.setOnCheckedChangeListener(this);
+                radioGroup1.setOnCheckedChangeListener(this);
+
+                radioGroup.check(R.id.female);
+                radioGroup1.check(R.id.friend);
+
+                SeekBar seek_bar =(SeekBar)findViewById(R.id.seekBar);
+                sTextView = (TextView)findViewById(R.id.text_value);
+
+                seek_bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+
+                        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+
+                                // To Do
+                                sTextView.setText(progress + "만원");
+
+                        }
+
+
+
+                        public void onStartTrackingTouch(SeekBar seekBar){}   // tracking 시작
+
+                        public void onStopTrackingTouch(SeekBar seekBar){}   // tracking 끝
+
+                });
 
 
 
 
         }
 
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+        }
 
 
-/*달력*/
-private class MyClick implements View.OnClickListener{
+        /*달력*/
+private class MyClick implements OnClickListener{
         @Override
 
         public void onClick(final View v) {
@@ -270,7 +342,7 @@ private class MyClick implements View.OnClickListener{
                                                 .setPositiveButton("선택완료", new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
-                                                                String str = "선택된값은";
+                                                                String str = ">>";
                                                                 for (int i = 0; i < checked.length; i++) {
                                                                         if (checked[i]) {
                                                                                 str = str + data[i] + ",";
