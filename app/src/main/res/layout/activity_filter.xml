@@ -1,11 +1,392 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-</RelativeLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical">
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back"
+            android:background="#00000000"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="조건검색"
+            android:textColor="#000000"
+            android:textSize="20dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지역"
+            android:id="@+id/region"
+            android:textSize="18dp"
+            android:padding="10dp" />
+
+        <Spinner
+            android:layout_width="289dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:weightSum="1" >
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="28dp"
+            android:text="인원수"
+            android:id="@+id/textView2"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp" />
+
+
+
+        <Button
+
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:id="@+id/minus"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/peopleCount"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:text="1" />
+
+        <Button
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/plus"
+            android:textSize="18dp"
+            android:text="+" />
+
+
+
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:weightSum="1" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="숙소유형"
+            android:id="@+id/hotel"
+            android:textSize="18dp"
+            android:padding="10dp" />
+
+        <Spinner
+            android:layout_width="289dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerhotel" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:weightSum="1" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="성별"
+            android:id="@+id/textView9"
+            android:textSize="18dp"
+            android:padding="10dp" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radiosex"
+            android:orientation="horizontal">
+
+
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="여자"
+                android:id="@+id/female" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="남자"
+                android:id="@+id/male" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="혼합"
+                android:id="@+id/mix" />
+        </RadioGroup>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:weightSum="1" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="여행유형"
+            android:id="@+id/sleep"
+            android:textSize="18dp"
+            android:padding="10dp" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radiotype"
+            android:orientation="horizontal"
+            android:layout_weight="0.86">
+
+
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="우정여행"
+                android:id="@+id/friend" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="커플여행"
+                android:id="@+id/couple" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="가족여행"
+                android:id="@+id/family" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:weightSum="1" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="가격범위"
+            android:id="@+id/textView5"
+            android:textSize="18dp"
+            android:padding="10dp" />
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <SeekBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBar"
+            android:max="100"
+            android:progress="50"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_value"
+            android:text="50 만원"
+
+            android:textAlignment="center"
+            android:layout_marginRight="5dp" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:weightSum="1" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:text="편의시설"
+            android:textIsSelectable="false"
+            android:textSize="18dp"
+            android:paddingLeft="10dp" />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="선택"
+            android:id="@+id/button1"
+            android:layout_marginLeft="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/goodPlace"
+            android:textSize="10dp"
+            android:padding="10dp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:weightSum="1" >
+
+
+
+        <Button
+            android:id="@+id/btn_datepicker"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="6dp"
+            android:text="입실날짜"
+            android:layout_marginLeft="20dp"
+           />
+
+        <TextView android:id="@+id/dateDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+        <Button
+            android:id="@+id/btn_datepicker1"
+            android:layout_width="103dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="6dp"
+            android:text="퇴실날짜"
+            android:layout_marginLeft="20dp"
+            />
+
+        <TextView android:id="@+id/dateDisplay1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:weightSum="1" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="결제수단"
+            android:id="@+id/textView7"
+            android:textSize="18dp"
+            android:padding="10dp" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radiocard"
+            android:orientation="horizontal"
+            android:layout_weight="0.86">
+
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="카드"
+                android:id="@+id/card"
+                android:layout_marginLeft="10dp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="현금"
+                android:id="@+id/money"
+                android:layout_marginLeft="20dp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="상관없음"
+                android:id="@+id/none"
+                android:layout_marginLeft="10dp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="요구사항"
+        android:id="@+id/textView8"
+        android:textSize="18dp"
+        android:padding="10dp" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/edittext_conner"
+        android:layout_margin="10dp"
+        android:layout_gravity="top"
+        android:gravity="top" />
+    <Button
+        android:id="@+id/ok_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="조건검색!"
+        />
+
+
+
+
+</LinearLayout>
