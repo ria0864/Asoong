@@ -52,7 +52,7 @@
 
         <EditText
             android:id="@+id/edit_posting_search"
-            android:layout_width="290dp"
+            android:layout_width="280dp"
             android:layout_height="30dp"
             android:hint="게시물 검색"
             android:layout_marginLeft="10dp"

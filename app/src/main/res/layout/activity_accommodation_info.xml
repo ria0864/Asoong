@@ -132,14 +132,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="세계 7대 자연경관 환상의 섬 제주 서귀포시 강정동에 위치한 토스카나 호텔은 이탈리아 토스카나 지방을 모티브로 한 자연 휴양형 호텔입니다."/>
-            <TextView
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="고객후기"
-                android:textSize="17dp"
-                android:textStyle="bold"
-                />
+                android:orientation="horizontal">
+
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/Customer_review"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="고객후기"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+                <Button
+                    android:id="@+id/btn_write_review"
+                    android:layout_width="60dp"
+                    android:layout_height="25dp"
+                    android:layout_alignBottom="@+id/Customer_review"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:textSize="13dp"
+                    android:textColor="#ffffffff"
+                    android:background="#888888"
+                    android:text="리뷰쓰기"/>
+            </RelativeLayout>
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

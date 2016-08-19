@@ -69,6 +69,9 @@ public class AskAdapter extends BaseAdapter {
         TextView people_num = (TextView)convertView.findViewById(R.id.people_num);
         people_num.setText(arrData.get(position).getPeople_num());
 
+        TextView ask_commentNo = (TextView)convertView.findViewById(R.id.ask_commentNo);
+        ask_commentNo.setText(arrData.get(position).getAsk_commentNo());
+
 
         return convertView;
     }

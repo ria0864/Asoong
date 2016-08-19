@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity
     Button nav_login, nav_signup;
     MyViewPagerAdapter adapter;
 
+    private long pressedTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,13 +119,28 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed() { //뒤로가기 한번 더 눌러야 종료되도록 함
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {//drawer 열린 상태
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+        } else {//drawer 닫힌 상태
+            //super.onBackPressed();
+            if(pressedTime == 0){
+                Toast.makeText(this, "한번 더 누르면 종료됩니다", Toast.LENGTH_LONG).show();
+                pressedTime = System.currentTimeMillis();
+            }
+            else{
+                int seconds = (int)(System.currentTimeMillis() - pressedTime);
+                if(seconds > 2000){
+                    pressedTime = 0;
+                }
+                else{
+                    finish();
+                }
+            }
+
         }
+
     }
 
     @Override
@@ -162,10 +179,15 @@ public class MainActivity extends AppCompatActivity
             Intent intent=new Intent(MainActivity.this,MyAskActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_mypick) {
-
+            Intent intent=new Intent(MainActivity.this,DibsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_registration) {
 
         } else if (id == R.id.nav_setting) {
+
+        } else if (id == R.id.nav_favorites){
+            Intent intent=new Intent(MainActivity.this,FavoritesActivity.class);
+            startActivity(intent);
         }
 
 

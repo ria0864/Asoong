@@ -120,11 +120,11 @@ public class FragmentA_1 extends Fragment{
     private void setData(){
         arrData = new ArrayList<AskData>();
         //여기에서 리스트뷰 아이템 추가 코드
-        arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남대문", "7월 9일~7월 11일","~300,000","5명"));
-        arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남산", "7월 20일","100,000~200,000","2명"));
-        arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남산", "7월 20일","100,000~200,000","2명"));
-        arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남산", "7월 20일","100,000~200,000","2명"));
-        arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남산", "7월 20일","100,000~200,000","2명"));
+        arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남대문", "7월 9일~7월 11일","~300,000","5명","+1"));
+        arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남산", "7월 20일","100,000~200,000","2명","+1"));
+        arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남산", "7월 20일","100,000~200,000","2명","+1"));
+        arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남산", "7월 20일","100,000~200,000","2명","+1"));
+        arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남산", "7월 20일","100,000~200,000","2명","+1"));
 
     }
     private void selectButton(String selected_btn){//서버코드 넣기
