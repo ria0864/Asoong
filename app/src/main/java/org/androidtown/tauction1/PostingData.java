@@ -1,6 +1,7 @@
 package org.androidtown.tauction1;
 
 import android.content.Intent;
+import android.os.Message;
 import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -10,10 +11,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Handler;
 
 /**
  * Created by SSU on 2016-08-16.
  */
+
 public class PostingData {
     private int pos_no;
     private Date pos_date;
@@ -171,7 +174,7 @@ public class PostingData {
     public void setPos_title(String pos_title) {
         this.pos_title = pos_title;
     }
-
+/*
     private final Handler handler = new Handler(){
         public void handleMessage(Message msg){
 
@@ -193,7 +196,7 @@ public class PostingData {
             }
         }
     };
-
+*/
     public ArrayList<PostingData> parse(InputStream input){
         String result = null;
         ArrayList<PostingData> postingDatas = new ArrayList<PostingData>();

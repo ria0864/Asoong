@@ -53,6 +53,10 @@
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:label="@string/app_name">
         </activity>
+        <activity android:name=".PostingContentActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:label="@string/app_name">
+        </activity>
 
     </application>
 

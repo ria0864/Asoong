@@ -19,29 +19,28 @@ public class FragmentC extends Fragment {
         ImageView talk_free = (ImageView)rootView.findViewById(R.id.free_img);
         ImageView talk_event = (ImageView)rootView.findViewById(R.id.event_img);
 
-        talk_mate.setOnClickListener(new View.OnClickListener() {//부산여행 문의 클릭
+        talk_mate.setOnClickListener(new View.OnClickListener() {//여행메이트 클릭
             @Override
             public void onClick(View v) {
-                //Activity root = getActivity(); //이 클래스가 프레그먼트이기 때문에 액티비티 정보를 얻는다.
-                //Toast.makeText(root, "부산 클릭", Toast.LENGTH_SHORT).show();
+                ((MainActivity)getActivity()).setViewPage(2,1);
             }
         });
-        talk_tip.setOnClickListener(new View.OnClickListener() {//서울여행 문의 클릭
+        talk_tip.setOnClickListener(new View.OnClickListener() {//여행꿀팁 클릭
             @Override
             public void onClick(View v) {
-
+                ((MainActivity)getActivity()).setViewPage(2,1);
             }
         });
-        talk_free.setOnClickListener(new View.OnClickListener() {//인천여행 문의 클릭
+        talk_free.setOnClickListener(new View.OnClickListener() {//자유톡 클릭
             @Override
             public void onClick(View v) {
-
+                ((MainActivity)getActivity()).setViewPage(2,1);
             }
         });
-        talk_event.setOnClickListener(new View.OnClickListener() {//강원여행 문의 클릭
+        talk_event.setOnClickListener(new View.OnClickListener() {//이벤트 클릭
             @Override
             public void onClick(View v) {
-
+                ((MainActivity)getActivity()).setViewPage(2,1);
             }
         });
 

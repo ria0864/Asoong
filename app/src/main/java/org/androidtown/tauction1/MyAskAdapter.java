@@ -1,6 +1,7 @@
 package org.androidtown.tauction1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,7 +69,15 @@ public class MyAskAdapter extends BaseAdapter{
 
             }
         });
-
+        LinearLayout my_ask_linearLayout = (LinearLayout)convertView.findViewById(R.id.my_ask_linearLayout);
+        my_ask_linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AskContentActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                v.getContext().startActivity(intent);
+            }
+        });
 
         return convertView;
     }

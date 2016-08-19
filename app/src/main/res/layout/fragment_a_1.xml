@@ -21,7 +21,7 @@
             android:id="@+id/edit_search"
             android:layout_width="260dp"
             android:layout_height="30dp"
-            android:hint="업체명 검색"
+            android:hint="키워드 검색"
             android:layout_marginLeft="10dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"

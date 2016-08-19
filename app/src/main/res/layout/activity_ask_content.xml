@@ -27,6 +27,168 @@
             android:textColor="#000000"
             android:textSize="20dp"/>
     </LinearLayout>
+    <ScrollView
+        android:id="@+id/AskCommentScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:padding="10dp"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/ask_content_userName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="헬륨이"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:id="@+id/ask_content_reg_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/ask_content_userName"
+                        android:layout_alignBottom="@+id/ask_content_userName"
+                        android:layout_marginLeft="10dp"
+                        android:text="2016.5.7"
+                        android:textSize="11sp"
+                        android:textColor="#88000000"/>
+                    <ToggleButton
+                        android:id="@+id/toggle_heart"
+                        android:layout_width="18dp"
+                        android:layout_height="16dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignBottom="@+id/ask_content_userName"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/toggle_heart"
+                        android:textOff=""
+                        android:textOn=""
+                        ></ToggleButton>
+                </RelativeLayout>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bar"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"/>
+                <TextView
+                    android:id="@+id/ask_content_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="2"
+                    android:gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:textSize="17dp"
+                    android:textColor="#ff000000"
+                    android:text="정동진 근처 싸고 좋은 곳 추천해주세요."
+                    />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bar"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"/>
+                <TextView
+                    android:id="@+id/ask_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ff000000"
+                    android:text="안녕하세요~ 부모님 결혼기념일을 맞아 부모님 모시고 제주도로 여행 다녀오려고 합니다 ^^.부모님이 불편하시지 않도록 시설이 갖춰진 곳으로 추천 부탁드립니다."/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/edittext_border">
+
+                    <TextView
+                        android:id="@+id/ask_content_region"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#66000000"
+                        android:text="지역 :  춘천"/>
+                    <TextView
+                        android:id="@+id/ask_content_peopleNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#66000000"
+                        android:text="인원수 :  4명"/>
+                    <TextView
+                        android:id="@+id/ask_content_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#66000000"
+                        android:text="숙소유형 :  펜션"/>
+                    <TextView
+                        android:id="@+id/ask_content_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#66000000"
+                        android:text="성별 :  혼합"/>
+                    <TextView
+                        android:id="@+id/ask_content_travel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#66000000"
+                        android:text="여행유형 :  가족여행"/>
+                    <TextView
+                        android:id="@+id/ask_content_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#66000000"
+                        android:text="가격범위 :  ~300,000"/>
+                    <TextView
+                        android:id="@+id/ask_content_facility"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#66000000"
+                        android:text="편의시설 :  주차장, 와이파이, 편의점"/>
+                    <TextView
+                        android:id="@+id/ask_content_startDay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#66000000"
+                        android:text="입실날짜 :  2016.8.16"/>
+                    <TextView
+                        android:id="@+id/ask_content_endDay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#66000000"
+                        android:text="퇴실날짜 :  2016.8.18"/>
+                    <TextView
+                        android:id="@+id/ask_content_payOption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#66000000"
+                        android:text="결제수단 :  상관없음"/>
+                </LinearLayout>
+            </LinearLayout>
+            <ListView
+                android:id="@+id/list_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:dividerHeight="10dp"
+                android:divider="#00ffffff"
+            />
+        </LinearLayout>
+
+    </ScrollView>
 
 
 </LinearLayout>

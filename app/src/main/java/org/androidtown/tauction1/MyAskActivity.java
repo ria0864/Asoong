@@ -62,15 +62,6 @@ public class MyAskActivity extends AppCompatActivity {
         arrData.add(new MyAskData("2015.3.6","★★★★★★★★부산 우정여행~!!★★★★★★★★", "안녕하세용 여자 넷이서 부산으로 여행가려고 합니다! 최대한 싸게해주세용^3^","+3"));
         arrData.add(new MyAskData("2015.3.5","친구들과 부산여행 갈 곳 찾습니다.","싸게 해주세요 ㅜㅜ","+0" ));
     }
-   /* private void setScroll(ListView mListView){
-        mListView.setOnTouchListener(new View.OnTouchListener()
-        {
-            @Override
-            public boolean onTouch(View v, MotionEvent event){
-                mScrollView.requestDisallowInterceptTouchEvent(true);
-                return false;
-            }
-        });
-    }*/
+
 
 }
