@@ -22,4 +22,5 @@ public class PostingData1 {
         return posting_reg_day;
     }
 
+
 }
