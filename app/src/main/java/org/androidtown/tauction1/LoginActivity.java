@@ -111,52 +111,52 @@ public class LoginActivity extends AppCompatActivity {
 
     public void goLogin(){ // 로그인 눌렀을 때 listener~~
         final ResponseHandler<String> responseHandler =  new ResponseHandler<String>(){
-            @Override
-            public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
+        @Override
+        public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
 
-                String result = null;
-                HttpEntity entity = response.getEntity();
-                result = parsingData(entity.getContent());
-                //result = "success";
-                Message message = handler.obtainMessage();
-                Bundle bundle = new Bundle();
+            String result = null;
+            HttpEntity entity = response.getEntity();
+            result = parsingData(entity.getContent());
+            //result = "success";
+            Message message = handler.obtainMessage();
+            Bundle bundle = new Bundle();
 
-                if(result.equals("success")) result="success";
-                else result="실패!";
+            if(result.equals("success")) result="success";
+            else result="실패!";
 
-                bundle.putString("RESULT", result);
-                message.setData(bundle);
-                handler.sendMessage(message);
-                return result;
-            }
-        };
+            bundle.putString("RESULT", result);
+            message.setData(bundle);
+            handler.sendMessage(message);
+            return result;
+        }
+    };
 
-        pDialog = ProgressDialog.show(this, "", "데이타 전송중..");
+    pDialog = ProgressDialog.show(this, "", "데이타 전송중..");
 
-        new Thread(){
-            @Override
-            public void run(){
-                String url = "http://52.78.15.170:8080/tauction/recieve.jsp";
-                HttpClient client = new DefaultHttpClient();
-                try{
-                    ArrayList<NameValuePair> nameValuePairs =
-                            new ArrayList<NameValuePair>();
-                    nameValuePairs.add(new BasicNameValuePair("action","login"));
-                    nameValuePairs.add(new BasicNameValuePair("ID",editTextID.getText().toString()));
-                    nameValuePairs.add(new BasicNameValuePair("PW",editTextPW.getText().toString()));
-                    //타임아웃
-                    HttpParams params = client.getParams();
-                    HttpConnectionParams.setConnectionTimeout(params, 2000);
-                    HttpConnectionParams.setSoTimeout(params, 2000);
+    new Thread(){
+        @Override
+        public void run(){
+            String url = "http://52.78.101.183:8080/tauction/recieve.jsp";
+            HttpClient client = new DefaultHttpClient();
+            try{
+                ArrayList<NameValuePair> nameValuePairs =
+                        new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("action","login"));
+                nameValuePairs.add(new BasicNameValuePair("ID",editTextID.getText().toString()));
+                nameValuePairs.add(new BasicNameValuePair("PW",editTextPW.getText().toString()));
+                //타임아웃
+                HttpParams params = client.getParams();
+                HttpConnectionParams.setConnectionTimeout(params, 2000);
+                HttpConnectionParams.setSoTimeout(params, 2000);
 
-                    HttpPost httpPost = new HttpPost(url);
-                    UrlEncodedFormEntity entityRequest = new UrlEncodedFormEntity(nameValuePairs, "UTF-8");
-                    httpPost.setEntity(entityRequest);
-                    client.execute(httpPost, responseHandler);
-                }catch(Exception e){e.printStackTrace();}
-            }
-        }.start(); //스레드 실행
-    }
+                HttpPost httpPost = new HttpPost(url);
+                UrlEncodedFormEntity entityRequest = new UrlEncodedFormEntity(nameValuePairs, "UTF-8");
+                httpPost.setEntity(entityRequest);
+                client.execute(httpPost, responseHandler);
+            }catch(Exception e){e.printStackTrace();}
+        }
+    }.start(); //스레드 실행
+}
 
     private final Handler handler = new Handler(){
         public void handleMessage(Message msg){ //핸들러, 받고 보내는거

@@ -54,10 +54,10 @@ public class PostingAdapter extends BaseAdapter{
         posting_title.setText(arrData.get(position).getPosting_title());
 
         TextView posting_username = (TextView)convertView.findViewById(R.id.posting_username);
-        // posting_username.setText(arrData.get(position).getPos_username()); //mem_no에 해당하는 mem_name(user_name) 받아오기.
+        posting_username.setText(arrData.get(position).getPosting_username()); //mem_no에 해당하는 mem_name(user_name) 받아오기.
 
         TextView posting_reg_day = (TextView)convertView.findViewById(R.id.posting_reg_day);
-        //posting_reg_day.setText(arrData.get(position).getPos_reg_day()); // 이게 뭘까여.......?
+        posting_reg_day.setText(arrData.get(position).getPosting_reg_day()); // 이게 뭘까여.......?
 
         LinearLayout posting_linearLayout = (LinearLayout)convertView.findViewById(R.id.posting_linearLayout);
         posting_linearLayout.setOnClickListener(new View.OnClickListener() {

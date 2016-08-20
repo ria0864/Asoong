@@ -111,7 +111,7 @@ public class SignupActivity extends AppCompatActivity {
         new Thread(){
             @Override
             public void run(){
-                String url = "http://203.253.23.15:90/Tauction/recieve.jsp";
+                String url = "http://52.78.101.183:8080/tauction/recieve.jsp";
                 HttpClient client = new DefaultHttpClient();
                 try{
                     ArrayList<NameValuePair> nameValuePairs =
