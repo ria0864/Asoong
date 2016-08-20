@@ -23,10 +23,10 @@ import java.util.ArrayList;
 public class PostingAdapter extends BaseAdapter{
 
     private Context context;
-    private ArrayList<PostingData> arrData;
+    private ArrayList<PostingData1> arrData;
     private LayoutInflater inflater;
 
-    public PostingAdapter(Context c, ArrayList<PostingData> arr) {
+    public PostingAdapter(Context c, ArrayList<PostingData1> arr) {
         this.context = c;
         this.arrData = arr;
         inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -37,7 +37,7 @@ public class PostingAdapter extends BaseAdapter{
     }
 
     public Object getItem(int position) {
-        return arrData.get(position).getPos_title();
+        return arrData.get(position).getPosting_title();
     }
 
     public long getItemId(int position) {
@@ -51,7 +51,7 @@ public class PostingAdapter extends BaseAdapter{
         }
 
         TextView posting_title = (TextView)convertView.findViewById(R.id.posting_title);
-        posting_title.setText(arrData.get(position).getPos_title());
+        posting_title.setText(arrData.get(position).getPosting_title());
 
         TextView posting_username = (TextView)convertView.findViewById(R.id.posting_username);
         // posting_username.setText(arrData.get(position).getPos_username()); //mem_no에 해당하는 mem_name(user_name) 받아오기.

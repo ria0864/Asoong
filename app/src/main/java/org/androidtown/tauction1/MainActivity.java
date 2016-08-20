@@ -182,7 +182,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent=new Intent(MainActivity.this,DibsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_registration) {
-
+            Intent intent=new Intent(MainActivity.this,HostingRegistrationActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_setting) {
 
         } else if (id == R.id.nav_favorites){
