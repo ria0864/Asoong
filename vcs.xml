@@ -10,6 +10,10 @@
           <option name="url" value="http://github.com/ria0864/Asoong.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/ria0864/Asoong" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="C:\dev\android_workspace" />

@@ -1,5 +1,6 @@
 package org.androidtown.tauction1;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ public class FragmentA_1 extends Fragment{
     ArrayList<AskData> arrData;
 
     ImageButton goFragmentA;
+    Button btn_filter;
 
     Button btn_all, btn_busan, btn_seoul, btn_incheon, btn_gangwon, btn_jeju, btn_jeolla, btn_gyeongsang, btn_chungcheong;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +39,17 @@ public class FragmentA_1 extends Fragment{
         btn_jeolla=(Button)rootView.findViewById(R.id.btn_jeolla);
         btn_gyeongsang=(Button)rootView.findViewById(R.id.btn_gyeongsang);
         btn_chungcheong=(Button)rootView.findViewById(R.id.btn_chungcheong);
+
+        btn_filter=(Button)rootView.findViewById(R.id.btn_filter);
+
+        btn_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), FilterActivity.class));
+            }
+        });
+
+
 
         btn_all.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +128,8 @@ public class FragmentA_1 extends Fragment{
         list.setAdapter(adapter);
 
         return rootView;
+
+
     }
 
     private void setData(){

@@ -46,7 +46,7 @@ public class FragmentB extends Fragment {
         btn_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), FilterActivity.class));
+                startActivity(new Intent(getActivity(), FilterActivity1.class));
             }
         });
         btn_all.setOnClickListener(new View.OnClickListener() {

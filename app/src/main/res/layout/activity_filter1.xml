@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="사례등록"
+            android:text="업체검색"
             android:textColor="#000000"
             android:textSize="20dp"/>
     </LinearLayout>
@@ -49,52 +49,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:weightSum="1" >
 
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="28dp"
-            android:text="인원수"
-            android:id="@+id/textView2"
-            android:textSize="18dp"
-            android:layout_marginLeft="10dp" />
-
-
-
-        <Button
-
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
-            android:text="-"
-            android:id="@+id/minus"
-            android:textSize="18dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/peopleCount"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:text="1" />
-
-        <Button
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/plus"
-            android:textSize="18dp"
-            android:text="+" />
-
-
-
-
-
-
-
-    </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -116,96 +71,9 @@
             android:id="@+id/spinnerhotel" />
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:weightSum="1" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="성별"
-            android:id="@+id/textView9"
-            android:textSize="18dp"
-            android:padding="10dp" />
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radiosex"
-            android:orientation="horizontal">
 
 
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="여자"
-                android:id="@+id/female"
-                android:buttonTint="@color/colorRadio"/>
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="남자"
-                android:id="@+id/male"
-                android:buttonTint="@color/colorRadio"/>
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="혼합"
-                android:id="@+id/mix"
-                android:buttonTint="@color/colorRadio" />
-        </RadioGroup>
-
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:weightSum="1" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="여행유형"
-            android:id="@+id/sleep"
-            android:textSize="18dp"
-            android:padding="10dp" />
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radiotype"
-            android:orientation="horizontal"
-            android:layout_weight="0.86">
-
-
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="우정여행"
-                android:id="@+id/friend"
-                android:buttonTint="@color/colorRadio"/>
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="커플여행"
-                android:id="@+id/couple"
-                android:buttonTint="@color/colorRadio"/>
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="가족여행"
-                android:id="@+id/family"
-                android:buttonTint="@color/colorRadio"/>
-        </RadioGroup>
-
-    </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -286,53 +154,6 @@
         android:layout_height="50dp"
         android:weightSum="1" >
 
-
-
-        <Button
-            android:id="@+id/btn_datepicker"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="6dp"
-            android:text="입실날짜"
-            android:layout_marginLeft="20dp"
-            />
-
-        <TextView android:id="@+id/dateDisplay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp" />
-        <Button
-            android:id="@+id/btn_datepicker1"
-            android:layout_width="103dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="6dp"
-            android:text="퇴실날짜"
-            android:layout_marginLeft="20dp"
-            />
-
-        <TextView android:id="@+id/dateDisplay1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:layout_marginTop="5dp"
-           />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:weightSum="1" >
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -375,21 +196,6 @@
         </RadioGroup>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="본문"
-        android:id="@+id/textView8"
-        android:textSize="18dp"
-        android:padding="10dp" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@drawable/edittext_conner"
-        android:layout_margin="10dp"
-        android:layout_gravity="top"
-        android:gravity="top"
-        android:foregroundGravity="top" />
     <Button
         android:id="@+id/ok_button"
         android:layout_width="fill_parent"
@@ -397,7 +203,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="문의등록!"
+        android:text="조건검색!"
         />
 
 

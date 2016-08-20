@@ -2,12 +2,8 @@ package org.androidtown.tauction1;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
@@ -23,31 +18,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
  * Created by 14Z950 on 2016-07-28.
  */
-public class FilterActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+public class FilterActivity1 extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
     final int DIALOG_MULTICHOICE = 4;
     TextView tv;
@@ -71,7 +47,7 @@ public class FilterActivity extends AppCompatActivity implements RadioGroup.OnCh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_filter);
+        setContentView(R.layout.activity_filter1);
         String[] optionLavala = getResources().getStringArray(R.array.spinnerRegion);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,optionLavala);
         Spinner obj = (Spinner)findViewById(R.id.spinner);
@@ -122,62 +98,15 @@ public class FilterActivity extends AppCompatActivity implements RadioGroup.OnCh
         });
 
 
-        btnDatePicker = (Button) findViewById(R.id.btn_datepicker);
-        btnDatePicker.setOnClickListener(new MyClick());
-        mDateDisplay = (TextView) findViewById(R.id.dateDisplay);
-
-        final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
-        // display the current date (this method is below)
-        updateDisplay();
-
-        btnDatePicker1 = (Button) findViewById(R.id.btn_datepicker1);
-        btnDatePicker1.setOnClickListener(new MyClick());
-        mDateDisplay = (TextView) findViewById(R.id.dateDisplay1);
-        final Calendar c1 = Calendar.getInstance();
-        mYear1 = c1.get(Calendar.YEAR);
-        mMonth1 = c1.get(Calendar.MONTH);
-        mDay1 = c1.get(Calendar.DAY_OF_MONTH);
-        // display the current date (this method is below)
-        updateDisplay1();
-
-        minus_btn = (Button)findViewById(R.id.minus);
-        plus_btn =(Button)findViewById(R.id.plus);
-        people=(TextView)findViewById(R.id.peopleCount);
-
-        minus_btn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (count>1){
-                    count--;
-                    people.setText(String.valueOf(count));
-
-                }
 
 
 
 
-            }
-        });
-        plus_btn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                count++;
-                people.setText(String.valueOf(count));
-                return;
-            }
-
-        });
 
 
-        RadioGroup radioGroup = (RadioGroup)findViewById(R.id.radiosex);
-        RadioGroup radioGroup1 = (RadioGroup)findViewById(R.id.radiotype);
 
-        radioGroup.setOnCheckedChangeListener(this);
-        radioGroup1.setOnCheckedChangeListener(this);
 
-        radioGroup.check(R.id.female);
-        radioGroup1.check(R.id.friend);
+
 
         SeekBar seek_bar =(SeekBar)findViewById(R.id.seekBar);
         sTextView = (TextView)findViewById(R.id.text_value);
@@ -211,70 +140,7 @@ public class FilterActivity extends AppCompatActivity implements RadioGroup.OnCh
     }
 
 
-    /*달력*/
-    private class MyClick implements View.OnClickListener{
-        @Override
 
-        public void onClick(final View v) {
-
-            // TODO Auto-generated method stub
-
-            switch (v.getId()) {
-                case R.id.btn_datepicker:
-                    DatePickerDialog.OnDateSetListener callBack = new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                              int dayOfMonth) {
-                            // TODO Auto-generated method stub
-                            Toast.makeText(v.getContext(),
-                                    year + ":" + (monthOfYear + 1) + ":" + dayOfMonth,Toast.LENGTH_SHORT).show();
-                            mYear = year;
-                            mMonth = monthOfYear;
-                            mDay = dayOfMonth;
-                            updateDisplay();
-
-                        }
-                    };
-                    datePickerDialog = new DatePickerDialog(v.getContext(), callBack, 2016, 9, 01);
-                    datePickerDialog.show();
-                    break;
-                case R.id.btn_datepicker1:
-                    DatePickerDialog.OnDateSetListener callBack2 = new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-                            // TODO Auto-generated method stub
-                            Toast.makeText(v.getContext(),
-                                    year + ":" + (monthOfYear + 1) + ":" + dayOfMonth,Toast.LENGTH_SHORT).show();
-                            mYear1 = year;
-                            mMonth1 = monthOfYear;
-                            mDay1 = dayOfMonth;
-                            updateDisplay1();
-                        }
-                    };
-                    datePickerDialog1 = new DatePickerDialog(v.getContext(), callBack2,2016, 9, 01);
-                    datePickerDialog1.show();
-                    break;
-            }
-        }}
-    private void updateDisplay() {
-        mDateDisplay.setText(
-                new StringBuilder()
-                        // Month is 0 based so add 1
-                        .append(mYear).append("-")
-                        .append(mMonth).append("-")
-                        .append(mDay).append(" "));
-
-    }
-    private void updateDisplay1() {
-        mDateDisplay.setText(
-                new StringBuilder()
-                        // Month is 0 based so add 1
-                        .append(mYear).append("-")
-                        .append(mMonth).append("-")
-                        .append(mDay).append(" "));
-
-    }
 
 
 
@@ -358,7 +224,7 @@ public class FilterActivity extends AppCompatActivity implements RadioGroup.OnCh
             case DIALOG_MULTICHOICE:
 
                 AlertDialog.Builder builder =
-                        new AlertDialog.Builder(FilterActivity.this);
+                        new AlertDialog.Builder(FilterActivity1.this);
                 final String data[] = {"바베큐", "수영장", "와이파이", "복층"};
                 final boolean checked[] = {false, false, false, false};
                 builder.setTitle("MultiChoice 다이얼로그")
