@@ -160,6 +160,11 @@ public void onCreate (Bundle savedInstanceState){
                 SeekBar seek_bar =(SeekBar)findViewById(R.id.seekBar);
                 sTextView = (TextView)findViewById(R.id.text_value);
 
+                seek_bar.setProgressDrawable(getResources()
+                        .getDrawable(R.drawable.progress));
+
+
+
                 seek_bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
 
                         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){

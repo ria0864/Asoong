@@ -1,5 +1,6 @@
 package org.androidtown.tauction1;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+
 
 import java.util.ArrayList;
 
@@ -22,6 +27,7 @@ public class FragmentC_1 extends Fragment{
     ListView list;
     PostingAdapter adapter;
     ArrayList<PostingData1> arrData;
+    Button textaddbtn;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,6 +41,23 @@ public class FragmentC_1 extends Fragment{
                 ((MainActivity)getActivity()).setViewPage(2,0);
             }
         });
+
+        Spinner yearSpinner = (Spinner)rootView.findViewById(R.id.spinner_post);
+        ArrayAdapter yearAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.spinnerPost, android.R.layout.simple_spinner_item);
+        yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        yearSpinner.setAdapter(yearAdapter);
+
+        textaddbtn = (Button)rootView.findViewById(R.id.btn_addPosting);
+
+       textaddbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), PostingTextAdd.class));
+            }
+        });
+
+
+
 
 
 
@@ -58,6 +81,9 @@ public class FragmentC_1 extends Fragment{
 
         return rootView;
     }
+
+
+
     private void setData(){
         arrData = new ArrayList<PostingData1>();
         arrData.add(new PostingData1( "여행꿀팁 알려드려용 ~~","sjjo0319", "2016.8.7"));

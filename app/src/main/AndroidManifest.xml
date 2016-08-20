@@ -36,6 +36,11 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
         <activity
+            android:name=".FilterActivity1"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
             android:name=".AccommodationInfoActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:label="@string/app_name"
@@ -69,6 +74,12 @@
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:label="@string/app_name">
         </activity>
+
+        <activity android:name=".PostingTextAdd"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:label="@string/app_name">
+        </activity>
+
 
     </application>
 

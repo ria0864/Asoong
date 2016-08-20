@@ -2,12 +2,15 @@ package org.androidtown.tauction1;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -54,6 +57,40 @@ public class LoginActivity extends AppCompatActivity {
         editTextID = (EditText)findViewById(R.id.idInput);
         editTextPW = (EditText)findViewById(R.id.passwordInput);
         stringID="";stringPW="";
+
+        final CheckBox auto  = (CheckBox) findViewById(R.id.checkBox);
+        final SharedPreferences setting = getSharedPreferences("setting", 0);
+        final SharedPreferences.Editor editor = setting.edit();
+
+        auto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked == true)
+                {
+                    String id = editTextID.getText().toString();
+                    String pw = editTextPW.getText().toString();
+
+                    editor.putString("id", id);
+                    editor.putString("pw", pw);
+                    editor.putBoolean("auto_login", true);
+                    editor.commit();
+                }
+                else
+                {
+                    editor.remove("id");
+                    editor.remove("pw");
+                    editor.remove("auto_login");
+                    editor.clear();
+                    editor.commit();
+
+                }
+            }
+        });
+        if(setting.getBoolean("auto_login", false)){
+            editTextID.setText(setting.getString("id", ""));
+            editTextPW.setText(setting.getString("pw", ""));
+            auto.setChecked(true);
+        }
 
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
