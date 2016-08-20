@@ -19,12 +19,27 @@ import java.util.ArrayList;
  */
 public class PostingContentActivity extends AppCompatActivity {
 
+    ImageButton btn_back;
+
+    ListView list;
+    CommentAdapter adapter;
+    ArrayList<CommentData> arrData;
+
+    ScrollView mScrollView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posting_content);
 
+        btn_back = (ImageButton) findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 

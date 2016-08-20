@@ -69,7 +69,8 @@
             android:layout_height="wrap_content"
             android:text="-"
             android:id="@+id/minus"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:background="#00ffffff" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -84,7 +85,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/plus"
             android:textSize="18dp"
-            android:text="+" />
+            android:text="+"
+            android:background="#00ffffff" />
 
 
 
@@ -365,20 +367,6 @@
         </RadioGroup>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="요구사항"
-        android:id="@+id/textView8"
-        android:textSize="18dp"
-        android:padding="10dp" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@drawable/edittext_conner"
-        android:layout_margin="10dp"
-        android:layout_gravity="top"
-        android:gravity="top" />
     <Button
         android:id="@+id/ok_button"
         android:layout_width="fill_parent"

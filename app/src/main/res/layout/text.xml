@@ -71,7 +71,8 @@
             android:layout_height="wrap_content"
             android:text="-"
             android:id="@+id/minus"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:background="#00ffffff" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -86,7 +87,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/plus"
             android:textSize="18dp"
-            android:text="+" />
+            android:text="+"
+            android:background="#ffffff" />
 
 
 
