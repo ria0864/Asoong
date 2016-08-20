@@ -36,6 +36,13 @@ public class FragmentC_1 extends Fragment{
             }
         });
 
+
+
+
+
+
+
+
         //리스트에 보여줄 데이터를 세팅한다.
         setData();
 

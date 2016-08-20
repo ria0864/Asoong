@@ -13,5 +13,12 @@
         <item>게스트하우스</item>
     </string-array>
 
+    <string-array  name="spinnerPost">
+        <item>여행메이트</item>
+        <item>여행꿀팁</item>
+        <item>자유톡</item>
+        <item>이벤트</item>
+    </string-array>
+
 
 </resources>

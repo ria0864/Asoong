@@ -25,7 +25,8 @@
             >
             <Spinner
                 android:layout_width="100dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner_post">
 
             </Spinner>
         </LinearLayout>
