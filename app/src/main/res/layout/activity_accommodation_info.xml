@@ -149,17 +149,6 @@
                     android:text="고객후기"
                     android:textSize="17dp"
                     android:textStyle="bold" />
-                <Button
-                    android:id="@+id/btn_write_review"
-                    android:layout_width="60dp"
-                    android:layout_height="25dp"
-                    android:layout_alignBottom="@+id/Customer_review"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center"
-                    android:textSize="13dp"
-                    android:textColor="#ffffffff"
-                    android:background="#888888"
-                    android:text="리뷰쓰기"/>
             </RelativeLayout>
 
             <ImageView
@@ -168,12 +157,36 @@
                 android:src="@drawable/bar"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                >
+                <EditText
+                    android:id="@+id/edt_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_weight="20"
+                    android:padding="5dp"
+                    android:background="@drawable/edittext_box"
+                    android:layout_marginBottom="1dp"
+                    android:gravity="top" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_weight="1"
+                    android:text="등록"
+                    android:textColor="#ffffffff"
+                    android:background="@drawable/button_box"
+                    />
+            </LinearLayout>
             <ListView
                 android:id="@+id/list_review"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-            />
+                />
         </LinearLayout>
     </LinearLayout>
     </ScrollView>
