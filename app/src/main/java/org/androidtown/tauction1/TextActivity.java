@@ -51,6 +51,7 @@ public class TextActivity extends AppCompatActivity implements RadioGroup.OnChec
 public void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);
+
         String[] optionLavala = getResources().getStringArray(R.array.spinnerRegion);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,optionLavala);
         Spinner obj = (Spinner)findViewById(R.id.spinner);

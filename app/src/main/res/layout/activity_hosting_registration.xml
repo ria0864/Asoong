@@ -12,7 +12,7 @@
         android:background="#ffffff"
         android:gravity="center_vertical">
         <ImageButton
-            android:id="@+id/goFragment5"
+            android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back"
@@ -47,6 +47,7 @@
                     android:layout_height="30dp"
                     android:drawableRight="@drawable/edit"
                     android:text=" 대표 이미지"
+                    android:id="@+id/sayimgbutton"
                     android:layout_marginLeft="10dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
@@ -68,7 +69,7 @@
                         android:layout_gravity="center_vertical"
                         android:text="업체명"/>
                     <EditText
-                        android:layout_width="280dp"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <ImageView
@@ -80,15 +81,40 @@
                     android:layout_height="45dp"
                     android:orientation="horizontal">
                     <TextView
-                        android:layout_width="70dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="지역"/>
+                        android:text="지역"
+                        android:id="@+id/region"
+                        android:textSize="18dp"
+                        android:padding="10dp" />
+
                     <Spinner
-                        android:layout_width="290dp"
+                        android:layout_width="289dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        ></Spinner>
+                        android:id="@+id/spinnerr"
+                        />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bar"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="숙소유형"
+                        android:id="@+id/hotel"
+                        android:textSize="18dp"
+                        android:padding="10dp" />
+
+                    <Spinner
+                        android:layout_width="289dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spinnerh" />
                 </LinearLayout>
                 <ImageView
                     android:layout_width="match_parent"
@@ -104,7 +130,7 @@
                         android:layout_gravity="center_vertical"
                         android:text="주소"/>
                     <EditText
-                        android:layout_width="280dp"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <ImageView
@@ -121,7 +147,7 @@
                         android:layout_gravity="center_vertical"
                         android:text="전화번호"/>
                     <EditText
-                        android:layout_width="280dp"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <ImageView
@@ -140,10 +166,27 @@
                         android:layout_gravity="center_vertical"
                         android:text="가격범위"/>
                     <SeekBar
-                        android:layout_width="280dp"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:id="@+id/seekbarh"
+
+                        android:max="100"
+                        android:progress="50"
+                        android:layout_weight="1"
+                        android:color="#d84180"
+                        android:minHeight="3dip"
+                        android:maxHeight="3dip"
+                        android:buttonTint="@color/colorRadio"
                         />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/text_valueh"
+                        android:text="50 만원"
+
+                        android:textAlignment="center"
+                        android:layout_marginRight="5dp"/>
                 </LinearLayout>
                 <ImageView
                     android:layout_width="match_parent"
@@ -161,7 +204,12 @@
                     <Button
                         android:layout_width="130dp"
                         android:layout_height="40dp"
-                        android:text="편의시설 선택"/>
+                        android:text="편의시설 선택"
+                        android:id="@+id/myplace"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/serveplace"/>
                 </LinearLayout>
                 <ImageView
                     android:layout_width="match_parent"
@@ -185,16 +233,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:text="현금"/>
+                            android:text="현금"
+                            android:buttonTint="@color/colorRadio"/>
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:text="카드"/>
+                            android:text="카드"
+                            android:buttonTint="@color/colorRadio"/>
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="상관없음"/>
+                            android:text="상관없음"
+                            android:buttonTint="@color/colorRadio"/>
                     </RadioGroup>
                 </LinearLayout>
                 <ImageView
@@ -215,16 +266,12 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:background="@drawable/edittext_box"
-                        android:layout_gravity="top"
-                        android:gravity="top"
-                        android:padding="10dp"
-                        android:foregroundGravity="top" />
+                        android:background="@drawable/edittext_box"/>
                 </LinearLayout>
             </LinearLayout>
             <Button
                 android:id="@+id/ok_button"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
