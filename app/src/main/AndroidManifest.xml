@@ -33,12 +33,14 @@
         <activity
             android:name=".FilterActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
             android:name=".FilterActivity1"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
             android:name=".AccommodationInfoActivity"
@@ -48,7 +50,8 @@
         </activity>
         <activity android:name=".TextActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity android:name=".MyAskActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"

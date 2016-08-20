@@ -68,7 +68,7 @@
                         android:layout_gravity="center_vertical"
                         android:text="업체명"/>
                     <EditText
-                        android:layout_width="250dp"
+                        android:layout_width="280dp"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <ImageView
@@ -85,7 +85,7 @@
                         android:layout_gravity="center_vertical"
                         android:text="지역"/>
                     <Spinner
-                        android:layout_width="100dp"
+                        android:layout_width="290dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         ></Spinner>
@@ -104,7 +104,7 @@
                         android:layout_gravity="center_vertical"
                         android:text="주소"/>
                     <EditText
-                        android:layout_width="250dp"
+                        android:layout_width="280dp"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <ImageView
@@ -121,7 +121,7 @@
                         android:layout_gravity="center_vertical"
                         android:text="전화번호"/>
                     <EditText
-                        android:layout_width="250dp"
+                        android:layout_width="280dp"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
                 <ImageView
@@ -140,7 +140,7 @@
                         android:layout_gravity="center_vertical"
                         android:text="가격범위"/>
                     <SeekBar
-                        android:layout_width="250dp"
+                        android:layout_width="280dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         />
@@ -215,12 +215,16 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:background="@drawable/edittext_box"/>
+                        android:background="@drawable/edittext_box"
+                        android:layout_gravity="top"
+                        android:gravity="top"
+                        android:padding="10dp"
+                        android:foregroundGravity="top" />
                 </LinearLayout>
             </LinearLayout>
             <Button
                 android:id="@+id/ok_button"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
