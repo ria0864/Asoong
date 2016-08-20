@@ -35,7 +35,7 @@ public class PostingData {
     private int mem_no;
 
 
-    public PostingData(int pos_no, Date pos_date, String pos_title, String pos_contents, int reg_no, int pos_num, String pos_type, String pos_gender, String pos_trip,int pos_budget,String pos_convin,Date pos_startday,Date pos_endday,String pos_pay,int mem_no){
+    public PostingData(int pos_no, Date pos_date, String pos_title, String pos_contents, int reg_no, int pos_num, String pos_type, String pos_gender, String pos_trip, int pos_budget, String pos_convin, Date pos_startday, Date pos_endday, String pos_pay, int mem_no) {
         this.pos_no = pos_no;
         this.pos_date = pos_date;
         this.pos_title = pos_title;
@@ -174,43 +174,5 @@ public class PostingData {
     public void setPos_title(String pos_title) {
         this.pos_title = pos_title;
     }
-/*
-    private final Handler handler = new Handler(){
-        public void handleMessage(Message msg){
-
-            String result = msg.getData().getString("RESULT");
-            Intent j = new Intent(SignupActivity.this,LoginActivity.class);
-            j.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            j.putExtra("mem_id",editTextID.getText().toString());
-            if(result.equals("success")){
-                Toast.makeText(SignupActivity.this, "성공", Toast.LENGTH_LONG).show();
-                pDialog.dismiss();
-                startActivity(j);
-                finish();
-            }else if(result.equals("fail_duplicate")){
-                Toast.makeText(SignupActivity.this, "동일한 아이디가 존재합니다.", Toast.LENGTH_LONG).show();
-                pDialog.dismiss();
-            }else{
-                Toast.makeText(SignupActivity.this, "실패", Toast.LENGTH_LONG).show();
-                pDialog.dismiss();
-            }
-        }
-    };
-*/
-    public ArrayList<PostingData> parse(InputStream input){
-        String result = null;
-        ArrayList<PostingData> postingDatas = new ArrayList<PostingData>();
-        try{
-            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-            XmlPullParser parser = factory.newPullParser();
-            parser.setInput(new InputStreamReader(input));
-            while(parser.next() != XmlPullParser.END_DOCUMENT){
-                /*String name = parser.getName();
-                if(name != null && name.equals("result")) //<result> </result> 태그
-                    result = parser.nextText();*/  //여기 수정하기~~ 아마도?
-            }
-        }catch(Exception e){e.printStackTrace();}
-        System.out.println(result);
-        return postingDatas;
-    }
 }
+
