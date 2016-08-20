@@ -88,6 +88,42 @@ public class AskContentActivity extends AppCompatActivity {
 
     }
 
+ private final Handler handler = new Handler(){
+        public void handleMessage(Message msg){
+
+            String result = msg.getData().getString("RESULT");
+         //   Intent j = new Intent(SignupActivity.this,LoginActivity.class);
+          //  j.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+         //   j.putExtra("mem_id",editTextID.getText().toString());
+            if(!result.equals("")){
+                Toast.makeText(AskContentActivity.this, "성공", Toast.LENGTH_LONG).show();
+                finish();
+            }else{
+                Toast.makeText(AskContentActivity.this, "실패", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        }
+    };
+
+    public String parsingData(InputStream input){
+        String result = null;
+        try{
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            XmlPullParser parser = factory.newPullParser();
+            parser.setInput(new InputStreamReader(input));
+            while(parser.next() != XmlPullParser.END_DOCUMENT){
+                String name = parser.getName();
+                if(name != null && name.equals("result")) //<result> </result> 태그
+                    result = parser.nextText();
+                //arrData.add(1,);
+            }
+        }catch(Exception e){e.printStackTrace();}
+        System.out.println(result);
+        return result;
+    }
+
+
+    /* setData()함수는 문의내용에 해당하는 댓글들 data 받아오기 */
     private void setData() {//레이아웃 크기에 맞게 글자수 제한할 것
         arrData = new ArrayList<CommentData>();
         arrData.add(new CommentData("설레임펜션", "2016.5.6","300,000원", " 3박4일 추천제주도 여행 계획중이신 분들에게 추천해드려요! 떠나요~둘이서 모든 것 훌훌버리고제주도 푸른밤 그별아래"));
@@ -97,8 +133,6 @@ public class AskContentActivity extends AppCompatActivity {
         arrData.add(new CommentData("서진펜션", "2016.5.6","500,000원", " 안녕하세요. 설레임펜션입니다. 2박하신다면 20만원에 해드리겠습니다. 연락주세요^^.  안녕하세요. 설레임펜션입니다. 2박하신다면 20만원에 해드리겠습니다. 연락주세요^^."));
         arrData.add(new CommentData("서진펜션", "2016.5.6","500,000원", " 안녕하세요. 설레임펜션입니다. 2박하신다면 20만원에 해드리겠습니다. 연락주세요^^.  안녕하세요. 설레임펜션입니다. 2박하신다면 20만원에 해드리겠습니다. 연락주세요^^."));
         arrData.add(new CommentData("설레임펜션", "2016.5.6","300,000원", " 3박4일 추천제주도 여행 계획중이신 분들에게 추천해드려요! 떠나요~둘이서 모든 것 훌훌버리고제주도 푸른밤 그별아래"));
-
-
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {

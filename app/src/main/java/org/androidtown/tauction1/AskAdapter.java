@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 /**
@@ -61,17 +62,16 @@ public class AskAdapter extends BaseAdapter {
         region_detail.setText(arrData.get(position).getRegion_detail());
 
         TextView day = (TextView)convertView.findViewById(R.id.day);
-        day.setText(arrData.get(position).getDay());
+        day.setText(MessageFormat.format("{0}~{1}", arrData.get(position).getAsk_startday().toString(), arrData.get(position).getAsk_endday().toString()));
 
         TextView price = (TextView)convertView.findViewById(R.id.price);
-        price.setText(arrData.get(position).getPrice());
+        price.setText(arrData.get(position).getAsk_budget());
 
         TextView people_num = (TextView)convertView.findViewById(R.id.people_num);
-        people_num.setText(arrData.get(position).getPeople_num());
+        people_num.setText(arrData.get(position).getAsk_num());
 
         TextView ask_commentNo = (TextView)convertView.findViewById(R.id.ask_commentNo);
         ask_commentNo.setText(arrData.get(position).getAsk_commentNo());
-
 
         return convertView;
     }
