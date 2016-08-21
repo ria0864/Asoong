@@ -1,6 +1,5 @@
 package org.androidtown.tauction1;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -48,6 +47,7 @@ public class FragmentB extends Fragment {
     Button btn_all, btn_busan, btn_seoul, btn_incheon, btn_gangwon, btn_jeju, btn_jeolla, btn_gyeongsang, btn_chungcheong;
 
     ProgressDialog pDialog;
+    String enter_name;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,6 +67,19 @@ public class FragmentB extends Fragment {
         btn_gyeongsang=(Button)rootView.findViewById(R.id.btn_gyeongsang);
         btn_chungcheong=(Button)rootView.findViewById(R.id.btn_chungcheong);
 
+        edit_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enter_name = edit_search.getText().toString();
+                //검색어 입력시
+                if(!enter_name.equals("")){
+                    System.out.println("검색누름!");
+                    enter_search();
+                    list.setAdapter(adapter);
+                }
+
+            }
+        });
         btn_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +92,7 @@ public class FragmentB extends Fragment {
                 //btn_all.setBackgroundResource(R.drawable.button_selected);
                 //btn_all.setTextColor(Color.WHITE);
 
+                System.out.println("Frag B all");
                 selectButton("all");
                 list.setAdapter(adapter);
             }
@@ -142,7 +156,7 @@ public class FragmentB extends Fragment {
 
         arrData = new ArrayList<MyData>();
         //리스트에 보여줄 데이터를 세팅한다.
-        selectButton("all");
+        //selectButton("all");
         //setData();
 
         //어댑터 생성
@@ -164,6 +178,41 @@ public class FragmentB extends Fragment {
         arrData.add(new MyData(R.drawable.sheraton_hotel, "3", "177","쉐라톤 그랜드 워커힐","서울특별시 광진구 워커힐로 177 쉐라톤워커힐호텔"));
     */
 
+    }
+
+    private void enter_search(){
+
+        pDialog = ProgressDialog.show(getContext(), "", "데이타 전송중..");
+
+        Thread workingThread = new Thread(){
+            @Override
+            public void run(){
+                String url = "http://52.78.101.183:8080/tauction/enter.jsp";
+                HttpClient client = new DefaultHttpClient();
+                try{
+                    ArrayList<NameValuePair> nameValuePairs =
+                            new ArrayList<NameValuePair>();
+                    nameValuePairs.add(new BasicNameValuePair("action","enter_search"));
+                    nameValuePairs.add(new BasicNameValuePair("enter_name",enter_name));
+                    //타임아웃
+                    HttpParams params = client.getParams();
+                    HttpConnectionParams.setConnectionTimeout(params, 2000);
+                    HttpConnectionParams.setSoTimeout(params, 2000);
+
+                    HttpPost httpPost = new HttpPost(url);
+                    UrlEncodedFormEntity entityRequest = new UrlEncodedFormEntity(nameValuePairs, "UTF-8");
+                    httpPost.setEntity(entityRequest);
+                    client.execute(httpPost, responseHandler);
+                }catch(Exception e){e.printStackTrace();}
+            }
+        };
+        workingThread.start(); //스레드 실행
+
+        try{
+            workingThread.join();
+        }catch (InterruptedException e){
+            e.printStackTrace();;
+        }
     }
     private void selectButton(final String selected_btn){//서버코드 넣기
         if(selected_btn.equals("all")){
@@ -238,26 +287,7 @@ public class FragmentB extends Fragment {
             btn_chungcheong.setTextColor(Color.BLACK);
         }
 
-        final ResponseHandler<String> responseHandler =  new ResponseHandler<String>(){
-            @Override
-            public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
 
-                String result = null;
-                HttpEntity entity = response.getEntity();
-                result = parsingData(entity.getContent());
-                //result = "success";
-                Message message = handler.obtainMessage();
-                Bundle bundle = new Bundle();
-
-                if(result.equals("success")) result="success";
-                else result="실패!";
-
-                bundle.putString("RESULT", result);
-                message.setData(bundle);
-                handler.sendMessage(message);
-                return result;
-            }
-        };
 
         pDialog = ProgressDialog.show(getContext(), "", "데이타 전송중..");
 
@@ -291,16 +321,34 @@ public class FragmentB extends Fragment {
             e.printStackTrace();;
         }
     }
+
+    final ResponseHandler<String> responseHandler =  new ResponseHandler<String>(){
+        @Override
+        public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
+
+            String result = null;
+            HttpEntity entity = response.getEntity();
+            result = parsingData(entity.getContent());
+            //result = "success";
+            Message message = handler.obtainMessage();
+            Bundle bundle = new Bundle();
+
+            if(result.equals("success")) result="success";
+            else result="실패!";
+
+            bundle.putString("RESULT", result);
+            message.setData(bundle);
+            handler.sendMessage(message);
+            return result;
+        }
+    };
+
     private final Handler handler = new Handler(){
         public void handleMessage(Message msg){
 
-            System.out.println("핸들러시작");
             String result = msg.getData().getString("RESULT");
-            //Intent j = new Intent(FragmentB.this,MainActivity.class);
-            //j.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            //j.putExtra("mem_id",editTextID.getText().toString());
             if(result.equals("success")){
-                Toast.makeText(getContext(), "성공", Toast.LENGTH_LONG).show();
+            //    Toast.makeText(getContext(), "성공", Toast.LENGTH_LONG).show();
                 pDialog.dismiss();
 
             }else{
@@ -331,7 +379,7 @@ public class FragmentB extends Fragment {
             System.out.println("action:"+r_split[0]);
             System.out.println("정보:"+r_split[1]);
 
-            if(r_split[0].equals("enter_rank_region")){
+            if(r_split[0].equals("enter_rank_region") | r_split[0].equals("enter_search")){
                 String[] token = r_split[1].split("\\$");
 
                 int i=1;
@@ -345,11 +393,13 @@ public class FragmentB extends Fragment {
                     arrData.add(new MyData(R.drawable.toscana, Integer.toString(i++),token2[2],token2[0],token2[1]));
                 }
                 return "success";
-            }else{
+            }else {
                 return "fail";
             }
         }catch(Exception e){e.printStackTrace();}
-        return "fail";
+        finally {
+            return "fail";
+        }
     }
 }
 

@@ -2,6 +2,7 @@ package org.androidtown.tauction1;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -106,6 +107,16 @@ public class PostingTextAdd extends AppCompatActivity {
                         String content = main.getText().toString();
                         Calendar calendar = Calendar.getInstance();
 
+                        if(title == null || content == null) {
+                            PostingTextAdd.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(PostingTextAdd.this, "빈칸이 있습니다.", Toast.LENGTH_LONG).show();
+                                    pDialog.dismiss();
+                                }
+                            });
+                            this.stop();
+                        }
                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                         String date = format.format(calendar.getTime());
                         int type = postSpinner.getSelectedItemPosition()+1;
@@ -114,11 +125,15 @@ public class PostingTextAdd extends AppCompatActivity {
                         String url = "http://52.78.101.183:8080/tauction/add_talkpost.jsp";
 
                         Intent intent = PostingTextAdd.this.getIntent();
+                        SharedPreferences setting = getSharedPreferences("setting",0);
+                        //mem_id = setting.getString("mem_id","Anonymous");
+
                         if(intent.hasExtra("mem_id")) {
                             mem_id = intent.getExtras().getString("mem_id");
                         } else {
                             mem_id = "Anonymous";
                         }
+
                         HttpClient client = new DefaultHttpClient();
                         try {
                             ArrayList<NameValuePair> nameValuePairs =
