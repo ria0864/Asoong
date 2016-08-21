@@ -82,11 +82,15 @@ public class PostingTextAdd extends AppCompatActivity {
                         Message message = handler.obtainMessage();
                         Bundle bundle = new Bundle();
 
-                        if (result.equals("success"))
+                        if (result.equals("success")) {
                             result = "success";
-                        else
+                        } else if(result.equals("no_login")) {
+                            result = "no_login";
+                        } else if(result.equals("no_posting")) {
+                            result = "no_posting";
+                        } else {
                             result = "fail";
-
+                        }
                         bundle.putString("RESULT", result);
                         message.setData(bundle);
                         handler.sendMessage(message);
@@ -105,7 +109,6 @@ public class PostingTextAdd extends AppCompatActivity {
                         Calendar calendar = Calendar.getInstance();
 
                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                        //String date = calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE);
                         String date = format.format(calendar.getTime());
                         int type = postSpinner.getSelectedItemPosition()+1;
                         String strType = TalkPostingData.getTypeToString(type);
@@ -157,6 +160,10 @@ public class PostingTextAdd extends AppCompatActivity {
             //j.putExtra("mem_id",editTextID.getText().toString());
             if(result.equals("success")){
                 Toast.makeText(PostingTextAdd.this, "성공", Toast.LENGTH_LONG).show();
+                pDialog.dismiss();
+                finish();
+            }   else if(result.equals("no_login")) {
+                Toast.makeText(PostingTextAdd.this, "로그인이 필요합니다.", Toast.LENGTH_LONG).show();
                 pDialog.dismiss();
                 finish();
             }   else{
