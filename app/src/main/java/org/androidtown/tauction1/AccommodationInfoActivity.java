@@ -1,5 +1,6 @@
 package org.androidtown.tauction1;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.app.ProgressDialog;
@@ -63,9 +64,9 @@ public class AccommodationInfoActivity extends AppCompatActivity {
     Button btn_register;
 
     ListView list;
-    MyAdapterReview adapter;
     private ArrayList<MyData> arrData;
     ArrayList<MyDataReview> arrDataReview;
+    MyAdapterReview adapter;
 
     ScrollView mScrollView;
     ProgressDialog pDialog;
@@ -130,8 +131,7 @@ public class AccommodationInfoActivity extends AppCompatActivity {
                 edt_review.setText("");
                 Toast.makeText(getApplicationContext(), "후기가 등록되었습니다.", Toast.LENGTH_LONG).show();
                 get_review();
-                list.invalidate();
-               // list.setAdapter(adapter);
+                //list.setAdapter(adapter);후기새로고침안대ㅜㅜㅜㅜㅜ허우ㅜㅜㅜㅜ
             }
         });
 
@@ -203,30 +203,10 @@ public class AccommodationInfoActivity extends AppCompatActivity {
         });
     }
     */
-
     private void add_review(String review){
         contents = review;
         System.out.println(contents);
-        final ResponseHandler<String> responseHandler =  new ResponseHandler<String>(){
-            @Override
-            public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
 
-                String result = null;
-                HttpEntity entity = response.getEntity();
-                result = parsingData(entity.getContent());
-                //result = "success";
-                Message message = handler.obtainMessage();
-                Bundle bundle = new Bundle();
-
-                if(result.equals("success")) result="success";
-                else result="실패!";
-
-                bundle.putString("RESULT", result);
-                message.setData(bundle);
-                handler.sendMessage(message);
-                return result;
-            }
-        };
 
         new Thread(){
             @Override
@@ -258,26 +238,6 @@ public class AccommodationInfoActivity extends AppCompatActivity {
         }else{
             like = "unlike";
         }
-        final ResponseHandler<String> responseHandler =  new ResponseHandler<String>(){
-            @Override
-            public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
-
-                String result = null;
-                HttpEntity entity = response.getEntity();
-                result = parsingData(entity.getContent());
-                //result = "success";
-                Message message = handler.obtainMessage();
-                Bundle bundle = new Bundle();
-
-                if(result.equals("success")) result="success";
-                else result="실패!";
-
-                bundle.putString("RESULT", result);
-                message.setData(bundle);
-                handler.sendMessage(message);
-                return result;
-            }
-        };
 
         new Thread(){
             @Override
@@ -305,26 +265,6 @@ public class AccommodationInfoActivity extends AppCompatActivity {
     }
 
     private void get_review() {
-        final ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
-            @Override
-            public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
-
-                String result = null;
-                HttpEntity entity = response.getEntity();
-                result = parsingData(entity.getContent());
-                //result = "success";
-                Message message = handler.obtainMessage();
-                Bundle bundle = new Bundle();
-
-                if (result.equals("success")) result = "success";
-                else result = "실패!";
-
-                bundle.putString("RESULT", result);
-                message.setData(bundle);
-                handler.sendMessage(message);
-                return result;
-            }
-        };
 
         //     pDialog = ProgressDialog.show(getBaseContext(), "", "데이타 전송중..");
 
@@ -358,28 +298,6 @@ public class AccommodationInfoActivity extends AppCompatActivity {
         }
     }
     private void go_server(){
-        final ResponseHandler<String> responseHandler =  new ResponseHandler<String>(){
-            @Override
-            public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
-
-                String result = null;
-                HttpEntity entity = response.getEntity();
-                result = parsingData(entity.getContent());
-                //result = "success";
-                Message message = handler.obtainMessage();
-                Bundle bundle = new Bundle();
-
-                if(result.equals("success")) result="success";
-                else result="실패!";
-
-                bundle.putString("RESULT", result);
-                message.setData(bundle);
-                handler.sendMessage(message);
-                return result;
-            }
-        };
-
-   //     pDialog = ProgressDialog.show(getBaseContext(), "", "데이타 전송중..");
 
         Thread workingThread = new Thread(){
             @Override
@@ -434,6 +352,28 @@ public class AccommodationInfoActivity extends AppCompatActivity {
         }
 
     }
+
+    final ResponseHandler<String> responseHandler =  new ResponseHandler<String>(){
+        @Override
+        public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
+
+            String result = null;
+            HttpEntity entity = response.getEntity();
+            result = parsingData(entity.getContent());
+            //result = "success";
+            Message message = handler.obtainMessage();
+            Bundle bundle = new Bundle();
+
+            if(result.equals("success")) result="success";
+            else result="실패!";
+
+            bundle.putString("RESULT", result);
+            message.setData(bundle);
+            handler.sendMessage(message);
+            return result;
+        }
+    };
+
     private final Handler handler = new Handler(){
         public void handleMessage(Message msg){
 
