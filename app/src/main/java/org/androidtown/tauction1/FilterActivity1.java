@@ -22,6 +22,7 @@ import java.util.Calendar;
 
 /**
  * Created by 14Z950 on 2016-07-28.
+ *지역검색 필터
  */
 public class FilterActivity1 extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
@@ -42,6 +43,8 @@ public class FilterActivity1 extends AppCompatActivity implements RadioGroup.OnC
     TextView sTextView;
 
     ImageButton btn_back;
+
+    String reg_name, enter_type, enter_convin, enter_pay;
 
 
     @Override
@@ -67,6 +70,7 @@ public class FilterActivity1 extends AppCompatActivity implements RadioGroup.OnC
             @Override
             public void onItemSelected(AdapterView<?>parentView, View selectedView, int position, long id){
                 printChecked(selectedView,position);
+                System.out.println("spinner리스너"+position+" id:"+id);
             }
 
             @Override
@@ -78,35 +82,23 @@ public class FilterActivity1 extends AppCompatActivity implements RadioGroup.OnC
             @Override
             public void onItemSelected(AdapterView<?>parentView, View selectedView, int position, long id){
                 printChecked(selectedView,position);
+                System.out.println("spinnerhotel리스너"+position+" id:"+id);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {           }
         } );
 
 
-        tv=(TextView)findViewById(R.id.goodPlace);
+        tv=(TextView)findViewById(R.id.goodPlace);//편의시설
         findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 choice=0;
                 showDialog(DIALOG_MULTICHOICE);
-
+                System.out.println("이건편의시설다이얼로그 띠우기");
             }
         });
-
-
-
-
-
-
-
-
-
-
-
 
         SeekBar seek_bar =(SeekBar)findViewById(R.id.seekBar);
         sTextView = (TextView)findViewById(R.id.text_value);
@@ -118,6 +110,8 @@ public class FilterActivity1 extends AppCompatActivity implements RadioGroup.OnC
 
                 // To Do
                 sTextView.setText(progress + "만원");
+                System.out.println("progress:"+progress);
+
 
             }
 
@@ -245,6 +239,11 @@ public class FilterActivity1 extends AppCompatActivity implements RadioGroup.OnC
                             @Override
                             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                                 checked[which] = isChecked;
+                                //취소하면 취소되야하는뎅...
+                                checked[0] = false;
+                                checked[1] = false;
+                                checked[2] = false;
+                                checked[3] = false;
                             }
                         });
                 return builder.create();
