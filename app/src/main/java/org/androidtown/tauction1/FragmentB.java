@@ -1,6 +1,5 @@
 package org.androidtown.tauction1;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -79,6 +78,7 @@ public class FragmentB extends Fragment {
                 //btn_all.setBackgroundResource(R.drawable.button_selected);
                 //btn_all.setTextColor(Color.WHITE);
 
+                System.out.println("Frag B all");
                 selectButton("all");
                 list.setAdapter(adapter);
             }
@@ -142,7 +142,7 @@ public class FragmentB extends Fragment {
 
         arrData = new ArrayList<MyData>();
         //리스트에 보여줄 데이터를 세팅한다.
-        selectButton("all");
+        //selectButton("all");
         //setData();
 
         //어댑터 생성
@@ -345,7 +345,9 @@ public class FragmentB extends Fragment {
                 return "fail";
             }
         }catch(Exception e){e.printStackTrace();}
-        return "fail";
+        finally {
+            return "fail";
+        }
     }
 }
 

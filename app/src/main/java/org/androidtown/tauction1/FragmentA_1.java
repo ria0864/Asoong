@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -524,7 +523,7 @@ public class FragmentA_1 extends Fragment{
             if (list != null) {
                 list.setAdapter(adapter);
             } else {
-                list = (ListView) rootView.findViewById(R.id.list_posting);
+                list = (ListView) rootView.findViewById(R.id.list_accommodation_region);
                 list.setAdapter(adapter);
             }
         }
