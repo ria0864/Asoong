@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
 
     <LinearLayout
+        android:id="@+id/li2"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#ffffff"
         android:gravity="center_vertical">
         <ImageButton
-            android:id="@+id/btn_back"
+            android:id="@+id/goFragment5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back"
@@ -27,74 +28,86 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:layout_below="@+id/li2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
         android:layout_gravity="center"
         android:paddingTop="5dp"
         android:paddingBottom="5dp">
 
         <TextView
-            android:layout_width="55dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="제목"
             android:id="@+id/title"
-            android:textSize="20dp"
-            android:textAlignment="center"
             android:layout_gravity="center_vertical" />
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_weight="0.85"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:id="@+id/editText"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/edittext_conner"
+            android:layout_gravity="center_vertical"
+            android:background="@null"
             android:layout_marginRight="10dp" />
     </LinearLayout>
-
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:src="@drawable/bar"/>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_gravity="center"
         android:paddingTop="5dp">
 
         <TextView
-            android:layout_width="78dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="게시판"
             android:id="@+id/board"
-            android:textSize="20dp"
-            android:textAlignment="center"
             android:layout_gravity="center_vertical" />
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:id="@+id/spinneraddpost">
 
     </Spinner>
 </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bar"/>
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="330dp"
         android:id="@+id/main"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/edittext_conner"
-        android:layout_marginRight="10dp"
-        android:layout_weight="0.85"
-        android:layout_margin="10dp" />
-
+        android:layout_marginTop="10dp"
+        android:hint="내용을 입력해주세요."
+        android:background="@null"
+        android:layout_gravity="top"
+        android:gravity="top"
+        android:foregroundGravity="top"
+        />
+    </LinearLayout>
     <Button
         android:id="@+id/ok_button"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="톡등록!"
-        android:buttonTint="@color/colorRadio"
-        android:textColor="#ffffff"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginTop="16dp"
+        android:textSize="20dp"
+        android:background="#d84180"
+        android:textColor="#ffffffff"
+        android:text="등록하기"
+        />
 
-</LinearLayout>
+</RelativeLayout>
