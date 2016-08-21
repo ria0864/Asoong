@@ -39,9 +39,10 @@ public class MyViewPagerAdapter extends FragmentStatePagerAdapter {
                 FragmentB fragmentB=new FragmentB();
                 return fragmentB;
             case 2:
-                if(pageNum==1) {
+                if(pageNum > 0 && pageNum < 5) {
                     FragmentC_1 fragmentC_1 = new FragmentC_1();
                     //isNext=false;
+                    fragmentC_1.setType(pageNum);
                     return fragmentC_1;
                 }
                 else {

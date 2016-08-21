@@ -57,7 +57,7 @@
             android:layout_width="78dp"
             android:layout_height="wrap_content"
             android:text="헬륨이"
-            android:id="@+id/board"
+            android:id="@+id/mem_id"
             android:textSize="20dp"
             android:textAlignment="center"
             android:layout_gravity="center_vertical"
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2016.07.20."
-            android:id="@+id/textView3"
+            android:id="@+id/date"
             android:textSize="20dp"
             android:textAlignment="center"
             android:layout_weight="0.05" />
@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:text="항공권이나 숙박, 프로모션 이용하면 일반적으로 가는 것보다 저렴하게 갈 수 있어요.
 네이버에 검색해보면 여러 사이트가 나오는데 돌아보시면 할인 정보도 많이 얻을 수 있고 가격비교도 쉬워서 좋더라구요 "
-        android:id="@+id/textView4"
+        android:id="@+id/content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.47"
         android:layout_margin="5dp"
