@@ -116,6 +116,7 @@ public class FragmentC_1 extends Fragment{
                         String talkpost_date = "";
                         String talkpost_title = searchTitle.getText().toString();
                         String mem_id = "";
+                        String result = "success";
                         HttpEntity entity = response.getEntity();
 
                         try {
@@ -146,6 +147,8 @@ public class FragmentC_1 extends Fragment{
                                             talkpost_title = parser.nextText();
                                         } else if (tagName != null && tagName.equals("mem_id")) {
                                             mem_id = parser.nextText();
+                                        } else if (tagName != null && tagName.equals("result")) {
+                                            result = parser.nextText();
                                         } else break;
                                     case XmlPullParser.END_TAG:
                                         tagName = parser.getName();
@@ -160,6 +163,8 @@ public class FragmentC_1 extends Fragment{
                             e.printStackTrace();
                         }
 
+                        result = sendMessage(result);
+
                         FragmentC_1.this.getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -167,7 +172,7 @@ public class FragmentC_1 extends Fragment{
                             }
                         });
 
-                        return "success";
+                        return result;
                     }
                 };
 
@@ -337,19 +342,7 @@ public class FragmentC_1 extends Fragment{
                         }
                 }catch(Exception e){e.printStackTrace();}
 
-                Message message = handler.obtainMessage();
-                Bundle bundle = new Bundle();
-
-                if (result.equals("success")) {
-                    result = "success";
-                } else if(result.equals("no_posting")) {
-                    result = "no_posting";
-                } else {
-                    result = "fail";
-                }
-                bundle.putString("RESULT", result);
-                message.setData(bundle);
-                handler.sendMessage(message);
+                result = sendMessage(result);
 
                 FragmentC_1.this.getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -442,4 +435,23 @@ public class FragmentC_1 extends Fragment{
             }
         }
     };
+
+    private String sendMessage(String result) {
+        Message message = handler.obtainMessage();
+        Bundle bundle = new Bundle();
+        String res = result;
+
+        if (result.equals("success")) {
+            res = "success";
+        } else if(result.equals("no_posting")) {
+            res = "no_posting";
+        } else {
+            res = "fail";
+        }
+        bundle.putString("RESULT", res);
+        message.setData(bundle);
+        handler.sendMessage(message);
+
+        return res;
+    }
 }
