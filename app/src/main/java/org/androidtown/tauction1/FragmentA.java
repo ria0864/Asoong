@@ -41,13 +41,14 @@ public class FragmentA extends Fragment {
             public void onClick(View v) {
                 //Activity root = getActivity(); //이 클래스가 프레그먼트이기 때문에 액티비티 정보를 얻는다.
                 Toast.makeText(getActivity(), "부산 클릭", Toast.LENGTH_SHORT).show();
+                System.out.println("부산클립했다고");
                 ((MainActivity)getActivity()).setViewPage(0,1);
             }
         });
         seoul.setOnClickListener(new View.OnClickListener() {//서울여행 문의 클릭
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getActivity(), "서울 클릭", Toast.LENGTH_SHORT).show();
 
             }
         });
