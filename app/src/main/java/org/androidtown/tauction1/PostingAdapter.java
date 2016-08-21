@@ -1,5 +1,5 @@
 package org.androidtown.tauction1;
-// 데이터 서버에서 받아오고, 이 객체에서
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -8,10 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;

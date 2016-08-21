@@ -31,6 +31,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -101,18 +102,21 @@ public class PostingTextAdd extends AppCompatActivity {
                         String title = editText.getText().toString();
                         String content = main.getText().toString();
                         Calendar calendar = Calendar.getInstance();
-                        String date = calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE);
-                        int type = postSpinner.getSelectedItemPosition();
+
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                        //String date = calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.DATE);
+                        String date = format.format(calendar.getTime());
+                        int type = postSpinner.getSelectedItemPosition()+1;
+                        String strType = TalkPostingData.getTypeToString(type);
 
                         String url = "http://52.78.101.183:8080/tauction/add_talkpost.jsp";
                         HttpClient client = new DefaultHttpClient();
                         try {
-                            String strType;
                             ArrayList<NameValuePair> nameValuePairs =
                                     new ArrayList<NameValuePair>();
 
                             nameValuePairs.add(new BasicNameValuePair("action", "addTalkPosting"));
-                            nameValuePairs.add(new BasicNameValuePair("type", getTypeToString(type)));
+                            nameValuePairs.add(new BasicNameValuePair("type", strType));
                             nameValuePairs.add(new BasicNameValuePair("date", date));
                             nameValuePairs.add(new BasicNameValuePair("title", title));
                             nameValuePairs.add(new BasicNameValuePair("content", content));
@@ -155,27 +159,6 @@ public class PostingTextAdd extends AppCompatActivity {
         }
     };
 
-    private String getTypeToString(int type) {
-        String strType = "none";
-        switch(type) {
-            case 1:
-                strType = "mate";
-                break;
-            case 2:
-                strType = "tip";
-                break;
-            case 3:
-                strType = "free";
-                break;
-            case 4:
-                strType = "event";
-                break;
-            default:
-                break;
-        }
-        return strType;
-    }
-
     public String parsingData(InputStream input){
         String result = null;
         try{
@@ -184,7 +167,6 @@ public class PostingTextAdd extends AppCompatActivity {
             InputStreamReader isreader = new InputStreamReader(input,"EUC-KR");
             parser.setInput(isreader);
             int eventType = parser.getEventType();
-            System.out.println("start while");
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 String tagName;
                 String name = parser.getName();
