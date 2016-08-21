@@ -1,12 +1,10 @@
 package org.androidtown.tauction1;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -57,8 +55,7 @@ public class AskListAdapter extends BaseAdapter {
         }
         SimpleDateFormat tr = new SimpleDateFormat("yyyy-MM-dd");
         TextView day = (TextView)convertView.findViewById(R.id.day);
-        day.setText(tr.format(arrData.get(position).getAsk_startday()+tr.format(arrData.get(position).getAsk_endday())));
-
+        day.setText(tr.format(arrData.get(position).getAsk_startday()) + "~" +  tr.format(arrData.get(position).getAsk_endday()));
         TextView price = (TextView)convertView.findViewById(R.id.price);
         price.setText(arrData.get(position).getAsk_budget()+" 원");
 

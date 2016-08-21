@@ -154,6 +154,7 @@ public class FragmentA_1 extends Fragment{
 
         //어댑터 연결
         attachAdapter();
+        setDataByType();
 
         //리스트뷰에 클릭 리스터 연결
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() { // 게시물 보기

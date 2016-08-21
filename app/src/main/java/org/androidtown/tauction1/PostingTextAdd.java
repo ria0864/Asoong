@@ -107,16 +107,6 @@ public class PostingTextAdd extends AppCompatActivity {
                         String content = main.getText().toString();
                         Calendar calendar = Calendar.getInstance();
 
-                        if(title == null || content == null) {
-                            PostingTextAdd.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(PostingTextAdd.this, "빈칸이 있습니다.", Toast.LENGTH_LONG).show();
-                                    pDialog.dismiss();
-                                }
-                            });
-                            this.stop();
-                        }
                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                         String date = format.format(calendar.getTime());
                         int type = postSpinner.getSelectedItemPosition()+1;
