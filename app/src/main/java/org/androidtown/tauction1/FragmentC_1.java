@@ -88,8 +88,12 @@ public class FragmentC_1 extends Fragment{
         textaddbtn = (Button)rootView.findViewById(R.id.btn_addPosting);
         textaddbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(),PostingTextAdd.class)); // 게시물 쓰기
+            public void onClick(View v) { // 게시물 쓰기
+                Intent intent = new Intent(getActivity(),PostingTextAdd.class);
+                if(((MainActivity) getActivity()).getMemId() != null){
+                    intent.putExtra("mem_id", ((MainActivity) getActivity()).getMemId());
+                }
+                startActivity(intent);
             }
         });
 

@@ -1,6 +1,7 @@
 package org.androidtown.tauction1;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -108,8 +109,15 @@ public class PostingTextAdd extends AppCompatActivity {
                         String date = format.format(calendar.getTime());
                         int type = postSpinner.getSelectedItemPosition()+1;
                         String strType = TalkPostingData.getTypeToString(type);
-
+                        String mem_id;
                         String url = "http://52.78.101.183:8080/tauction/add_talkpost.jsp";
+
+                        Intent intent = PostingTextAdd.this.getIntent();
+                        if(intent.hasExtra("mem_id")) {
+                            mem_id = intent.getExtras().getString("mem_id");
+                        } else {
+                            mem_id = "Anonymous";
+                        }
                         HttpClient client = new DefaultHttpClient();
                         try {
                             ArrayList<NameValuePair> nameValuePairs =
@@ -120,8 +128,7 @@ public class PostingTextAdd extends AppCompatActivity {
                             nameValuePairs.add(new BasicNameValuePair("date", date));
                             nameValuePairs.add(new BasicNameValuePair("title", title));
                             nameValuePairs.add(new BasicNameValuePair("content", content));
-                            //nameValuePairs.add(new BasicNameValuePair("mem_no", content));
-                            //nameValuePairs.add(new BasicNameValuePair("mem_id", content));
+                            nameValuePairs.add(new BasicNameValuePair("mem_id", mem_id));
 
                             //타임아웃
                             HttpParams params = client.getParams();
