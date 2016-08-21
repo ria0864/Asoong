@@ -8,14 +8,18 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
+import android.widget.ToggleButton;
 
 
 import java.util.ArrayList;
@@ -28,6 +32,11 @@ public class AccommodationInfoActivity extends AppCompatActivity {
 
     ImageButton btn_back;
 
+    ToggleButton toggle_like;
+    TextView location_info, tel_info, like_number, introInfo;
+    EditText edt_review;
+    Button btn_register;
+
     ListView list;
     MyAdapterReview adapter;
     private ArrayList<MyData> arrData;
@@ -38,6 +47,14 @@ public class AccommodationInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        toggle_like = (ToggleButton)findViewById(R.id.toggle_like); //업체 좋아요 토글버튼. 누르면 즐겨찾기에 추가됨
+        location_info = (TextView)findViewById(R.id.location_info) ; //주소
+        tel_info = (TextView)findViewById(R.id.tel_info); //전화번호
+        like_number = (TextView)findViewById(R.id.like_number); //업체 좋아요 수
+        introInfo = (TextView)findViewById(R.id.introInfo); //인사말
+        edt_review = (EditText)findViewById(R.id.edt_review); //리뷰 editText
+        btn_register = (Button)findViewById(R.id.btn_register); // 리뷰 등록 버튼
 
         Intent i = getIntent();
         String image = i.getExtras().getString("image");
@@ -110,7 +127,7 @@ public class AccommodationInfoActivity extends AppCompatActivity {
         }
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight - (listView.getDividerHeight() * (listAdapter.getCount() - 1)*30);
-        Log.d("MyLog",""+ totalHeight);
+        //Log.d("MyLog",""+ totalHeight);
         listView.setLayoutParams(params);
         listView.requestLayout();
     }
