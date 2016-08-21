@@ -53,13 +53,7 @@ public class MyAdapter extends BaseAdapter{
                 context = v.getContext();
                 Intent intent = new Intent(context, AccommodationInfoActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("image", arrData.get(position).getImage());
                 intent.putExtra("name", arrData.get(position).getName());
-                intent.putExtra("like", arrData.get(position).getLike_num());
-                intent.putExtra("addr", arrData.get(position).getAddress());
-            //    intent.putExtra("mydata",arrData);
-                //v.getContext().startActivity(intent);
-                //startActivityForResult(intent, 1);
                 context.startActivity(intent);
             }
         });

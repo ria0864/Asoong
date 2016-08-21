@@ -1,7 +1,11 @@
 package org.androidtown.tauction1;
 
+import android.content.SharedPreferences;
+import android.app.ProgressDialog;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,6 +26,24 @@ import android.content.Intent;
 import android.widget.ToggleButton;
 
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +54,9 @@ public class AccommodationInfoActivity extends AppCompatActivity {
 
     ImageButton btn_back;
 
+    ImageView image_info;
     ToggleButton toggle_like;
-    TextView location_info, tel_info, like_number, introInfo;
+    TextView name_info, location_info, tel_info, like_number, introInfo;
     EditText edt_review;
     Button btn_register;
 
@@ -43,11 +66,16 @@ public class AccommodationInfoActivity extends AppCompatActivity {
     ArrayList<MyDataReview> arrDataReview;
 
     ScrollView mScrollView;
+    ProgressDialog pDialog;
+    String name,mem_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_accommodation_info);
 
+        image_info = (ImageView)findViewById(R.id.acco_image);
+        name_info = (TextView)findViewById(R.id.name);
         toggle_like = (ToggleButton)findViewById(R.id.toggle_like); //업체 좋아요 토글버튼. 누르면 즐겨찾기에 추가됨
         location_info = (TextView)findViewById(R.id.location_info) ; //주소
         tel_info = (TextView)findViewById(R.id.tel_info); //전화번호
@@ -57,16 +85,28 @@ public class AccommodationInfoActivity extends AppCompatActivity {
         btn_register = (Button)findViewById(R.id.btn_register); // 리뷰 등록 버튼
 
         Intent i = getIntent();
-        String image = i.getExtras().getString("image");
-        String name = i.getExtras().getString("name");
-        String like = i.getExtras().getString("like");
-        String addr = i.getExtras().getString("addr");
+//        String image = i.getExtras().getString("image");
+        name = i.getExtras().getString("name");
+        SharedPreferences setting = getSharedPreferences("setting", 0);
+        System.out.println("이게바로 내아이디여야해"+setting.getString("mem_id",null));
 
-       // arrData = (ArrayList<MyData>) i.getExtras().get("mydata");
-        //arrData.get(Integer.parseInt(rank));
+//        SaveClass saveClass = (SaveClass)getApplication();
+//        saveClass.setId(pref.getString("ID", null));
+ //       userid = saveClass.getId(); 	//id 불러옴
 
-        setContentView(R.layout.activity_accommodation_info);
-        //setContentView((R.layout)image); 이미지가 int형이다
+
+
+
+
+
+        //이 유저가 즐찾했는지 안했는지 서버에서 받아와야함
+        //업체 리뷰정보도 받아와야
+        go_server();
+
+        //이미지도 받아와야해 근데 이미지 int형
+//        toggle_like.setChecked(true);
+
+
 
         btn_back=(ImageButton)findViewById(R.id.btn_back);
         btn_back.setOnClickListener(new View.OnClickListener() {
@@ -144,5 +184,179 @@ public class AccommodationInfoActivity extends AppCompatActivity {
         });
     }
     */
+
+    private void go_server(){
+        final ResponseHandler<String> responseHandler =  new ResponseHandler<String>(){
+            @Override
+            public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
+
+                String result = null;
+                HttpEntity entity = response.getEntity();
+                result = parsingData(entity.getContent());
+                //result = "success";
+                Message message = handler.obtainMessage();
+                Bundle bundle = new Bundle();
+
+                if(result.equals("success")) result="success";
+                else result="실패!";
+
+                bundle.putString("RESULT", result);
+                message.setData(bundle);
+                handler.sendMessage(message);
+                return result;
+            }
+        };
+
+     //   pDialog = ProgressDialog.show(this.getApplicationContext(), "", "데이타 전송중..");
+
+        Thread workingThread = new Thread(){
+            @Override
+            public void run(){
+                String url = "http://52.78.101.183:8080/tauction/enter.jsp";
+                HttpClient client = new DefaultHttpClient();
+                try{
+                    ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                    nameValuePairs.add(new BasicNameValuePair("action","get_enter_info"));
+                    nameValuePairs.add(new BasicNameValuePair("enter_name",name));
+                    //타임아웃
+                    HttpParams params = client.getParams();
+                    HttpConnectionParams.setConnectionTimeout(params, 2000);
+                    HttpConnectionParams.setSoTimeout(params, 2000);
+
+                    HttpPost httpPost = new HttpPost(url);
+                    UrlEncodedFormEntity entityRequest = new UrlEncodedFormEntity(nameValuePairs, "UTF-8");
+                    httpPost.setEntity(entityRequest);
+                    client.execute(httpPost, responseHandler);
+                }catch(Exception e){e.printStackTrace();}
+            }
+        };
+        workingThread.start(); //스레드 실행
+        Thread workingThread2 = new Thread(){
+            @Override
+            public void run(){
+                String url = "http://52.78.101.183:8080/tauction/enter.jsp";
+                HttpClient client = new DefaultHttpClient();
+                try{
+                    ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                    nameValuePairs.add(new BasicNameValuePair("action","enter_like"));
+                    nameValuePairs.add(new BasicNameValuePair("mem_id",mem_id));
+                    //타임아웃
+                    HttpParams params = client.getParams();
+                    HttpConnectionParams.setConnectionTimeout(params, 2000);
+                    HttpConnectionParams.setSoTimeout(params, 2000);
+
+                    HttpPost httpPost = new HttpPost(url);
+                    UrlEncodedFormEntity entityRequest = new UrlEncodedFormEntity(nameValuePairs, "UTF-8");
+                    httpPost.setEntity(entityRequest);
+                    client.execute(httpPost, responseHandler);
+                }catch(Exception e){e.printStackTrace();}
+            }
+        };
+ //       workingThread2.start(); //스레드 실행
+        Thread workingThread3 = new Thread(){
+            @Override
+            public void run(){
+                String url = "http://52.78.101.183:8080/tauction/enter.jsp";
+                HttpClient client = new DefaultHttpClient();
+                try{
+                    ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                    nameValuePairs.add(new BasicNameValuePair("action","enter_rank_region"));
+                    nameValuePairs.add(new BasicNameValuePair("reg_name",name));
+                    //타임아웃
+                    HttpParams params = client.getParams();
+                    HttpConnectionParams.setConnectionTimeout(params, 2000);
+                    HttpConnectionParams.setSoTimeout(params, 2000);
+
+                    HttpPost httpPost = new HttpPost(url);
+                    UrlEncodedFormEntity entityRequest = new UrlEncodedFormEntity(nameValuePairs, "UTF-8");
+                    httpPost.setEntity(entityRequest);
+                    client.execute(httpPost, responseHandler);
+                }catch(Exception e){e.printStackTrace();}
+            }
+        };
+//        workingThread3.start(); //스레드 실행
+
+        try{
+            workingThread.join();
+   //         workingThread2.join();
+    //        workingThread3.join();
+        }catch (InterruptedException e){
+            e.printStackTrace();;
+        }
+
+    }
+    private final Handler handler = new Handler(){
+        public void handleMessage(Message msg){
+
+            String result = msg.getData().getString("RESULT");
+            //Intent j = new Intent(FragmentB.this,MainActivity.class);
+            //j.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            //j.putExtra("mem_id",editTextID.getText().toString());
+            if(result.equals("success")){
+                Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_LONG).show();
+   //             pDialog.dismiss();
+
+            }else{
+                Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_LONG).show();
+    //            pDialog.dismiss();
+            }
+        }
+    };
+
+    public String parsingData(InputStream input){
+        String result = null;
+        System.out.println("데이터파싱시작");
+        try{
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            XmlPullParser parser = factory.newPullParser();
+            parser.setInput(new InputStreamReader(input));
+            while(parser.next() != XmlPullParser.END_DOCUMENT){
+                String name = parser.getName();
+                if(name != null && name.equals("result")) //<result> </result> 태그
+                    result = parser.nextText();
+            }
+
+            System.out.println("서버에서 받아온 결과:"+result);
+            //success/기|업|정|보$기|업|정|보
+            //success/즐찾
+            //success/리뷰
+
+            String[] r_split = result.split("\\/");
+            System.out.println("action:"+r_split[0]);
+            System.out.println("정보:"+r_split[1]);
+
+            if(r_split[0].equals("get_enter_info")){
+                String[] token = r_split[1].split("\\$");
+
+                for(String str : token){
+                    String[] token2 = str.split("\\|");
+
+                    System.out.println(token2[0]);
+                    System.out.println(token2[1]);
+                    System.out.println(token2[2]);
+                    System.out.println(token2[3]);
+                    System.out.println(token2[4]);
+/*                    name = token2[0];
+                    addr = token2[1];
+                    phone = token2[2];
+                    like = token2[3];
+                    intro = token2[4];*/
+                    name_info.setText(token2[0]);
+                    location_info.setText(token2[1]);
+                    tel_info.setText(token2[2]);
+                    like_number.setText(token2[3]);
+                    introInfo.setText(token2[4]);
+
+                }
+                return "success";
+            }else if(r_split[0].equals("enter_rank_region")){
+
+            }else if(r_split[0].equals("enter_rank_region")){
+
+            }else  return "fail";
+
+        }catch(Exception e){e.printStackTrace();}
+        return "fail";
+    }
 
 }

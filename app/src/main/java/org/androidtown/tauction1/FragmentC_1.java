@@ -2,6 +2,8 @@ package org.androidtown.tauction1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -113,6 +116,7 @@ public class FragmentC_1 extends Fragment{
                         String talkpost_date = "";
                         String talkpost_title = searchTitle.getText().toString();
                         String mem_id = "";
+                        String result = "success";
                         HttpEntity entity = response.getEntity();
 
                         try {
@@ -143,6 +147,8 @@ public class FragmentC_1 extends Fragment{
                                             talkpost_title = parser.nextText();
                                         } else if (tagName != null && tagName.equals("mem_id")) {
                                             mem_id = parser.nextText();
+                                        } else if (tagName != null && tagName.equals("result")) {
+                                            result = parser.nextText();
                                         } else break;
                                     case XmlPullParser.END_TAG:
                                         tagName = parser.getName();
@@ -157,14 +163,16 @@ public class FragmentC_1 extends Fragment{
                             e.printStackTrace();
                         }
 
+                        result = sendMessage(result);
+
                         FragmentC_1.this.getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                attachAdapter();
+                                FragmentC_1.this.attachAdapter();
                             }
                         });
 
-                        return "success";
+                        return result;
                     }
                 };
 
@@ -179,7 +187,7 @@ public class FragmentC_1 extends Fragment{
         });
 
         //어댑터 연결
-        attachAdapter();
+        FragmentC_1.this.attachAdapter();
 
         //리스트뷰에 클릭 리스터 연결
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() { // 게시물 보기
@@ -281,6 +289,7 @@ public class FragmentC_1 extends Fragment{
                 String talkpost_date = "";
                 String talkpost_title = "";
                 String mem_id = "";
+                String result = "success";
                 HttpEntity entity = response.getEntity();
 
                 try{
@@ -316,6 +325,9 @@ public class FragmentC_1 extends Fragment{
                                             case "mem_id":
                                                 mem_id = parser.nextText();
                                                 break;
+                                            case "result":
+                                                result = parser.nextText();
+                                                break;
                                         }
                                     }
                                     break;
@@ -330,13 +342,15 @@ public class FragmentC_1 extends Fragment{
                         }
                 }catch(Exception e){e.printStackTrace();}
 
+                result = sendMessage(result);
+
                 FragmentC_1.this.getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        attachAdapter();
+                        FragmentC_1.this.attachAdapter();
                     }
                 });
-                return "success";
+                return result;
             }
         };
 
@@ -400,5 +414,44 @@ public class FragmentC_1 extends Fragment{
                 list.setAdapter(adapter);
             }
         }
+    }
+
+    private final Handler handler = new Handler(){
+        public void handleMessage(Message msg){
+
+            String result = msg.getData().getString("RESULT");
+            //Intent j = new Intent(SignupActivity.this,LoginActivity.class);
+            //j.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            //j.putExtra("mem_id",editTextID.getText().toString());
+            if(result.equals("success")){
+                Toast.makeText(FragmentC_1.this.getActivity(), "성공", Toast.LENGTH_LONG).show();
+                //pDialog.dismiss();
+            }   else if(result.equals("no_posting")) {
+                Toast.makeText(FragmentC_1.this.getActivity(), "게시물이 없습니다.", Toast.LENGTH_LONG).show();
+                //pDialog.dismiss();
+            }   else{
+                Toast.makeText(FragmentC_1.this.getActivity(), "실패", Toast.LENGTH_LONG).show();
+                //pDialog.dismiss();
+            }
+        }
+    };
+
+    private String sendMessage(String result) {
+        Message message = handler.obtainMessage();
+        Bundle bundle = new Bundle();
+        String res = result;
+
+        if (result.equals("success")) {
+            res = "success";
+        } else if(result.equals("no_posting")) {
+            res = "no_posting";
+        } else {
+            res = "fail";
+        }
+        bundle.putString("RESULT", res);
+        message.setData(bundle);
+        handler.sendMessage(message);
+
+        return res;
     }
 }

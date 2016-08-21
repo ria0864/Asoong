@@ -59,7 +59,7 @@ public class PostingTextAdd extends AppCompatActivity {
         editText = (EditText)findViewById(R.id.editText);
         main = (EditText)findViewById(R.id.main);
 
-        ImageButton btnBack = (ImageButton)findViewById(R.id.btn_back);
+        ImageButton btnBack = (ImageButton)findViewById(R.id.goFragment5);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,8 +86,6 @@ public class PostingTextAdd extends AppCompatActivity {
                             result = "success";
                         } else if(result.equals("no_login")) {
                             result = "no_login";
-                        } else if(result.equals("no_posting")) {
-                            result = "no_posting";
                         } else {
                             result = "fail";
                         }

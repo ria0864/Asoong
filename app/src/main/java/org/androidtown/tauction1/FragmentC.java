@@ -22,6 +22,7 @@ public class FragmentC extends Fragment {
         talk_mate.setOnClickListener(new View.OnClickListener() {//여행메이트 클릭
             @Override
             public void onClick(View v) {
+                System.out.println("Page C_1");
                 ((MainActivity)getActivity()).setViewPage(2,1);
 
             }

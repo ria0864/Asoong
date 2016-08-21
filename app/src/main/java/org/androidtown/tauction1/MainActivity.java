@@ -1,6 +1,7 @@
 package org.androidtown.tauction1;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -98,6 +99,10 @@ public class MainActivity extends AppCompatActivity
         if(memId != null) {
             nav_login.setText("");
             nav_signup.setText("로그아웃");
+            SharedPreferences setting = getSharedPreferences("setting", 0);
+            SharedPreferences.Editor editor = setting.edit();
+            editor.remove("mem_id");
+            editor.commit();
         } else {
             nav_login.setText("로그인");
             nav_signup.setText("회원가입");
@@ -204,8 +209,7 @@ public class MainActivity extends AppCompatActivity
             Intent intent=new Intent(MainActivity.this,DibsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_registration) {
-            Intent intent=new Intent(MainActivity.this,HostingRegistrationActivity.class);
-            startActivity(intent);
+
         } else if (id == R.id.nav_setting) {
 
         } else if (id == R.id.nav_favorites){
