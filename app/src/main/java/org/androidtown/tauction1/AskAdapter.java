@@ -30,10 +30,12 @@ public class AskAdapter extends BaseAdapter {
         return arrData.size();
     }
 
+    @Override//이거뭐야..?
     public Object getItem(int position) {
-        return arrData.get(position).getRegion_detail();
+        return position;
     }
 
+    @Override//이거뭐야..?
     public long getItemId(int position) {
         return position;
     }
@@ -57,9 +59,6 @@ public class AskAdapter extends BaseAdapter {
 
         TextView done = (TextView)convertView.findViewById(R.id.done);
         done.setText(arrData.get(position).getDone());
-
-        TextView region_detail = (TextView)convertView.findViewById(R.id.region_detail);
-        region_detail.setText(arrData.get(position).getRegion_detail());
 
         TextView day = (TextView)convertView.findViewById(R.id.day);
         day.setText(MessageFormat.format("{0}~{1}", arrData.get(position).getAsk_startday().toString(), arrData.get(position).getAsk_endday().toString()));

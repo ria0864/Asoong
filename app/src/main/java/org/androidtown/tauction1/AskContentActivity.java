@@ -88,39 +88,7 @@ public class AskContentActivity extends AppCompatActivity {
 
     }
 
- private final Handler handler = new Handler(){
-        public void handleMessage(Message msg){
 
-            String result = msg.getData().getString("RESULT");
-         //   Intent j = new Intent(SignupActivity.this,LoginActivity.class);
-          //  j.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-         //   j.putExtra("mem_id",editTextID.getText().toString());
-            if(!result.equals("")){
-                Toast.makeText(AskContentActivity.this, "성공", Toast.LENGTH_LONG).show();
-                finish();
-            }else{
-                Toast.makeText(AskContentActivity.this, "실패", Toast.LENGTH_LONG).show();
-                finish();
-            }
-        }
-    };
-
-    public String parsingData(InputStream input){
-        String result = null;
-        try{
-            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-            XmlPullParser parser = factory.newPullParser();
-            parser.setInput(new InputStreamReader(input));
-            while(parser.next() != XmlPullParser.END_DOCUMENT){
-                String name = parser.getName();
-                if(name != null && name.equals("result")) //<result> </result> 태그
-                    result = parser.nextText();
-                //arrData.add(1,);
-            }
-        }catch(Exception e){e.printStackTrace();}
-        System.out.println(result);
-        return result;
-    }
 
 
     /* setData()함수는 문의내용에 해당하는 댓글들 data 받아오기 */
