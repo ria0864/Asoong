@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -41,12 +42,12 @@ public class AskListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if(convertView == null){
-            convertView = inflater.inflate(R.layout.posting_list, parent, false);
+            convertView = inflater.inflate(R.layout.ask_list, parent, false);
         }
 
-        ImageView image_reg = (ImageView)convertView.findViewById(R.id.image_region);
+        //ImageView image_reg = (ImageView)convertView.findViewById(R.id.image_region);
         //image_reg.setImageDrawable(R.drawable.busan1);
-        image_reg.setImageResource(arrData.get(position).getImage_region());
+        //image_reg.setImageResource(arrData.get(position).getImage_region());
 
         TextView done = (TextView)convertView.findViewById(R.id.done);
         if(1 == arrData.get(position).getDone()){
@@ -54,8 +55,9 @@ public class AskListAdapter extends BaseAdapter {
         } else {
             done.setText("경매 진행중");
         }
+        SimpleDateFormat tr = new SimpleDateFormat("yyyy-MM-dd");
         TextView day = (TextView)convertView.findViewById(R.id.day);
-        day.setText(String.format("%s~%s", new Object[]{arrData.get(position).getAsk_startday(), arrData.get(position).getAsk_endday()}));
+        day.setText(tr.format(arrData.get(position).getAsk_startday()+tr.format(arrData.get(position).getAsk_endday())));
 
         TextView price = (TextView)convertView.findViewById(R.id.price);
         price.setText(arrData.get(position).getAsk_budget()+" 원");

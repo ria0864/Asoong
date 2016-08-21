@@ -21,7 +21,6 @@ public class AskData { //A_1에서 쓰이는 DATA들인데........서버에서 �
     public  String [] REG_STRING = {"전체","부산","서울","i인천","강원도","제주도","전라도","경상도","충청도"};
 
     private int image_region;
-    private String region_detail;
 
     private int ask_no;
     private Date ask_date;
@@ -92,14 +91,6 @@ public class AskData { //A_1에서 쓰이는 DATA들인데........서버에서 �
 
     public void setDone(int done) {
         this.done = done;
-    }
-
-    public String getRegion_detail() {
-        return region_detail;
-    }
-
-    public void setRegion_detail(String region_detail) {
-        this.region_detail = region_detail;
     }
 
     public int getAsk_no() {

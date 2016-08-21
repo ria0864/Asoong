@@ -31,6 +31,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -200,7 +201,9 @@ public class FragmentA_1 extends Fragment{
                                             ask_no = Integer.parseInt(parser.nextText());
                                             System.out.println("ask_no ="+ask_no);
                                         }else if (tagName != null && tagName.equals("ask_date")) {
-                                            ask_date = new Date(parser.nextText());
+                                            String tmp = parser.nextText();
+                                            SimpleDateFormat tr = new SimpleDateFormat("yyyy-MM-dd");
+                                            ask_date = tr.parse(tmp);
                                             System.out.println("ask_date");
                                         }else if (tagName != null && tagName.equals("ask_title")) {
                                             ask_title = parser.nextText();
@@ -233,10 +236,14 @@ public class FragmentA_1 extends Fragment{
                                             ask_convin = parser.nextText();
                                             System.out.println("ask_convin");
                                         }else if (tagName != null && tagName.equals("ask_startday")) {
-                                            ask_startday = new Date(parser.nextText());
+                                            String tmp = parser.nextText();
+                                            SimpleDateFormat tr = new SimpleDateFormat("yyyy-MM-dd");
+                                            ask_startday = tr.parse(tmp);
                                             System.out.println("ask_startday");
                                         }else if (tagName != null && tagName.equals("ask_endday")) {
-                                            ask_endday = new Date(parser.nextText());
+                                            String tmp = parser.nextText();
+                                            SimpleDateFormat tr = new SimpleDateFormat("yyyy-MM-dd");
+                                            ask_endday = tr.parse(tmp);
                                             System.out.println("ask_endday");
                                         }else if (tagName != null && tagName.equals("ask_pay")) {
                                             ask_pay = parser.nextText();
@@ -254,7 +261,7 @@ public class FragmentA_1 extends Fragment{
                                     case XmlPullParser.END_TAG:
                                         tagName = parser.getName();
                                         System.out.println("end tagName : " + tagName);
-                                        if (tagName != null && tagName.equals("ask_content")) {
+                                        if (tagName != null && tagName.equals("askcontent")) {
                                             asking = new AskData(ask_no, ask_date, ask_title, ask_contents, done, reg_no, ask_num,
                                                     ask_type, ask_gender, ask_trip, ask_budget, ask_convin, ask_startday, ask_endday, ask_pay, mem_id,isLike,ask_commentNo);
                                             System.out.println("add AskData");
@@ -267,7 +274,7 @@ public class FragmentA_1 extends Fragment{
 
                         //게시글을 보여줄 액티비티에 데이터 전달
                         //아래 애들 말고 위에 애들로 다시 선언해줘야하는거 알지? 슈바....
-                        intent.putExtra("image_region",asking.getImage_region());
+//                        intent.putExtra("image_region",asking.getImage_region());
                         intent.putExtra("ask_no",asking.getAsk_no());
                         intent.putExtra("done",asking.getDone());
                         intent.putExtra("reg_no",asking.getReg_no());
@@ -305,7 +312,6 @@ public class FragmentA_1 extends Fragment{
         if(selected_btn.equals("all")){
             btn_all.setBackgroundResource(R.drawable.button_selected);
             btn_all.setTextColor(Color.WHITE);
-            attachAdapter();
             setDataByType();
             //list.setOnClickListener( View view, int int position);
         }else{
@@ -316,12 +322,14 @@ public class FragmentA_1 extends Fragment{
         if(selected_btn.equals("busan")){
             btn_busan.setBackgroundResource(R.drawable.button_selected);
             btn_busan.setTextColor(Color.WHITE);
+            setDataByType();
         }else{
             btn_busan.setBackgroundResource(R.drawable.button_region);
             btn_busan.setTextColor(Color.BLACK);
         }
 
         if(selected_btn.equals("seoul")){
+            setDataByType();
             btn_seoul.setBackgroundResource(R.drawable.button_selected);
             btn_seoul.setTextColor(Color.WHITE);
         }else{
@@ -425,10 +433,14 @@ public class FragmentA_1 extends Fragment{
                                             reg_no = Integer.parseInt(parser.nextText());
                                             break;
                                         case "ask_startday":
-                                            ask_startday = new Date(parser.nextText());
+                                            String tmp = parser.nextText();
+                                            SimpleDateFormat tr = new SimpleDateFormat("yyyy-MM-dd");
+                                            ask_startday = tr.parse(tmp);
                                             break;
                                         case "ask_endday":
-                                            ask_endday = new Date(parser.nextText());
+                                            String tmp2 = parser.nextText();
+                                            SimpleDateFormat tr2 = new SimpleDateFormat("yyyy-MM-dd");
+                                            ask_endday = tr2.parse(tmp2);
                                             break;
                                         case "ask_budget":
                                             ask_budget = Integer.parseInt(parser.nextText());
@@ -447,7 +459,7 @@ public class FragmentA_1 extends Fragment{
                                 break;
                             case XmlPullParser.END_TAG:
                                 tagName = parser.getName();
-                                if(tagName != null && tagName.equals("ask_list")) {
+                                if(tagName != null && tagName.equals("asklist")) {
                                     arrData.add(new AskListData(image_region,ask_no,reg_no,done,ask_startday,ask_endday,ask_budget,ask_num, mem_id,ask_commentNo));
                                 }
                                 break;
@@ -495,6 +507,7 @@ public class FragmentA_1 extends Fragment{
             else {
                 if(position > -1) {
                     nameValuePairs.add(new BasicNameValuePair("ask_no", "" + position));
+                    nameValuePairs.add(new BasicNameValuePair("mem_id", ((MainActivity)getActivity()).getMemId()));
                 }
             }
             //타임아웃
@@ -524,7 +537,7 @@ public class FragmentA_1 extends Fragment{
             if (list != null) {
                 list.setAdapter(adapter);
             } else {
-                list = (ListView) rootView.findViewById(R.id.list_posting);
+                list = (ListView) rootView.findViewById(R.id.list_accommodation_region);
                 list.setAdapter(adapter);
             }
         }
