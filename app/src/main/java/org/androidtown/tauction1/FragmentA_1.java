@@ -34,8 +34,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.StringTokenizer;
 
 /**
  * Created by SSU on 2016-08-11.
@@ -52,7 +50,6 @@ public class FragmentA_1 extends Fragment{
     Button btn_all, btn_busan, btn_seoul, btn_incheon, btn_gangwon, btn_jeju, btn_jeolla, btn_gyeongsang, btn_chungcheong;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Toast.makeText(getActivity(), "부산 클릭", Toast.LENGTH_SHORT).show();
         final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_a_1, container, false);
         btn_all=(Button)rootView.findViewById(R.id.btn_all);
         btn_busan=(Button)rootView.findViewById(R.id.btn_busan);

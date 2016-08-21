@@ -23,6 +23,7 @@ public class FragmentC extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setViewPage(2,1);
+
             }
         });
         talk_tip.setOnClickListener(new View.OnClickListener() {//여행꿀팁 클릭

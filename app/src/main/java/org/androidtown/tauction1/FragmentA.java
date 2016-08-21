@@ -40,8 +40,7 @@ public class FragmentA extends Fragment {
             @Override
             public void onClick(View v) {
                 //Activity root = getActivity(); //이 클래스가 프레그먼트이기 때문에 액티비티 정보를 얻는다.
-                Toast.makeText(getActivity(), "부산 클릭", Toast.LENGTH_SHORT).show();
-                System.out.println("부산클립했다고");
+                Toast.makeText(getActivity(), "부산 클", Toast.LENGTH_SHORT).show();
                 ((MainActivity)getActivity()).setViewPage(0,1);
             }
         });

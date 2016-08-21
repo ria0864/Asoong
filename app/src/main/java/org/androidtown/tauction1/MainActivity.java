@@ -70,22 +70,38 @@ public class MainActivity extends AppCompatActivity
         nav_login.setOnClickListener(new OnClickListener() {//로그인 버튼 클릭
             @Override
             public void onClick(View v) {
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                drawer.closeDrawer(GravityCompat.START);//Navigation Drawer 닫기
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                if(memId == null) {
+                    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                    drawer.closeDrawer(GravityCompat.START);//Navigation Drawer 닫기
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();
+                }
             }
         });
-
         nav_signup = (Button)nav_header_view.findViewById(R.id.nav_signup);
         nav_signup.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {//회원가입 버튼 클릭
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                drawer.closeDrawer(GravityCompat.START);//Navigation Drawer 닫기
-                startActivity(new Intent(MainActivity.this, SignupActivity.class));
+                if(memId == null) {
+                    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                    drawer.closeDrawer(GravityCompat.START);//Navigation Drawer 닫기
+                    startActivity(new Intent(MainActivity.this, SignupActivity.class));
+                } else {
+                    memId = null;
+                    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                    drawer.closeDrawer(GravityCompat.START);//Navigation Drawer 닫기
+                    startActivity(new Intent(MainActivity.this, MainActivity.class));
+                    MainActivity.this.finish();
+                }
             }
         });
-
+        if(memId != null) {
+            nav_login.setText("");
+            nav_signup.setText("로그아웃");
+        } else {
+            nav_login.setText("로그인");
+            nav_signup.setText("회원가입");
+        }
 
         //tabLayout
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
