@@ -2,8 +2,6 @@ package org.androidtown.tauction1;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +49,8 @@ public class FragmentC_1 extends Fragment{
     EditText searchTitle;
     Button btnSearch;
 
+    Spinner yearSpinner;
+
     public void setType(int type) {
         this.type = type;
     }
@@ -65,20 +65,35 @@ public class FragmentC_1 extends Fragment{
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).setViewPage(2,0);
-
             }
         });
 
-        Spinner yearSpinner = (Spinner)rootView.findViewById(R.id.spinner_post);
+        yearSpinner = (Spinner)rootView.findViewById(R.id.spinner_post);
         ArrayAdapter yearAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.spinnerPost, android.R.layout.simple_spinner_item);
         yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yearSpinner.setAdapter(yearAdapter);
+        yearSpinner.setSelection(type-1); // 현재 들어온 타입으로 설정
+        yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setType(position+1); // 타입 변경
+                setDataByType(); // 데이터 다시 불러옴
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         textaddbtn = (Button)rootView.findViewById(R.id.btn_addPosting);
         textaddbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(),PostingTextAdd.class));
+            public void onClick(View v) { // 게시물 쓰기
+                Intent intent = new Intent(getActivity(),PostingTextAdd.class);
+                if(((MainActivity) getActivity()).getMemId() != null){
+                    intent.putExtra("mem_id", ((MainActivity) getActivity()).getMemId());
+                }
+                startActivity(intent);
             }
         });
 
@@ -90,17 +105,16 @@ public class FragmentC_1 extends Fragment{
 
                 final ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
                     @Override
-                    public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
+                    public String handleResponse(HttpResponse response) throws IOException {
 
                         int eventType;
                         int talkpost_no = -1;
-                        String talkpost_type = getTypeToString();
+                        String talkpost_type = TalkPostingData.getTypeToString(type);
                         String talkpost_date = "";
                         String talkpost_title = searchTitle.getText().toString();
                         String mem_id = "";
                         HttpEntity entity = response.getEntity();
 
-                        System.out.println("start thread");
                         try {
                             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
                             XmlPullParser parser = factory.newPullParser();
@@ -109,47 +123,32 @@ public class FragmentC_1 extends Fragment{
                             if (arrData == null) {
                                 arrData = new ArrayList<TalkPostListData>();
                             }
+                            else {
+                                arrData.clear();
+                            }
+
                             eventType = parser.getEventType();
-                            System.out.println("start while");
                             while (eventType != XmlPullParser.END_DOCUMENT) {
                                 String tagName;
-                                System.out.println("start switch");
                                 switch (eventType) {
                                     case XmlPullParser.START_TAG:
                                         tagName = parser.getName();
-                                        System.out.println("start tagName : " + tagName);
                                         if (tagName != null && tagName.equals("talkpost_no")) {
                                             talkpost_no = Integer.parseInt(parser.nextText());
-                                            System.out.println("TalkPostNo");
-                                        }
-                                        if (tagName != null && tagName.equals("talkpost_type")) {
+                                        } else if (tagName != null && tagName.equals("talkpost_type")) {
                                             talkpost_type = parser.nextText();
-                                            System.out.println("TalkPostType");
-                                        }
-                                        if (tagName != null && tagName.equals("talkpost_date")) {
+                                        } else if (tagName != null && tagName.equals("talkpost_date")) {
                                             talkpost_date = parser.nextText();
-                                            System.out.println("TalkPostDate");
-                                        }
-                                        if (tagName != null && tagName.equals("talkpost_title")) {
+                                        } else if (tagName != null && tagName.equals("talkpost_title")) {
                                             talkpost_title = parser.nextText();
-                                            System.out.println("TalkPostTitle");
-                                        }
-                                        if (tagName != null && tagName.equals("mem_id")) {
+                                        } else if (tagName != null && tagName.equals("mem_id")) {
                                             mem_id = parser.nextText();
-                                            System.out.println("MemId");
-                                        }
-                                        break;
+                                        } else break;
                                     case XmlPullParser.END_TAG:
                                         tagName = parser.getName();
-                                        System.out.println("end tagName : " + tagName);
                                         if (tagName != null && tagName.equals("postlist")) {
                                             arrData.add(new TalkPostListData(talkpost_no, talkpost_type, talkpost_date, talkpost_title, mem_id));
-                                            System.out.println("add TalkPostListData");
                                         }
-                                        break;
-                                    default:
-                                        tagName = parser.getName();
-                                        System.out.println("default tagName : " + tagName);
                                         break;
                                 }
                                 eventType = parser.next();
@@ -158,29 +157,10 @@ public class FragmentC_1 extends Fragment{
                             e.printStackTrace();
                         }
 
-                        Message message = handler.obtainMessage();
-                        Bundle bundle = new Bundle();
-
-                        bundle.putString("RESULT", "success");
-                        message.setData(bundle);
-                        handler.sendMessage(message);
-
                         FragmentC_1.this.getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (adapter != null) {
-                                    adapter.notifyDataSetChanged();
-                                } else {
-                                    adapter = new TalkPostListAdapter(rootView.getContext(), arrData);
-
-                                    //리스트뷰에 어댑터 연결
-                                    if (list != null) {
-                                        list.setAdapter(adapter);
-                                    } else {
-                                        list = (ListView) rootView.findViewById(R.id.list_posting);
-                                        list.setAdapter(adapter);
-                                    }
-                                }
+                                attachAdapter();
                             }
                         });
 
@@ -192,15 +172,13 @@ public class FragmentC_1 extends Fragment{
                     @Override
                     public void run() {
                         String url = "http://52.78.101.183:8080/tauction/talkpost_list.jsp";
-                        getDataFromServer(responseHandler, url, "getTalkPostList", true, -1);
+                        getDataFromServer(responseHandler, url, "getTalkPostList", true, -1); // 제목으로 검색
                     }
                 }.start(); //스레드 실행
             }
         });
 
-        //리스트에 보여줄 데이터를 세팅한다.
-        setDataByType(type);
-
+        //어댑터 연결
         attachAdapter();
 
         //리스트뷰에 클릭 리스터 연결
@@ -226,7 +204,6 @@ public class FragmentC_1 extends Fragment{
                         String mem_id = "";
                         HttpEntity entity = response.getEntity();
 
-                        System.out.println("start thread");
                         try{
                             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
                             XmlPullParser parser = factory.newPullParser();
@@ -234,67 +211,39 @@ public class FragmentC_1 extends Fragment{
                             parser.setInput(isreader);
                             eventType = parser.getEventType();
 
-                            System.out.println("start while");
                             while (eventType != XmlPullParser.END_DOCUMENT) {
                                 String tagName;
-                                System.out.println("start switch");
                                 switch(eventType) {
                                     case XmlPullParser.START_TAG:
                                         tagName = parser.getName();
-                                        System.out.println("start tagName : " + tagName);
                                         if(tagName != null && tagName.equals("talkpost_no")) {
                                             talkpost_no = Integer.parseInt(parser.nextText());
-                                            System.out.println("TalkPostNo");
-                                        }
-                                        if(tagName != null && tagName.equals("talkpost_type")) {
+                                        } else if(tagName != null && tagName.equals("talkpost_type")) {
                                             talkpost_type = parser.nextText();
-                                            System.out.println("TalkPostType");
-                                        }
-                                        if(tagName != null && tagName.equals("talkpost_date")) {
+                                        } else if(tagName != null && tagName.equals("talkpost_date")) {
                                             talkpost_date = parser.nextText();
-                                            System.out.println("TalkPostDate");
-                                        }
-                                        if(tagName != null && tagName.equals("talkpost_title")) {
+                                        } else if(tagName != null && tagName.equals("talkpost_title")) {
                                             talkpost_title = parser.nextText();
-                                            System.out.println("TalkPostTitle");
-                                        }
-                                        if(tagName != null && tagName.equals("talkpost_content")) {
+                                        } else if(tagName != null && tagName.equals("talkpost_content")) {
                                             talkpost_content = parser.nextText();
-                                            System.out.println("TalkPostContent");
-                                        }
-                                        if(tagName != null && tagName.equals("mem_no")) {
+                                        } else if(tagName != null && tagName.equals("mem_no")) {
                                             mem_no = Integer.parseInt(parser.nextText());
-                                            System.out.println("MemNo");
-                                        }
-                                        if(tagName != null && tagName.equals("mem_id")) {
+                                        } else if(tagName != null && tagName.equals("mem_id")) {
                                             mem_id = parser.nextText();
-                                            System.out.println("MemId");
                                         }
                                         break;
                                     case XmlPullParser.END_TAG:
                                         tagName = parser.getName();
-                                        System.out.println("end tagName : " + tagName);
                                         if(tagName != null && tagName.equals("posting")) {
                                             posting = new TalkPostingData(talkpost_no, talkpost_type, talkpost_date, talkpost_title, talkpost_content, mem_no, mem_id);
-                                            System.out.println("add TalkPostingData");
                                         }
-                                        break;
-                                    default:
-                                        tagName = parser.getName();
-                                        System.out.println("default tagName : " + tagName);
                                         break;
                                 }
                                 eventType = parser.next();
                             }
                         }catch(Exception e){e.printStackTrace();}
 
-                        Message message = handler.obtainMessage();
-                        Bundle bundle = new Bundle();
-
-                        bundle.putString("RESULT", "success");
-                        message.setData(bundle);
-                        handler.sendMessage(message);
-
+                        //게시글을 보여줄 액티비티에 데이터 전달
                         intent.putExtra("number",posting.getPosting_no());
                         intent.putExtra("type",posting.getPosting_type());
                         intent.putExtra("date",posting.getPosting_date());
@@ -312,31 +261,28 @@ public class FragmentC_1 extends Fragment{
                     @Override
                     public void run(){
                         String url = "http://52.78.101.183:8080/tauction/talkposting.jsp";
-                        getDataFromServer(responseHandler, url,"getTalkPosting", false, pos);
+                        getDataFromServer(responseHandler, url,"getTalkPosting", false, pos); // 위치로 검색
                     }
                 }.start(); //스레드 실행
             }
         });
-        //mScrollView=(ScrollView)findViewById(R.id.ScrollView);
-        //setScroll(list);
 
         return rootView;
     }
-    private void setDataByType(int type) {
+    private void setDataByType() {
 
         final ResponseHandler<String> responseHandler =  new ResponseHandler<String>(){
             @Override
-            public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
+            public String handleResponse(HttpResponse response) throws IOException {
 
                 int eventType;
                 int talkpost_no = -1;
-                String talkpost_type = getTypeToString();
+                String talkpost_type = TalkPostingData.getTypeToString(type);
                 String talkpost_date = "";
                 String talkpost_title = "";
                 String mem_id = "";
                 HttpEntity entity = response.getEntity();
 
-                System.out.println("start thread");
                 try{
                     XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
                     XmlPullParser parser = factory.newPullParser();
@@ -344,82 +290,52 @@ public class FragmentC_1 extends Fragment{
                     parser.setInput(isreader);
                     if(arrData == null) {
                         arrData = new ArrayList<TalkPostListData>();
+                    } else {
+                        arrData.clear();
                     }
                     eventType = parser.getEventType();
-                    System.out.println("start while");
                         while (eventType != XmlPullParser.END_DOCUMENT) {
                             String tagName;
-                            System.out.println("start switch");
                             switch(eventType) {
                                 case XmlPullParser.START_TAG:
                                     tagName = parser.getName();
-                                    System.out.println("start tagName : " + tagName);
-                                    if(tagName != null && tagName.equals("talkpost_no")) {
-                                        talkpost_no = Integer.parseInt(parser.nextText());
-                                        System.out.println("TalkPostNo");
-                                    }
-                                    if(tagName != null && tagName.equals("talkpost_type")) {
-                                        talkpost_type = parser.nextText();
-                                        System.out.println("TalkPostType");
-                                    }
-                                    if(tagName != null && tagName.equals("talkpost_date")) {
-                                        talkpost_date = parser.nextText();
-                                        System.out.println("TalkPostDate");
-                                    }
-                                    if(tagName != null && tagName.equals("talkpost_title")) {
-                                        talkpost_title = parser.nextText();
-                                        System.out.println("TalkPostTitle");
-                                    }
-                                    if(tagName != null && tagName.equals("mem_id")) {
-                                        mem_id = parser.nextText();
-                                        System.out.println("MemId");
+                                    if(tagName != null) {
+                                        switch(tagName) {
+                                            case "talkpost_no":
+                                                talkpost_no = Integer.parseInt(parser.nextText());
+                                                break;
+                                            case "talkpost_type":
+                                                talkpost_type = parser.nextText();
+                                                break;
+                                            case "talkpost_date":
+                                                talkpost_date = parser.nextText();
+                                                break;
+                                            case "talkpost_title":
+                                                talkpost_title = parser.nextText();
+                                                break;
+                                            case "mem_id":
+                                                mem_id = parser.nextText();
+                                                break;
+                                        }
                                     }
                                     break;
                                 case XmlPullParser.END_TAG:
                                     tagName = parser.getName();
-                                    System.out.println("end tagName : " + tagName);
                                     if(tagName != null && tagName.equals("postlist")) {
                                         arrData.add(new TalkPostListData(talkpost_no, talkpost_type, talkpost_date, talkpost_title, mem_id));
-                                        System.out.println("add TalkPostListData");
                                     }
-                                    break;
-                                default:
-                                    tagName = parser.getName();
-                                    System.out.println("default tagName : " + tagName);
                                     break;
                             }
                             eventType = parser.next();
                         }
                 }catch(Exception e){e.printStackTrace();}
 
-                Message message = handler.obtainMessage();
-                Bundle bundle = new Bundle();
-
-                bundle.putString("RESULT", "success");
-                message.setData(bundle);
-                handler.sendMessage(message);
-
                 FragmentC_1.this.getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(adapter != null) {
-                            adapter.notifyDataSetChanged();
-                        }
-                        else {
-                            adapter = new TalkPostListAdapter(rootView.getContext(), arrData);
-
-                            //리스트뷰에 어댑터 연결
-                            if(list != null) {
-                                list.setAdapter(adapter);
-                            }
-                            else {
-                                list = (ListView) rootView.findViewById(R.id.list_posting);
-                                list.setAdapter(adapter);
-                            }
-                        }
+                        attachAdapter();
                     }
                 });
-
                 return "success";
             }
         };
@@ -428,41 +344,9 @@ public class FragmentC_1 extends Fragment{
             @Override
             public void run(){
                 String url = "http://52.78.101.183:8080/tauction/talkpost_list.jsp";
-                getDataFromServer(responseHandler, url,"getTalkPostList", false, -1);
+                getDataFromServer(responseHandler, url,"getTalkPostList", false, -1); // 전체 검색
             }
         }.start(); //스레드 실행
-    }
-
-    private final Handler handler = new Handler(){
-        public void handleMessage(Message msg){
-
-            String result = msg.getData().getString("RESULT");
-            if(result.equals("success")){
-            }else if(result.equals("fail_duplicate")){
-            }else{
-            }
-        }
-    };
-
-    private String getTypeToString() {
-        String strType = "none";
-        switch(type) {
-            case 1:
-                strType = "mate";
-                break;
-            case 2:
-                strType = "tip";
-                break;
-            case 3:
-                strType = "free";
-                break;
-            case 4:
-                strType = "event";
-                break;
-            default:
-                break;
-        }
-        return strType;
     }
 
     private void getDataFromServer(ResponseHandler<String> responseHandler, String url, String action, boolean flag, int position) {
@@ -476,12 +360,11 @@ public class FragmentC_1 extends Fragment{
 
             nameValuePairs.add(new BasicNameValuePair("action",action));
             if(action.equals("getTalkPostList")) {
-                nameValuePairs.add(new BasicNameValuePair("type", getTypeToString()));
+                nameValuePairs.add(new BasicNameValuePair("type", TalkPostingData.getTypeToString(type)));
                 if (flag) {
                     nameValuePairs.add(new BasicNameValuePair("title", searchTitle.getText().toString()));
                 }
-            }
-            else {
+            } else {
                 if(position > -1) {
                     nameValuePairs.add(new BasicNameValuePair("talkpost_no", "" + position));
                 }
@@ -503,19 +386,19 @@ public class FragmentC_1 extends Fragment{
         if(arrData == null) {
             arrData = new ArrayList<TalkPostListData>();
         }
-        if(arrData != null && arrData.isEmpty()) {
-        }
-        if(adapter == null) {
-            adapter = new TalkPostListAdapter(rootView.getContext(), arrData);
-        }
-        //리스트뷰에 어댑터 연결
-        if(list == null) {
-            list = (ListView) rootView.findViewById(R.id.list_posting);
-            list.setAdapter(adapter);
-        }
-        else {
+
+        if (adapter != null) {
             adapter.notifyDataSetChanged();
+        } else {
+            adapter = new TalkPostListAdapter(rootView.getContext(), arrData);
+
+            //리스트뷰에 어댑터 연결
+            if (list != null) {
+                list.setAdapter(adapter);
+            } else {
+                list = (ListView) rootView.findViewById(R.id.list_posting);
+                list.setAdapter(adapter);
+            }
         }
     }
 }
-

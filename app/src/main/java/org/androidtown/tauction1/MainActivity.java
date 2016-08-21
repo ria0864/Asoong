@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity
     private TabLayout tabLayout;
     Button nav_login, nav_signup;
     MyViewPagerAdapter adapter;
+    private String memId;
 
     private long pressedTime;
 
@@ -36,6 +37,13 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+        if(intent.hasExtra("mem_id")) {
+            memId = intent.getExtras().getString("mem_id");
+        } else {
+            memId = null;
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -201,4 +209,7 @@ public class MainActivity extends AppCompatActivity
         viewPager.setCurrentItem(type);
     }
 
+    public String getMemId() {
+        return memId;
+    }
 }

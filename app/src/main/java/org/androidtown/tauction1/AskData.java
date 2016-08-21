@@ -7,13 +7,13 @@ import java.util.Date;
  */
 public class AskData { //A_1에서 쓰이는 DATA들인데........서버에서 받아와야함.
     private int image_region;
-    private String done;
     private String region_detail;
 
     private int ask_no;
     private Date ask_date;
     private String ask_title;
     private String ask_contents;
+    private int done;
     private int reg_no;
     private int ask_num;
     private String ask_type;
@@ -28,9 +28,9 @@ public class AskData { //A_1에서 쓰이는 DATA들인데........서버에서 �
     private int ask_commentNo; //댓글 수.......서버에서 ask_no에 해당하는 comment table count해서
 
     //이 함수가 fragmentA_1에서 사용되는 함수
-    public AskData(int image_region, String done, String region_detail, Date ask_startday, Date ask_endday, int ask_budget, int ask_num, int ask_commentNo) {
+    public AskData(int image_region, int done, String region_detail, Date ask_startday, Date ask_endday, int ask_budget, int ask_num, int ask_commentNo) {
         this.image_region = image_region;
-        this.done = done; //경매완료
+        this.done = done; //경매완료(1이면 경매완료, 2이면 경매진행중)
         this.region_detail = region_detail;
         this.ask_startday = ask_startday;
         this.ask_endday = ask_endday;
@@ -40,11 +40,12 @@ public class AskData { //A_1에서 쓰이는 DATA들인데........서버에서 �
     }
 
     //이 함수는 AskContentActivity에서 사용됨
-    public AskData(int ask_no, Date ask_date, String ask_title, String ask_contents, int reg_no, int ask_num, String ask_type, String ask_geder, String ask_trip, int ask_budget, String ask_convin, Date ask_startday, Date ask_endday, String ask_pay, int mem_no) {
+    public AskData(int ask_no, Date ask_date, String ask_title, String ask_contents, int done, int reg_no, int ask_num, String ask_type, String ask_geder, String ask_trip, int ask_budget, String ask_convin, Date ask_startday, Date ask_endday, String ask_pay, int mem_no) {
         this.ask_no = ask_no;
         this.ask_date = ask_date;
         this.ask_title = ask_title;
         this.ask_contents = ask_contents;
+        this.done = done;
         this.reg_no = reg_no;
         this.ask_num = ask_num;
         this.ask_type = ask_type;
@@ -66,11 +67,11 @@ public class AskData { //A_1에서 쓰이는 DATA들인데........서버에서 �
         this.image_region = image_region;
     }
 
-    public String getDone() {
+    public int getDone() {
         return done;
     }
 
-    public void setDone(String done) {
+    public void setDone(int done) {
         this.done = done;
     }
 

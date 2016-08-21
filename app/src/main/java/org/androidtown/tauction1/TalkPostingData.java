@@ -12,6 +12,12 @@ public class TalkPostingData {
     private int mem_no;
     private String mem_id;
 
+    final static public int TYPE_MATE = 1;
+    final static public int TYPE_TIP = 2;
+    final static public int TYPE_FREE = 3;
+    final static public int TYPE_EVENT = 4;
+    final static public  String [] TYPE_STRING = {"mate","tip","free","event"};
+
     public TalkPostingData(int posting_no, String posting_type, String posting_date, String posting_title, String posting_content, int mem_no, String mem_id){
         this.posting_no = posting_no;
         this.posting_type = posting_type;
@@ -48,5 +54,9 @@ public class TalkPostingData {
 
     public String getMem_id() {
         return mem_id;
+    }
+
+    static public String getTypeToString(int type) {
+        return TYPE_STRING[type-1];
     }
 }
