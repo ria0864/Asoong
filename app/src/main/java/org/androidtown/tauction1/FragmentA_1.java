@@ -42,16 +42,16 @@ public class FragmentA_1 extends Fragment{
 
     int type = 1;
     ListView list;
-    AskAdapter adapter;
-    ArrayList<AskListData> arrListData;
-    ArrayList<AskData> arrData; //얘 원래 없음
+    AskListAdapter adapter;
+    ArrayList<AskListData> arrData;
     ViewGroup rootView;
 
     Button btn_filter;
 
-    public void setType(int type){ this.type=type;}
+    //public void setType(int type){ this.type=type;}
 
     Button btn_all, btn_busan, btn_seoul, btn_incheon, btn_gangwon, btn_jeju, btn_jeolla, btn_gyeongsang, btn_chungcheong;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate(R.layout.fragment_a_1, container, false);
@@ -81,17 +81,93 @@ public class FragmentA_1 extends Fragment{
                 //btn_all.setBackgroundResource(R.drawable.button_selected);
                 //btn_all.setTextColor(Color.WHITE);
                 Toast.makeText(getActivity(), "전체 클릭", Toast.LENGTH_SHORT).show();
+                type=1;
                 selectButton("all");
             }
         });
+
         btn_busan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                type=2;
                 selectButton("busan");
-                final ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
-                    @Override
-                    public String handleResponse(HttpResponse response) throws IOException {
+            }
+        });
 
+        btn_seoul.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type=3;
+                selectButton("seoul");
+            }
+        });
+        btn_incheon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type=4;
+                selectButton("incheon");
+            }
+        });
+        btn_gangwon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type=5;
+                selectButton("gangwon");
+            }
+        });
+        btn_jeju.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type=6;
+                selectButton("jeju");
+            }
+        });
+        btn_jeolla.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type=7;
+                selectButton("jeolla");
+            }
+        });
+        btn_gyeongsang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type=8;
+                selectButton("gyeongsang");
+            }
+        });
+        btn_chungcheong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type=9;
+                selectButton("chungcheong");
+            }
+        });
+
+        goFragmentA =(ImageButton)rootView.findViewById(R.id.goFragmentA);
+        goFragmentA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).setViewPage(0,0); //프레그먼트 A a1에서 a로 전환
+            }
+        });
+
+        //어댑터 연결
+        attachAdapter();
+
+        //리스트뷰에 클릭 리스터 연결
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() { // 게시물 보기
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                final int ask = arrData.get(position).getAsk_no();
+                final ResponseHandler<String> responseHandler =  new ResponseHandler<String>(){
+                    @Override
+                    public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
+
+                        Intent intent = new Intent(getActivity(), AskContentActivity.class); //얘로 보낼 애들인데 AskData에 있는 애들
+
+                        AskData asking = null;
                         int eventType;
                         int ask_no = 0;
                         Date ask_date = null;
@@ -102,25 +178,17 @@ public class FragmentA_1 extends Fragment{
                         int ask_budget = 0;
                         String ask_convin = null;
                         Date ask_startday = null, ask_endday = null;
-                        String ask_pay = null;
-                        int mem_no = 0;
-
+                        String ask_pay = null, mem_id = null;
+                        int isLike=0, ask_commentNo=0;
                         HttpEntity entity = response.getEntity();
 
-                        try {
+                        try{
                             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
                             XmlPullParser parser = factory.newPullParser();
-                            InputStreamReader isreader = new InputStreamReader(entity.getContent(), "UTF-8");
+                            InputStreamReader isreader = new InputStreamReader(entity.getContent(),"UTF-8");
                             parser.setInput(isreader);
-                            if (arrListData == null) {
-                                arrListData = new ArrayList<AskListData>();
-                            }
-                            else {
-                                arrData.clear();
-                            }
-
                             eventType = parser.getEventType();
-                            System.out.println("start while");
+
                             while (eventType != XmlPullParser.END_DOCUMENT) {
                                 String tagName;
                                 System.out.println("start switch");
@@ -173,136 +241,32 @@ public class FragmentA_1 extends Fragment{
                                         }else if (tagName != null && tagName.equals("ask_pay")) {
                                             ask_pay = parser.nextText();
                                             System.out.println("ask_pay");
-                                        }else if (tagName != null && tagName.equals("mem_no")) {
-                                            mem_no = Integer.parseInt(parser.nextText());
+                                        }else if (tagName != null && tagName.equals("mem_id")) {
+                                            mem_id = parser.nextText();
                                             System.out.println("mem_no");
+                                        }else if (tagName != null && tagName.equals("isLike")) {
+                                            isLike = Integer.parseInt(parser.nextText());
+                                            System.out.println("isLike");
+                                        }else if (tagName != null && tagName.equals("ask_commentNo")) {
+                                            ask_commentNo = Integer.parseInt(parser.nextText());
+                                            System.out.println("ask_commnetNo");
                                         }else break;
                                     case XmlPullParser.END_TAG:
                                         tagName = parser.getName();
                                         System.out.println("end tagName : " + tagName);
-                                        if (tagName != null && tagName.equals("asklist")) {
-                                            arrListData.add(new AskListData(ask_no, ask_date, ask_title, ask_contents, done, reg_no, ask_num,
-                                                    ask_type, ask_gender, ask_trip, ask_budget, ask_convin, ask_startday, ask_endday, ask_pay, mem_no));
-                                            System.out.println("add AskListData");
-                                        }
-                                        break;
-                                   /* default:
-                                        tagName = parser.getName();
-                                        System.out.println("default tagName : " + tagName);
-                                        break;*/
-                                }
-                                eventType = parser.next();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                        /*Message message = handler.obtainMessage();
-                        Bundle bundle = new Bundle();
-
-                        bundle.putString("RESULT", "success");
-                        message.setData(bundle);
-                        handler.sendMessage(message);*/
-
-                        FragmentA_1.this.getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                attachAdapter();
-                            }
-                        });
-
-                        return "success";
-                    }
-                };
-
-                new Thread() {
-                    @Override
-                    public void run() {
-                        String url = "http://52.78.101.183:8080/tauction/ask.jsp";
-                        getDataFromServer(responseHandler, url, "ask_list", true, -1);
-                    }
-                }.start(); //스레드 실행
-               // goAll();
-                Toast.makeText(getActivity(), "부산2 클릭", Toast.LENGTH_SHORT).show();
-            }
-        });
-        //어댑터 연결
-        attachAdapter();
-
-        //리스트뷰에 클릭 리스터 연결
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() { // 게시물 보기
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                final int ask = arrData.get(position).getAsk_no();
-                final ResponseHandler<String> responseHandler =  new ResponseHandler<String>(){
-                    @Override
-                    public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
-
-                        Intent intent = new Intent(getActivity(), PostingContentActivity.class);
-
-                        AskData asking = null;
-                        int eventType;
-                        int image_region=1; //얘는 어떡하지..?
-
-                        int ask_no = ask;
-                        int done=0;
-                        int reg_no = 0;
-                        Date ask_startday = null;
-                        Date ask_endday = null;
-                        int ask_budget = 0;
-                        int ask_num =0;
-                        int mem_no = -1;
-                        String mem_id = "";
-                        int ask_commentNo=0;
-                        HttpEntity entity = response.getEntity();
-
-                        try{
-                            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-                            XmlPullParser parser = factory.newPullParser();
-                            InputStreamReader isreader = new InputStreamReader(entity.getContent(),"UTF-8");
-                            parser.setInput(isreader);
-                            eventType = parser.getEventType();
-
-                            while (eventType != XmlPullParser.END_DOCUMENT) {
-                                String tagName;
-                                switch(eventType) {
-                                    case XmlPullParser.START_TAG:
-                                        tagName = parser.getName();
-                                        if(tagName != null && tagName.equals("ask_no")) {
-                                            ask_no = Integer.parseInt(parser.nextText());
-                                        }else if(tagName != null && tagName.equals("done")) {
-                                            done = Integer.parseInt(parser.nextText());
-                                        }  else if(tagName != null && tagName.equals("reg_no")) {
-                                            reg_no = Integer.parseInt(parser.nextText());
-                                        } else if(tagName != null && tagName.equals("ask_startday")) {
-                                            ask_startday = new Date(parser.nextText());
-                                        } else if(tagName != null && tagName.equals("ask_endday")) {
-                                            ask_endday = new Date(parser.nextText());
-                                        } else if(tagName != null && tagName.equals("ask_budget")) {
-                                            ask_budget = Integer.parseInt(parser.nextText());
-                                        } else if(tagName != null && tagName.equals("ask_num")) {
-                                            ask_num = Integer.parseInt(parser.nextText());
-                                        } else if(tagName != null && tagName.equals("mem_no")) {
-                                            mem_no = Integer.parseInt(parser.nextText());
-                                        } else if(tagName != null && tagName.equals("mem_id")) {
-                                            mem_id = parser.nextText();
-                                        }else if(tagName != null && tagName.equals("ask_commentNo")) {
-                                            ask_commentNo = Integer.parseInt(parser.nextText());
-                                        }
-                                        break;
-                                    case XmlPullParser.END_TAG:
-                                        tagName = parser.getName();
-                                        if(tagName != null && tagName.equals("asking")) {
-                                            asking = new AskData(image_region,ask_no,reg_no,done,ask_startday,ask_endday,ask_budget,ask_num, mem_no, mem_id,ask_commentNo);
+                                        if (tagName != null && tagName.equals("ask_content")) {
+                                            asking = new AskData(ask_no, ask_date, ask_title, ask_contents, done, reg_no, ask_num,
+                                                    ask_type, ask_gender, ask_trip, ask_budget, ask_convin, ask_startday, ask_endday, ask_pay, mem_id,isLike,ask_commentNo);
+                                            System.out.println("add AskData");
                                         }
                                         break;
                                 }
                                 eventType = parser.next();
                             }
-                        }catch(Exception e){e.printStackTrace();}
+                        } catch (Exception e) { e.printStackTrace(); }
 
                         //게시글을 보여줄 액티비티에 데이터 전달
+                        //아래 애들 말고 위에 애들로 다시 선언해줘야하는거 알지? 슈바....
                         intent.putExtra("image_region",asking.getImage_region());
                         intent.putExtra("ask_no",asking.getAsk_no());
                         intent.putExtra("done",asking.getDone());
@@ -311,8 +275,7 @@ public class FragmentA_1 extends Fragment{
                         intent.putExtra("ask_endday",asking.getAsk_startday());
                         intent.putExtra("ask_budget",asking.getAsk_budget());
                         intent.putExtra("ask_num",asking.getAsk_num());
-                        intent.putExtra("mem_number",asking.getMem_no());
-                        intent.putExtra("id",asking.getMem_id());
+                        //intent.putExtra("mem_id",asking.getMem_id());;
                         startActivity(intent);
 
                         return "success";
@@ -323,74 +286,28 @@ public class FragmentA_1 extends Fragment{
                     @Override
                     public void run(){
                         String url = "http://52.78.101.183:8080/tauction/ask.jsp";
-                        getDataFromServer(responseHandler, url,"get_ask", false, ask); // 위치로 검색
+                        getDataFromServer(responseHandler, url,"ask_content", false, ask); // 위치로 검색
                     }
                 }.start(); //스레드 실행
             }
         });
 
-        btn_seoul.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectButton("seoul");
-            }
-        });
-        btn_incheon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectButton("incheon");
-            }
-        });
-        btn_gangwon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectButton("gangwon");
-            }
-        });
-        btn_jeju.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectButton("jeju");
-            }
-        });
-        btn_jeolla.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectButton("jeolla");
-            }
-        });
-        btn_gyeongsang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectButton("gyeongsang");
-            }
-        });
-        btn_chungcheong.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectButton("chungcheong");
-            }
-        });
-
-        goFragmentA =(ImageButton)rootView.findViewById(R.id.goFragmentA);
-        goFragmentA.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MainActivity)getActivity()).setViewPage(0,0); //프레그먼트 A a1에서 a로 전환
-            }
-        });
-
         return rootView;
     }
+    AdapterView.OnItemClickListener all_item = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
-
-
+        }
+    };
 
     private void selectButton(String selected_btn){//서버코드 넣기
         if(selected_btn.equals("all")){
             btn_all.setBackgroundResource(R.drawable.button_selected);
             btn_all.setTextColor(Color.WHITE);
+            attachAdapter();
+            setDataByType();
+            //list.setOnClickListener( View view, int int position);
         }else{
             btn_all.setBackgroundResource(R.drawable.button_region);
             btn_all.setTextColor(Color.BLACK);
@@ -461,23 +378,22 @@ public class FragmentA_1 extends Fragment{
         }
     }
 
-    private void setData(){
+    private void setDataByType(){
         final ResponseHandler<String> responseHandler =  new ResponseHandler<String>(){
             @Override
             public String handleResponse(HttpResponse response) throws IOException {
 
                 int eventType;
+                int image_region =1;
                 int ask_no = 0;
-                Date ask_date = null;
-                String ask_title = null, ask_contents = null;
-                int done= 0, reg_no= 0, ask_num= 0;
-                String ask_type = null, ask_gender = null;
-                String ask_trip = null;
+                int done=0;
+                int reg_no = 0;
+                Date ask_startday = null;
+                Date ask_endday = null;
                 int ask_budget = 0;
-                String ask_convin = null;
-                Date ask_startday = null, ask_endday = null;
-                String ask_pay = null;
-                int mem_no = 0;
+                int ask_num =0;
+                String mem_id = "";
+                int ask_commentNo=0;
                 HttpEntity entity = response.getEntity();
 
                 try{
@@ -485,87 +401,61 @@ public class FragmentA_1 extends Fragment{
                     XmlPullParser parser = factory.newPullParser();
                     InputStreamReader isreader = new InputStreamReader(entity.getContent(),"UTF-8");
                     parser.setInput(isreader);
+
                     if(arrData == null) {
-                        arrData = new ArrayList<AskData>();
+                        arrData = new ArrayList<AskListData>();
                     } else {
                         arrData.clear();
                     }
                     eventType = parser.getEventType();
                     while (eventType != XmlPullParser.END_DOCUMENT) {
                         String tagName;
-                        System.out.println("start switch");
-                        switch (eventType) {
+                        switch(eventType) {
                             case XmlPullParser.START_TAG:
                                 tagName = parser.getName();
-                                System.out.println("start tagName : " + tagName);
-                                if (tagName != null && tagName.equals("ask_no")) {
-                                    ask_no = Integer.parseInt(parser.nextText());
-                                    System.out.println("ask_no ="+ask_no);
-                                }else if (tagName != null && tagName.equals("ask_date")) {
-                                    ask_date = new Date(parser.nextText());
-                                    System.out.println("ask_date");
-                                }else if (tagName != null && tagName.equals("ask_title")) {
-                                    ask_title = parser.nextText();
-                                    System.out.println("ask_title");
-                                }else if (tagName != null && tagName.equals("ask_contents")) {
-                                    ask_contents = parser.nextText();
-                                    System.out.println("ask_contents");
-                                }else if (tagName != null && tagName.equals("done")) {
-                                    done = Integer.parseInt(parser.nextText());
-                                    System.out.println("done");
-                                }else if (tagName != null && tagName.equals("reg_no")) {
-                                    reg_no = Integer.parseInt(parser.nextText());
-                                    System.out.println("reg_no");
-                                }else if (tagName != null && tagName.equals("ask_num")) {
-                                    ask_num = Integer.parseInt(parser.nextText());
-                                    System.out.println("ask_num");
-                                }else if (tagName != null && tagName.equals("ask_type")) {
-                                    ask_type = parser.nextText();
-                                    System.out.println("ask_type");
-                                }else if (tagName != null && tagName.equals("ask_gender")) {
-                                    ask_gender = parser.nextText();
-                                    System.out.println("ask_gender");
-                                }else if (tagName != null && tagName.equals("ask_trip")) {
-                                    ask_trip = parser.nextText();
-                                    System.out.println("ask_trip");
-                                }else if (tagName != null && tagName.equals("ask_budget")) {
-                                    ask_budget = Integer.parseInt(parser.nextText());
-                                    System.out.println("ask_budget");
-                                }else if (tagName != null && tagName.equals("ask_convin")) {
-                                    ask_convin = parser.nextText();
-                                    System.out.println("ask_convin");
-                                }else if (tagName != null && tagName.equals("ask_startday")) {
-                                    ask_startday = new Date(parser.nextText());
-                                    System.out.println("ask_startday");
-                                }else if (tagName != null && tagName.equals("ask_endday")) {
-                                    ask_endday = new Date(parser.nextText());
-                                    System.out.println("ask_endday");
-                                }else if (tagName != null && tagName.equals("ask_pay")) {
-                                    ask_pay = parser.nextText();
-                                    System.out.println("ask_pay");
-                                }else if (tagName != null && tagName.equals("mem_no")) {
-                                    mem_no = Integer.parseInt(parser.nextText());
-                                    System.out.println("mem_no");
-                                }else break;
-                            case XmlPullParser.END_TAG:
-                                tagName = parser.getName();
-                                System.out.println("end tagName : " + tagName);
-                                if (tagName != null && tagName.equals("asklist")) {
-                                    arrListData.add(new AskListData(ask_no, ask_date, ask_title, ask_contents, done, reg_no, ask_num,
-                                            ask_type, ask_gender, ask_trip, ask_budget, ask_convin, ask_startday, ask_endday, ask_pay, mem_no));
-                                    System.out.println("add AskListData");
+                                if(tagName != null) {
+                                    switch (tagName) {
+                                        case "ask_no":
+                                            ask_no = Integer.parseInt(parser.nextText());
+                                            break;
+                                        case "done":
+                                            done = Integer.parseInt(parser.nextText());
+                                            break;
+                                        case "reg_no":
+                                            reg_no = Integer.parseInt(parser.nextText());
+                                            break;
+                                        case "ask_startday":
+                                            ask_startday = new Date(parser.nextText());
+                                            break;
+                                        case "ask_endday":
+                                            ask_endday = new Date(parser.nextText());
+                                            break;
+                                        case "ask_budget":
+                                            ask_budget = Integer.parseInt(parser.nextText());
+                                            break;
+                                        case "ask_num":
+                                            ask_num = Integer.parseInt(parser.nextText());
+                                            break;
+                                        case "mem_id":
+                                            mem_id = parser.nextText();
+                                            break;
+                                        case "ask_commentNo":
+                                            ask_commentNo = Integer.parseInt(parser.nextText());
+                                            break;
+                                    }
                                 }
                                 break;
-                                   /* default:
-                                        tagName = parser.getName();
-                                        System.out.println("default tagName : " + tagName);
-                                        break;*/
+                            case XmlPullParser.END_TAG:
+                                tagName = parser.getName();
+                                if(tagName != null && tagName.equals("ask_list")) {
+                                    arrData.add(new AskListData(image_region,ask_no,reg_no,done,ask_startday,ask_endday,ask_budget,ask_num, mem_id,ask_commentNo));
+                                }
+                                break;
                         }
                         eventType = parser.next();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                }catch(Exception e){e.printStackTrace();}
+
 
                 FragmentA_1.this.getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -597,14 +487,14 @@ public class FragmentA_1 extends Fragment{
 
             nameValuePairs.add(new BasicNameValuePair("action",action));
             if(action.equals("ask_list")) {
-                //nameValuePairs.add(new BasicNameValuePair("reg_name","all"));
+                nameValuePairs.add(new BasicNameValuePair("reg_name",AskData.getRegNoToName(type)));
                 if (flag) {
                     //  nameValuePairs.add(new BasicNameValuePair("title", searchTitle.getText().toString()));
                 }
             }
             else {
                 if(position > -1) {
-                    nameValuePairs.add(new BasicNameValuePair("askpost_no", "" + position));
+                    nameValuePairs.add(new BasicNameValuePair("ask_no", "" + position));
                 }
             }
             //타임아웃
@@ -622,13 +512,13 @@ public class FragmentA_1 extends Fragment{
     private void attachAdapter() {
         //어댑터 생성
         if(arrData == null) {
-            arrData = new ArrayList<AskData>();
+            arrData = new ArrayList<AskListData>();
         }
 
         if (adapter != null) {
             adapter.notifyDataSetChanged();
         } else {
-            adapter = new AskAdapter(rootView.getContext(), arrData);
+            adapter = new AskListAdapter(rootView.getContext(), arrData);
 
             //리스트뷰에 어댑터 연결
             if (list != null) {
@@ -638,6 +528,7 @@ public class FragmentA_1 extends Fragment{
                 list.setAdapter(adapter);
             }
         }
+
     }
 
 }
