@@ -294,13 +294,9 @@ public class FragmentB extends Fragment {
     private final Handler handler = new Handler(){
         public void handleMessage(Message msg){
 
-            System.out.println("핸들러시작");
             String result = msg.getData().getString("RESULT");
-            //Intent j = new Intent(FragmentB.this,MainActivity.class);
-            //j.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            //j.putExtra("mem_id",editTextID.getText().toString());
             if(result.equals("success")){
-                Toast.makeText(getContext(), "성공", Toast.LENGTH_LONG).show();
+            //    Toast.makeText(getContext(), "성공", Toast.LENGTH_LONG).show();
                 pDialog.dismiss();
 
             }else{
