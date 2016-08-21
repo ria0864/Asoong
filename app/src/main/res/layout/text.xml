@@ -244,7 +244,7 @@
 
 
             <SeekBar
-                android:layout_width="260dp"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/seekBar"
                 android:max="100"
@@ -261,8 +261,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/text_value"
                 android:text="50 만원"
-
                 android:textAlignment="center"
+                android:layout_gravity="center_vertical"
                 android:layout_marginRight="5dp" />
 
 
@@ -400,21 +400,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/bar"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:text="내용"
-            android:id="@+id/textView8"
-            android:gravity="center_vertical"
-            />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:background="@drawable/edittext_box"
+            android:id="@+id/main"
+            android:layout_marginTop="10dp"
+            android:hint="내용을 입력해주세요."
+            android:background="@null"
             android:layout_gravity="top"
             android:gravity="top"
-            android:padding="10dp"
-            android:foregroundGravity="top" />
+            android:foregroundGravity="top"
+            />
 
     </LinearLayout>
         <Button

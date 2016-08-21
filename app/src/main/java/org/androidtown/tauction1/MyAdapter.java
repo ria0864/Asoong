@@ -2,6 +2,7 @@ package org.androidtown.tauction1;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -37,7 +38,7 @@ public class MyAdapter extends BaseAdapter{
         return position;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         if(convertView == null){
             convertView = inflater.inflate(R.layout.list_layout, parent, false);
@@ -48,9 +49,18 @@ public class MyAdapter extends BaseAdapter{
         image.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), AccommodationInfoActivity.class);
+                //Intent intent = new Intent(v.getContext(), AccommodationInfoActivity.class);
+                context = v.getContext();
+                Intent intent = new Intent(context, AccommodationInfoActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                v.getContext().startActivity(intent);
+                intent.putExtra("image", arrData.get(position).getImage());
+                intent.putExtra("name", arrData.get(position).getName());
+                intent.putExtra("like", arrData.get(position).getLike_num());
+                intent.putExtra("addr", arrData.get(position).getAddress());
+            //    intent.putExtra("mydata",arrData);
+                //v.getContext().startActivity(intent);
+                //startActivityForResult(intent, 1);
+                context.startActivity(intent);
             }
         });
 

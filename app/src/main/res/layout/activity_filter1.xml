@@ -121,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/text_value"
                     android:text="50 만원"
-
+                    android:layout_gravity="center_vertical"
                     android:textAlignment="center"
                     android:layout_marginRight="5dp" />
 
