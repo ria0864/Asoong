@@ -1,16 +1,13 @@
 package org.androidtown.tauction1;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -27,6 +24,10 @@ public class PostingContentActivity extends AppCompatActivity {
 
     ScrollView mScrollView;
 
+    TextView textTitle;
+    TextView textId;
+    TextView textDate;
+    TextView textContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,18 @@ public class PostingContentActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        Intent intent = getIntent();
+        textTitle = (TextView)findViewById(R.id.title1);
+        textTitle.setText(intent.getExtras().getString("title"));
+
+        textId = (TextView)findViewById(R.id.mem_id);
+        textId.setText(intent.getExtras().getString("id"));
+
+        textDate = (TextView)findViewById(R.id.date);
+        textDate.setText(intent.getExtras().getString("date"));
+
+        textContent = (TextView)findViewById(R.id.content);
+        textContent.setText(intent.getExtras().getString("content"));
     }
-
-
 }

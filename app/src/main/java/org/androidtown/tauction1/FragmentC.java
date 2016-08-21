@@ -28,19 +28,19 @@ public class FragmentC extends Fragment {
         talk_tip.setOnClickListener(new View.OnClickListener() {//여행꿀팁 클릭
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).setViewPage(2,1);
+                ((MainActivity)getActivity()).setViewPage(2,2);
             }
         });
         talk_free.setOnClickListener(new View.OnClickListener() {//자유톡 클릭
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).setViewPage(2,1);
+                ((MainActivity)getActivity()).setViewPage(2,3);
             }
         });
         talk_event.setOnClickListener(new View.OnClickListener() {//이벤트 클릭
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).setViewPage(2,1);
+                ((MainActivity)getActivity()).setViewPage(2,4);
             }
         });
 

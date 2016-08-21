@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -32,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -50,7 +52,7 @@ public class FragmentA_1 extends Fragment{
     Button btn_all, btn_busan, btn_seoul, btn_incheon, btn_gangwon, btn_jeju, btn_jeolla, btn_gyeongsang, btn_chungcheong;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        Toast.makeText(getActivity(), "부산 클릭", Toast.LENGTH_SHORT).show();
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_a_1, container, false);
         btn_all=(Button)rootView.findViewById(R.id.btn_all);
         btn_busan=(Button)rootView.findViewById(R.id.btn_busan);
@@ -78,14 +80,17 @@ public class FragmentA_1 extends Fragment{
             public void onClick(View v) {
                 //btn_all.setBackgroundResource(R.drawable.button_selected);
                 //btn_all.setTextColor(Color.WHITE);
-
+                Toast.makeText(getActivity(), "전체 클릭", Toast.LENGTH_SHORT).show();
                 selectButton("all");
             }
         });
         btn_busan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 selectButton("busan");
+                goAll();
+                Toast.makeText(getActivity(), "부산 클릭", Toast.LENGTH_SHORT).show();
             }
         });
         btn_seoul.setOnClickListener(new View.OnClickListener() {
@@ -155,6 +160,7 @@ public class FragmentA_1 extends Fragment{
     }
 
     public void goAll(){
+        Toast.makeText(getActivity(), "go_all 클릭", Toast.LENGTH_SHORT).show();
         final ResponseHandler<String> responseHandler =  new ResponseHandler<String>(){
             @Override
             public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
@@ -186,7 +192,7 @@ public class FragmentA_1 extends Fragment{
                     ArrayList<NameValuePair> nameValuePairs =
                             new ArrayList<NameValuePair>();
                     nameValuePairs.add(new BasicNameValuePair("action","ask_list"));
-                    nameValuePairs.add(new BasicNameValuePair("reg_name","전체"));
+                    nameValuePairs.add(new BasicNameValuePair("reg_name","all"));
                     //타임아웃
                     HttpParams params = client.getParams();
                     HttpConnectionParams.setConnectionTimeout(params, 2000);
@@ -210,6 +216,7 @@ public class FragmentA_1 extends Fragment{
             ad.setAsk_date(ask_date);
             ad.setAsk_title(st.nextToken());
             ad.setAsk_contents(st.nextToken());
+            ad.setDone(st.nextToken());
             ad.setReg_no(Integer.parseInt(st.nextToken()));
             ad.setAsk_num(Integer.parseInt(st.nextToken()));
             ad.setAsk_type(st.nextToken());
@@ -234,11 +241,13 @@ public class FragmentA_1 extends Fragment{
             // Intent j = new Intent(FragmentA_1.this, MainActivity.class);
             // j.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             if(result.equals("success")){
-                //Toast.makeText(this.getClass(), "성공", Toast.LENGTH_LONG).show();
+                System.out.println("~~~성공~~~");
+                //Toast.makeText(FragmentA_1.class, "성공", Toast.LENGTH_LONG).show();
                 // pDialog.dismiss();
                 // startActivity(j);
                 // finish();
             }else{
+                System.out.println("~~~실패~~~");
                 //Toast.makeText(FragmentA_1.this, "실패", Toast.LENGTH_LONG).show();
                 // pDialog.dismiss();
             }
@@ -250,20 +259,47 @@ public class FragmentA_1 extends Fragment{
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             XmlPullParser parser = factory.newPullParser();
             parser.setInput(new InputStreamReader(input));
+            System.out.println("end_Document 전");
             while(parser.next() != XmlPullParser.END_DOCUMENT){
+                System.out.println("end_Document 후");
                 String name = parser.getName();
+                System.out.println("name1 : "+name);
                 if(name != null && name.equals("result")) //<result> </result> 태그
                 {
                     result = parser.nextText();
-                    System.out.println(result);
-                    parser.next();
-                    name = parser.getName();
-                    if(name != null && name.equals("context")){
+                    /*if(name != null && name.equals("context")){
+                        System.out.println("name2 : "+name);
                         List<AskData> list=parse(parser.nextText());
-                        System.out.println(list);
-                    }
+                        System.out.println("list"+list);
+                    }*/
                 }
             }
+            System.out.println("result : "+result);
+            //success/기|업|정|보$기|업|정|보
+
+            arrData = new ArrayList<AskData>();
+
+            String[] st = result.split("\\/");
+            System.out.println("st[0] : "+st[0]);
+            System.out.println("st[1] : "+st[1]);
+
+            if(st[0].equals("ask_list")){
+                String[] token = st[1].split("\\$");
+                System.out.println("token : "+token[0]);
+                //System.out.println("token2 : "+token[1]);
+                String[] token2 = token[0].split("\\|");
+                int i=0;
+
+                for(String str : token2){
+                    System.out.println(i+"="+token2[i]);
+                    i++;
+                }
+
+                return "success";
+            }else{
+                return "fail";
+            }
+
         }catch(Exception e){e.printStackTrace();}
         System.out.println(result);
         return result;
@@ -272,11 +308,12 @@ public class FragmentA_1 extends Fragment{
     private void setData(){
         arrData = new ArrayList<AskData>();
         //여기에서 리스트뷰 아이템 추가 코드
-        /*arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남대문", "7월 9일~7월 11일","~300,000","5명","+1"));
-        arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남산", "7월 20일","100,000~200,000","2명","+1"));
-        arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남산", "7월 20일","100,000~200,000","2명","+1"));
-        arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남산", "7월 20일","100,000~200,000","2명","+1"));
-        arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남산", "7월 20일","100,000~200,000","2명","+1"));*/
+
+       /* arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남대문", new Date(7-9),new Date(7-11),300000,5,1));
+        arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남대문", new Date(7-9),new Date(7-11),300000,5,1));
+        arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남대문", new Date(7-9),new Date(7-11),300000,5,1));
+        arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남대문", new Date(7-9),new Date(7-11),300000,5,1));
+        arrData.add(new AskData(R.drawable.sheraton_hotel, "경매완료", "남대문", new Date(7-9),new Date(7-11),300000,5,1));*/
 
     }
     private void selectButton(String selected_btn){//서버코드 넣기
