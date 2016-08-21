@@ -40,7 +40,7 @@ public class FragmentA extends Fragment {
             @Override
             public void onClick(View v) {
                 //Activity root = getActivity(); //이 클래스가 프레그먼트이기 때문에 액티비티 정보를 얻는다.
-                Toast.makeText(getActivity(), "부산 클", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "부산 클릭", Toast.LENGTH_SHORT).show();
                 ((MainActivity)getActivity()).setViewPage(0,1);
             }
         });
@@ -48,43 +48,49 @@ public class FragmentA extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "서울 클릭", Toast.LENGTH_SHORT).show();
-
+                ((MainActivity)getActivity()).setViewPage(0,2);
             }
         });
         incheon.setOnClickListener(new View.OnClickListener() {//인천여행 문의 클릭
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getActivity(), "인천 클릭", Toast.LENGTH_SHORT).show();
+                ((MainActivity)getActivity()).setViewPage(0,3);
             }
         });
         gangwon.setOnClickListener(new View.OnClickListener() {//강원여행 문의 클릭
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getActivity(), "강원도 클릭", Toast.LENGTH_SHORT).show();
+                ((MainActivity)getActivity()).setViewPage(0,4);
             }
         });
         jeju.setOnClickListener(new View.OnClickListener() {//제주여행 문의 클릭
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getActivity(), "제주도 클릭", Toast.LENGTH_SHORT).show();
+                ((MainActivity)getActivity()).setViewPage(0,5);
             }
         });
         jeolla.setOnClickListener(new View.OnClickListener() {//전라여행 문의 클릭
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getActivity(), "전라도 클릭", Toast.LENGTH_SHORT).show();
+                ((MainActivity)getActivity()).setViewPage(0,6);
             }
         });
         gyeongsang.setOnClickListener(new View.OnClickListener() {//경상여행 문의 클릭
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getActivity(), "경상도 클릭", Toast.LENGTH_SHORT).show();
+                ((MainActivity)getActivity()).setViewPage(0,7);
             }
         });
         chungcheong.setOnClickListener(new View.OnClickListener() {//충청여행 문의 클릭
             @Override
             public void onClick(View v) {
-
+                Toast.makeText(getActivity(), "충청도 클릭", Toast.LENGTH_SHORT).show();
+                ((MainActivity)getActivity()).setViewPage(0,8);
             }
         });
 
