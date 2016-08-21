@@ -48,6 +48,7 @@ public class FragmentB extends Fragment {
 
     ProgressDialog pDialog;
     String enter_name;
+    String reg_no,enter_type,enter_convin,enter_pay;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,10 +81,14 @@ public class FragmentB extends Fragment {
 
             }
         });
+
+
         btn_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), FilterActivity1.class));
+                getActivity().finish();
+
             }
         });
         btn_all.setOnClickListener(new View.OnClickListener() {
@@ -159,6 +164,22 @@ public class FragmentB extends Fragment {
         //selectButton("all");
         //setData();
 
+        Intent intent = getActivity().getIntent();
+
+        if(intent.hasExtra("from_filter")){
+            reg_no = intent.getExtras().getString("reg_no");
+            enter_type = intent.getExtras().getString("enter_type");
+            enter_convin = intent.getExtras().getString("enter_convin");
+            enter_pay = intent.getExtras().getString("enter_pay");
+            System.out.println(reg_no);
+            System.out.println(enter_type);
+            System.out.println(enter_convin);
+            System.out.println(enter_pay);
+            enter_search_filter();
+        }
+
+
+
         //어댑터 생성
         adapter = new MyAdapter(rootView.getContext(), arrData);
 
@@ -179,7 +200,42 @@ public class FragmentB extends Fragment {
     */
 
     }
+    private void enter_search_filter(){
+        //     pDialog = ProgressDialog.show(getContext(), "", "데이타 전송중..");
 
+        Thread workingThread = new Thread(){
+            @Override
+            public void run(){
+                String url = "http://52.78.101.183:8080/tauction/enter.jsp";
+                HttpClient client = new DefaultHttpClient();
+                try{
+                    ArrayList<NameValuePair> nameValuePairs =
+                            new ArrayList<NameValuePair>();
+                    nameValuePairs.add(new BasicNameValuePair("action","enter_search_filter"));
+                    nameValuePairs.add(new BasicNameValuePair("reg_no",reg_no));
+                    nameValuePairs.add(new BasicNameValuePair("enter_type",enter_type));
+                    nameValuePairs.add(new BasicNameValuePair("enter_convin",enter_convin));
+                    nameValuePairs.add(new BasicNameValuePair("enter_pay",enter_pay));
+                    //타임아웃
+                    HttpParams params = client.getParams();
+                    HttpConnectionParams.setConnectionTimeout(params, 2000);
+                    HttpConnectionParams.setSoTimeout(params, 2000);
+
+                    HttpPost httpPost = new HttpPost(url);
+                    UrlEncodedFormEntity entityRequest = new UrlEncodedFormEntity(nameValuePairs, "UTF-8");
+                    httpPost.setEntity(entityRequest);
+                    client.execute(httpPost, responseHandler);
+                }catch(Exception e){e.printStackTrace();}
+            }
+        };
+        workingThread.start(); //스레드 실행
+
+        try{
+            workingThread.join();
+        }catch (InterruptedException e){
+            e.printStackTrace();;
+        }
+    }
     private void enter_search(){
 
         pDialog = ProgressDialog.show(getContext(), "", "데이타 전송중..");
@@ -352,12 +408,12 @@ public class FragmentB extends Fragment {
                 pDialog.dismiss();
 
             }else{
-                Toast.makeText(getContext(), "실패", Toast.LENGTH_LONG).show();
+ //               Toast.makeText(getContext(), "실패", Toast.LENGTH_LONG).show();
                 pDialog.dismiss();
             }
         }
     };
-
+    int img1;
     public String parsingData(InputStream input){
         String result = null;
         try{
@@ -377,20 +433,33 @@ public class FragmentB extends Fragment {
 
             String[] r_split = result.split("\\/");
             System.out.println("action:"+r_split[0]);
-            System.out.println("정보:"+r_split[1]);
+//            System.out.println("정보:"+r_split[1]);
 
-            if(r_split[0].equals("enter_rank_region") | r_split[0].equals("enter_search")){
+            if(r_split[0].equals("enter_rank_region") | r_split[0].equals("enter_search") | r_split[0].equals("enter_search_filter")){
                 String[] token = r_split[1].split("\\$");
 
                 int i=1;
                 for(String str : token){
                     String[] token2 = str.split("\\|");
 
+ /*                   if(i==1){
+                        img1 = R.drawable.toscana;
+                    }else if(i==2){
+                        img1 = R.drawable.maru_pension;
+                    }else if(i==3){
+                        img1 = R.drawable.hotel1;
+                    }else if(i==4){
+                        img1 = R.drawable.sheraton_hotel;
+                    }else if(i==5){
+                        img1 = R.drawable.hotel2;
+                    }*/
+
                     System.out.println(i);
                     System.out.println(token2[2]);
                     System.out.println(token2[0]);
                     System.out.println(token2[1]);
-                    arrData.add(new MyData(R.drawable.toscana, Integer.toString(i++),token2[2],token2[0],token2[1]));
+                    System.out.println(token2[3]);
+                    arrData.add(new MyData(Integer.parseInt(token2[3]), Integer.toString(i++),token2[2],token2[0],token2[1]));
                 }
                 return "success";
             }else {

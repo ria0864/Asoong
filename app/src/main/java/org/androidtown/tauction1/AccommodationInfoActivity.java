@@ -382,11 +382,11 @@ public class AccommodationInfoActivity extends AppCompatActivity {
             //j.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             //j.putExtra("mem_id",editTextID.getText().toString());
             if(result.equals("success")){
-                Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_LONG).show();
+     //           Toast.makeText(getApplicationContext(), "성공", Toast.LENGTH_LONG).show();
     //            pDialog.dismiss();
 
             }else{
-                Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_LONG).show();
+     //           Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_LONG).show();
      //           pDialog.dismiss();
             }
         }

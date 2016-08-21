@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity
             memId = null;
         }
 
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +144,11 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        Toast.makeText(this, "" + adapter.toString(), Toast.LENGTH_SHORT).show();
+        if(intent.hasExtra("from_filter")){
+            viewPager.setCurrentItem(1);
+        }
+
+    //    Toast.makeText(this, "" + adapter.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
